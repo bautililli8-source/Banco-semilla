@@ -1,0 +1,1196 @@
+<!doctype html><html><head><meta charset=utf8><meta name="robots" content="noindex"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Banco de Semillas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Courier+Prime:wght@400;700&display=swap">
+<style id="app-style">/* Fichero de semillas: fichas de catálogo por especie con índice A–Z tipo pestañas de cajón; barra inferior de secciones para el pulgar. */
+:root{
+  --papel:#ECEFE6; --ficha:#FBFCF7; --tinta:#1D2A20; --tenue:#5B6A5E; --linea:#D3D9CB;
+  --verde:#2E5E3E; --sobre-verde:#FBFCF7; --verde-suave:#DCE8DD; --maiz:#9C7210; --maiz-suave:#F3E7C4;
+  --ok:#2F7A4C; --ok-suave:#DCEFE2; --alerta:#9A5F06; --alerta-suave:#F7E8CB; --mal:#B0412C; --mal-suave:#F6DDD6;
+  --velo:rgba(29,42,32,.42);
+  --sombra:0 1px 0 rgba(29,42,32,.05), 0 8px 22px -16px rgba(29,42,32,.45);
+  --qr-fondo:#FFFFFF; --qr-tinta:#000000;
+  --f-titulo:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;
+  --f-texto:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-dato:"Courier Prime",ui-monospace,"Courier New",monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --papel:#111712; --ficha:#18211A; --tinta:#E4EBE0; --tenue:#9AA89B; --linea:#2D392F;
+    --verde:#86C59A; --sobre-verde:#0F1C13; --verde-suave:#1F3325; --maiz:#E3B547; --maiz-suave:#3A3016;
+    --ok:#74C892; --ok-suave:#1C3324; --alerta:#E7AE52; --alerta-suave:#3A2C14; --mal:#EE8A73; --mal-suave:#3D201A;
+    --velo:rgba(0,0,0,.6); --sombra:0 1px 0 rgba(0,0,0,.35), 0 10px 24px -16px rgba(0,0,0,.9);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --papel:#111712; --ficha:#18211A; --tinta:#E4EBE0; --tenue:#9AA89B; --linea:#2D392F;
+  --verde:#86C59A; --sobre-verde:#0F1C13; --verde-suave:#1F3325; --maiz:#E3B547; --maiz-suave:#3A3016;
+  --ok:#74C892; --ok-suave:#1C3324; --alerta:#E7AE52; --alerta-suave:#3A2C14; --mal:#EE8A73; --mal-suave:#3D201A;
+  --velo:rgba(0,0,0,.6); --sombra:0 1px 0 rgba(0,0,0,.35), 0 10px 24px -16px rgba(0,0,0,.9);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--papel);color:var(--tinta);font-family:var(--f-texto);font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--verde);outline-offset:2px}
+.wrap{max-width:980px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 120px}
+
+/* encabezado */
+.cab{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 20px;padding-bottom:14px;border-bottom:1px solid var(--linea);margin-bottom:16px}
+.cab-esc{font-family:var(--f-dato);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--tenue)}
+.cab h1{font-family:var(--f-titulo);font-weight:800;font-size:clamp(1.9rem,6vw,2.7rem);line-height:1;margin:.15em 0 0;letter-spacing:-.02em;text-wrap:balance}
+.cab h1 span{color:var(--verde)}
+.cab-datos{font-family:var(--f-dato);font-size:.85rem;color:var(--tenue);display:flex;flex-wrap:wrap;gap:4px 14px;font-variant-numeric:tabular-nums}
+.cab-datos b{color:var(--tinta);font-weight:700}
+
+/* barra inferior */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--ficha);border-top:1px solid var(--linea);padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px));padding-top:6px;padding-bottom:calc(6px + env(safe-area-inset-bottom,0px))}
+.nav-in{max-width:620px;margin:0 auto;display:flex;justify-content:space-around;gap:2px}
+.nav button{flex:1 1 0;min-width:0;background:none;border:0;border-radius:10px;padding:6px 2px 5px;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--tenue);font-size:.72rem;line-height:1.15;cursor:pointer}
+.nav button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav button[aria-current="page"]{color:var(--verde);background:var(--verde-suave);font-weight:700}
+
+/* tipografía y bloques */
+.h2{font-family:var(--f-titulo);font-weight:750;font-size:1.45rem;line-height:1.15;margin:0 0 4px;letter-spacing:-.01em;text-wrap:balance}
+.h3{font-family:var(--f-titulo);font-weight:700;font-size:1.12rem;margin:0;line-height:1.2}
+.nota{color:var(--tenue);margin:0 0 14px;max-width:62ch}
+.mono{font-family:var(--f-dato);font-variant-numeric:tabular-nums}
+.sci{font-style:italic}
+.vacio{padding:28px 16px;text-align:center;color:var(--tenue);border:1px dashed var(--linea);border-radius:8px}
+.stack{display:flex;flex-direction:column;gap:14px}
+
+/* herramientas del banco */
+.herr{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.buscar{flex:1 1 240px;min-width:0;position:relative}
+.buscar input{width:100%;padding:11px 12px 11px 38px;border:1px solid var(--linea);border-radius:10px;background:var(--ficha)}
+.buscar svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:var(--tenue);fill:none;stroke-width:2}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--linea);background:var(--ficha);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer;color:var(--tenue)}
+.chip[aria-pressed="true"]{background:var(--verde);border-color:var(--verde);color:var(--sobre-verde)}
+.vista{display:inline-flex;border:1px solid var(--linea);border-radius:10px;overflow:hidden;background:var(--ficha)}
+.vista button{border:0;background:none;padding:8px 14px;cursor:pointer;color:var(--tenue);font-size:.9rem}
+.vista button[aria-pressed="true"]{background:var(--verde-suave);color:var(--verde);font-weight:700}
+
+/* índice A–Z */
+.indice{display:flex;gap:4px;overflow-x:auto;padding:2px 0 10px;margin-bottom:6px;scrollbar-width:thin}
+.indice button{flex:0 0 auto;width:30px;height:32px;border:1px solid var(--linea);border-bottom-width:3px;border-radius:7px 7px 3px 3px;background:var(--ficha);font-family:var(--f-dato);font-weight:700;cursor:pointer;color:var(--tinta)}
+.indice button:disabled{opacity:.35;cursor:default}
+
+/* fichas */
+.letra{display:flex;align-items:center;gap:10px;margin:18px 0 8px;scroll-margin-top:12px}
+.letra b{font-family:var(--f-titulo);font-size:1.35rem;font-weight:800;width:38px;height:34px;display:grid;place-items:center;background:var(--maiz-suave);color:var(--maiz);border-radius:8px 8px 2px 2px}
+.letra::after{content:"";flex:1;height:1px;background:var(--linea)}
+.grilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.ficha{position:relative;background:var(--ficha);border:1px solid var(--linea);border-radius:6px;padding:12px 14px 20px;box-shadow:var(--sombra);cursor:pointer;display:flex;flex-direction:column;gap:6px;min-width:0;text-align:left}
+.ficha:hover{border-color:var(--verde)}
+.ficha::after{content:"";position:absolute;left:50%;bottom:6px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--papel);border:1px solid var(--linea)}
+.ficha-cab{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding-bottom:6px;border-bottom:1px solid var(--maiz)}
+.especie{font-family:var(--f-titulo);font-weight:750;font-size:1.18rem;line-height:1.15}
+.variedad{color:var(--tenue);font-size:.92rem}
+.ficha .sci{color:var(--tenue);font-size:.9rem}
+.ficha-res{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.ficha-res .mono{font-size:1.05rem;font-weight:700}
+.lotes{display:flex;flex-wrap:wrap;gap:6px}
+.lote-chip{font-family:var(--f-dato);font-size:.8rem;border:1px solid var(--linea);border-radius:4px;padding:2px 7px;color:var(--tenue);font-variant-numeric:tabular-nums}
+.lote-chip b{color:var(--tinta)}
+.lote-chip.agot{text-decoration:line-through;opacity:.6}
+
+/* píldoras de estado */
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:2px 10px;font-size:.82rem;font-weight:700;font-family:var(--f-dato);white-space:nowrap}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.pill.ok{background:var(--ok-suave);color:var(--ok)}
+.pill.alerta{background:var(--alerta-suave);color:var(--alerta)}
+.pill.mal{background:var(--mal-suave);color:var(--mal)}
+.pill.s{background:var(--verde-suave);color:var(--tenue)}
+.etq{display:inline-block;font-size:.78rem;border-radius:4px;padding:1px 7px;font-weight:700}
+.etq.alerta{background:var(--alerta-suave);color:var(--alerta)}
+.etq.mal{background:var(--mal-suave);color:var(--mal)}
+.etq.info{background:var(--verde-suave);color:var(--verde)}
+
+/* planilla */
+.tabla-caja{overflow-x:auto;border:1px solid var(--linea);border-radius:8px;background:var(--ficha)}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:.92rem}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--linea);vertical-align:top}
+th{font-family:var(--f-dato);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--tenue);background:var(--papel);position:sticky;top:0}
+td.num,th.num{text-align:right;font-family:var(--f-dato);font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr{cursor:pointer}
+tbody tr:hover td{background:var(--verde-suave)}
+tbody tr:last-child td{border-bottom:0}
+
+/* paneles y formularios */
+.panel{background:var(--ficha);border:1px solid var(--linea);border-radius:10px;padding:16px;box-shadow:var(--sombra)}
+.seg{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--linea);border-radius:12px;overflow:hidden;margin:4px 0 16px;background:var(--papel)}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{padding:12px 8px;text-align:center;cursor:pointer;font-weight:700;color:var(--tenue)}
+.seg input:checked+label{background:var(--verde);color:var(--sobre-verde)}
+.seg input:focus-visible+label{outline:2px solid var(--verde);outline-offset:-4px}
+.seg.tres{grid-template-columns:repeat(3,1fr)}
+.seg.tres label{font-size:.9rem}
+form{display:flex;flex-direction:column;gap:12px}
+.fila2{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.campo{display:flex;flex-direction:column;gap:4px;min-width:0;border:0;margin:0;padding:0}
+.campo>span,.campo>legend{font-size:.88rem;font-weight:700;color:var(--tenue)}
+.campo legend{margin-bottom:6px;padding:0}
+.campo input,.campo select,.campo textarea{width:100%;padding:10px 12px;border:1px solid var(--linea);border-radius:8px;background:var(--papel);min-width:0}
+.campo textarea{min-height:110px;resize:vertical;font-family:var(--f-dato);font-size:.85rem}
+.op{display:flex;gap:10px;align-items:flex-start;padding:9px 10px;border:1px solid var(--linea);border-radius:8px;cursor:pointer;background:var(--papel)}
+.op+.op{margin-top:6px}
+.op input{margin-top:4px;accent-color:var(--verde)}
+.op small{display:block;color:var(--tenue)}
+.btn{border:1px solid var(--linea);background:var(--ficha);border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn.prim{background:var(--verde);border-color:var(--verde);color:var(--sobre-verde);padding:13px 18px;font-size:1.02rem}
+.btn.peligro{color:var(--mal);border-color:var(--mal)}
+.btn.chico{padding:5px 10px;font-size:.85rem;border-radius:8px}
+.btn:disabled{opacity:.5;cursor:default}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.err{color:var(--mal);font-weight:700;font-size:.92rem}
+.err:empty{display:none}
+
+/* vista previa didáctica */
+.prev{border:1px dashed var(--verde);border-radius:10px;padding:12px 14px;background:var(--verde-suave);display:flex;flex-direction:column;gap:8px}
+.prev:empty{display:none}
+.prev p{margin:0}
+.formula{font-family:var(--f-dato);font-size:.88rem;background:var(--ficha);border-radius:6px;padding:8px 10px;overflow-x:auto;white-space:nowrap}
+.flecha{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--f-dato);font-weight:700}
+.flecha .de,.flecha .a{padding:3px 9px;border-radius:6px;background:var(--ficha)}
+.delta.mas{color:var(--ok)} .delta.menos{color:var(--mal)} .delta.igual{color:var(--tenue)}
+.calc{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:10px 12px;background:var(--maiz-suave);border-radius:8px}
+.calc label{font-size:.92rem;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.calc input{width:90px;padding:7px 9px;border:1px solid var(--linea);border-radius:6px;background:var(--ficha)}
+.calc output{font-size:.92rem}
+
+/* movimientos */
+.mov{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:11px 0;border-bottom:1px solid var(--linea)}
+.mov:last-child{border-bottom:0}
+.mov-tipo{grid-row:span 2;width:36px;height:36px;border-radius:8px;display:grid;place-items:center;font-family:var(--f-dato);font-weight:700;font-size:.8rem}
+.t-salida{background:var(--maiz-suave);color:var(--maiz)}
+.t-devolucion{background:var(--ok-suave);color:var(--ok)}
+.t-ingreso{background:var(--verde-suave);color:var(--verde)}
+.t-ensayo{background:var(--verde-suave);color:var(--tinta)}
+.t-baja{background:var(--mal-suave);color:var(--mal)}
+.mov-l1{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;min-width:0}
+.mov-l1 strong{font-weight:700}
+.mov-l2{color:var(--tenue);font-size:.9rem;display:flex;flex-wrap:wrap;gap:2px 12px;min-width:0}
+.mov-acc{grid-column:2;display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.fecha{font-family:var(--f-dato);font-size:.8rem;color:var(--tenue)}
+.lista{background:var(--ficha);border:1px solid var(--linea);border-radius:10px;padding:2px 14px}
+details.alumno{border-bottom:1px solid var(--linea)}
+details.alumno:last-child{border-bottom:0}
+details.alumno summary{cursor:pointer;padding:11px 0;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;list-style:none}
+details.alumno summary::-webkit-details-marker{display:none}
+details.alumno summary::before{content:"+";font-family:var(--f-dato);font-weight:700;color:var(--verde);width:14px}
+details.alumno[open] summary::before{content:"−"}
+
+/* gestión */
+details.sec{background:var(--ficha);border:1px solid var(--linea);border-radius:10px}
+details.sec>summary{cursor:pointer;padding:14px 16px;font-family:var(--f-titulo);font-weight:700;font-size:1.08rem;list-style:none;display:flex;justify-content:space-between;gap:10px;align-items:center}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary::after{content:"+";font-family:var(--f-dato);color:var(--verde);font-size:1.2rem}
+details.sec[open]>summary::after{content:"−"}
+details.sec>.sec-in{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px}
+.sec-in p{margin:0}
+.qr-caja{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.qr{background:var(--qr-fondo);padding:10px;border-radius:8px;width:180px;max-width:100%;border:1px solid var(--linea)}
+.qr svg{display:block;width:100%;height:auto}
+.url{font-family:var(--f-dato);font-size:.82rem;word-break:break-all;background:var(--papel);padding:6px 8px;border-radius:6px;user-select:all}
+
+/* hoja de detalle */
+.velo{position:fixed;inset:0;background:var(--velo);z-index:40;display:flex;align-items:flex-end;justify-content:center}
+.hoja{background:var(--papel);width:100%;max-width:720px;max-height:90%;overflow-y:auto;border-radius:16px 16px 0 0;padding:18px max(16px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));box-shadow:0 -10px 40px -20px rgba(0,0,0,.5)}
+@media (min-width:760px){.velo{align-items:center}.hoja{border-radius:14px;max-height:86%}}
+.hoja-cab{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}
+.cerrar{border:1px solid var(--linea);background:var(--ficha);border-radius:50%;width:38px;height:38px;flex:0 0 auto;cursor:pointer;font-size:1.2rem;line-height:1}
+.dl{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font-size:.92rem;margin:0 0 12px}
+.dl dt{color:var(--tenue)} .dl dd{margin:0}
+.lote{background:var(--ficha);border:1px solid var(--linea);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.lote-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.lote-anio{font-family:var(--f-titulo);font-weight:800;font-size:1.3rem}
+.medidor{height:8px;background:var(--verde-suave);border-radius:4px;position:relative;overflow:visible}
+.medidor i{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:var(--verde)}
+.medidor.alerta i{background:var(--alerta)} .medidor.mal i{background:var(--mal)}
+.medidor u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--tinta);opacity:.35}
+.lote-pie{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;font-size:.88rem;color:var(--tenue)}
+.spark{display:block}
+
+/* aprendé */
+.art{max-width:68ch;display:flex;flex-direction:column;gap:14px}
+.art h3{font-family:var(--f-titulo);font-size:1.18rem;margin:6px 0 0}
+.art p,.art ol,.art ul{margin:0}
+.art li+li{margin-top:4px}
+.art table{min-width:0}
+.caja-f{background:var(--ficha);border:1px solid var(--linea);border-radius:8px;padding:12px 14px}
+
+/* avisos */
+.aviso{border-radius:10px;padding:12px 14px;margin-bottom:14px;display:flex;flex-direction:column;gap:8px;border:1px solid var(--linea);background:var(--ficha)}
+.aviso.alerta{background:var(--alerta-suave);border-color:var(--alerta)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(88px + env(safe-area-inset-bottom,0px));background:var(--tinta);color:var(--papel);padding:10px 16px;border-radius:10px;z-index:60;max-width:min(92vw,520px);font-size:.95rem;box-shadow:var(--sombra)}
+.ocupado{position:fixed;inset:0;z-index:70;background:var(--velo);display:grid;place-items:center}
+.ocupado div{background:var(--ficha);padding:18px 22px;border-radius:12px;font-weight:700}
+@media (prefers-reduced-motion:no-preference){
+  .hoja{animation:sube .22s ease-out}
+  @keyframes sube{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}
+}
+</style>
+<div id="app"></div>
+<script id="estado" type="application/json">{"v":1,"config":{"escuela":"Escuela Agropecuaria","url":"https://claude.ai/artifact/UaoTu1euAoLpwWmDLXKGPu","qr":{"n":33,"d":"M0 0h7v1h-7zM8 0h1v1h-1zM10 0h1v1h-1zM16 0h1v1h-1zM18 0h3v1h-3zM23 0h1v1h-1zM26 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h2v1h-2zM14 1h1v1h-1zM16 1h2v1h-2zM20 1h1v1h-1zM23 1h1v1h-1zM26 1h1v1h-1zM32 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM10 2h5v1h-5zM16 2h1v1h-1zM18 2h3v1h-3zM22 2h1v1h-1zM24 2h1v1h-1zM26 2h1v1h-1zM28 2h3v1h-3zM32 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h2v1h-2zM15 3h1v1h-1zM18 3h1v1h-1zM21 3h2v1h-2zM26 3h1v1h-1zM28 3h3v1h-3zM32 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM10 4h1v1h-1zM13 4h1v1h-1zM16 4h1v1h-1zM18 4h1v1h-1zM23 4h2v1h-2zM26 4h1v1h-1zM28 4h3v1h-3zM32 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h4v1h-4zM14 5h3v1h-3zM26 5h1v1h-1zM32 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h7v1h-7zM8 7h3v1h-3zM15 7h5v1h-5zM22 7h3v1h-3zM0 8h1v1h-1zM2 8h2v1h-2zM5 8h3v1h-3zM9 8h1v1h-1zM13 8h6v1h-6zM20 8h4v1h-4zM26 8h1v1h-1zM29 8h1v1h-1zM31 8h2v1h-2zM1 9h1v1h-1zM3 9h2v1h-2zM7 9h2v1h-2zM13 9h2v1h-2zM16 9h5v1h-5zM23 9h1v1h-1zM26 9h2v1h-2zM29 9h2v1h-2zM32 9h1v1h-1zM0 10h1v1h-1zM2 10h1v1h-1zM4 10h3v1h-3zM8 10h1v1h-1zM11 10h1v1h-1zM13 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h2v1h-2zM23 10h2v1h-2zM26 10h4v1h-4zM31 10h2v1h-2zM1 11h3v1h-3zM5 11h1v1h-1zM7 11h1v1h-1zM12 11h1v1h-1zM17 11h1v1h-1zM24 11h2v1h-2zM27 11h1v1h-1zM29 11h1v1h-1zM1 12h1v1h-1zM3 12h2v1h-2zM6 12h3v1h-3zM10 12h2v1h-2zM14 12h3v1h-3zM20 12h3v1h-3zM24 12h2v1h-2zM28 12h2v1h-2zM2 13h1v1h-1zM4 13h2v1h-2zM9 13h4v1h-4zM14 13h1v1h-1zM17 13h1v1h-1zM20 13h2v1h-2zM23 13h3v1h-3zM27 13h1v1h-1zM31 13h1v1h-1zM0 14h1v1h-1zM4 14h4v1h-4zM9 14h1v1h-1zM13 14h2v1h-2zM17 14h5v1h-5zM26 14h1v1h-1zM28 14h2v1h-2zM0 15h2v1h-2zM3 15h3v1h-3zM7 15h1v1h-1zM9 15h1v1h-1zM11 15h1v1h-1zM13 15h1v1h-1zM15 15h1v1h-1zM18 15h1v1h-1zM21 15h1v1h-1zM25 15h2v1h-2zM28 15h3v1h-3zM0 16h1v1h-1zM2 16h1v1h-1zM5 16h2v1h-2zM10 16h2v1h-2zM14 16h1v1h-1zM16 16h1v1h-1zM18 16h1v1h-1zM21 16h6v1h-6zM28 16h1v1h-1zM30 16h1v1h-1zM3 17h2v1h-2zM8 17h2v1h-2zM12 17h2v1h-2zM20 17h1v1h-1zM22 17h5v1h-5zM28 17h2v1h-2zM32 17h1v1h-1zM6 18h2v1h-2zM10 18h1v1h-1zM15 18h2v1h-2zM18 18h1v1h-1zM20 18h1v1h-1zM22 18h1v1h-1zM25 18h1v1h-1zM27 18h2v1h-2zM30 18h1v1h-1zM0 19h1v1h-1zM7 19h4v1h-4zM12 19h1v1h-1zM14 19h5v1h-5zM20 19h1v1h-1zM22 19h2v1h-2zM25 19h1v1h-1zM28 19h1v1h-1zM31 19h2v1h-2zM0 20h2v1h-2zM3 20h2v1h-2zM6 20h1v1h-1zM9 20h1v1h-1zM12 20h1v1h-1zM14 20h3v1h-3zM19 20h1v1h-1zM28 20h3v1h-3zM0 21h1v1h-1zM2 21h1v1h-1zM4 21h1v1h-1zM9 21h1v1h-1zM12 21h5v1h-5zM20 21h3v1h-3zM25 21h1v1h-1zM29 21h2v1h-2zM32 21h1v1h-1zM2 22h1v1h-1zM4 22h4v1h-4zM12 22h1v1h-1zM14 22h2v1h-2zM17 22h1v1h-1zM19 22h2v1h-2zM23 22h2v1h-2zM26 22h3v1h-3zM31 22h2v1h-2zM1 23h2v1h-2zM7 23h1v1h-1zM9 23h1v1h-1zM13 23h1v1h-1zM15 23h1v1h-1zM18 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM26 23h2v1h-2zM29 23h1v1h-1zM0 24h1v1h-1zM2 24h6v1h-6zM10 24h1v1h-1zM13 24h2v1h-2zM17 24h1v1h-1zM19 24h1v1h-1zM22 24h7v1h-7zM30 24h1v1h-1zM8 25h1v1h-1zM10 25h1v1h-1zM12 25h2v1h-2zM15 25h1v1h-1zM19 25h1v1h-1zM23 25h2v1h-2zM28 25h2v1h-2zM31 25h1v1h-1zM0 26h7v1h-7zM8 26h3v1h-3zM12 26h3v1h-3zM16 26h5v1h-5zM22 26h3v1h-3zM26 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM8 27h2v1h-2zM11 27h2v1h-2zM15 27h7v1h-7zM23 27h2v1h-2zM28 27h3v1h-3zM0 28h1v1h-1zM2 28h3v1h-3zM6 28h1v1h-1zM16 28h13v1h-13zM30 28h3v1h-3zM0 29h1v1h-1zM2 29h3v1h-3zM6 29h1v1h-1zM8 29h1v1h-1zM10 29h1v1h-1zM13 29h1v1h-1zM16 29h1v1h-1zM19 29h1v1h-1zM21 29h1v1h-1zM27 29h1v1h-1zM32 29h1v1h-1zM0 30h1v1h-1zM2 30h3v1h-3zM6 30h1v1h-1zM8 30h2v1h-2zM11 30h1v1h-1zM14 30h5v1h-5zM20 30h2v1h-2zM23 30h1v1h-1zM26 30h2v1h-2zM29 30h2v1h-2zM0 31h1v1h-1zM6 31h1v1h-1zM10 31h4v1h-4zM17 31h2v1h-2zM22 31h7v1h-7zM32 31h1v1h-1zM0 32h7v1h-7zM8 32h1v1h-1zM10 32h2v1h-2zM13 32h2v1h-2zM17 32h3v1h-3zM21 32h3v1h-3zM26 32h1v1h-1zM28 32h1v1h-1zM30 32h1v1h-1z"},"wa":""},"ultimoCambio":"","variedades":[],"movs":[]}</script>
+<script id="app-code">(function(){
+'use strict';
+/* ===== Plantilla para que la página se vuelva a publicar con su estado ===== */
+var HEAD_HTML = "<!doctype html><html><head><meta charset=utf8><meta name=viewport content=\"width=device-width,initial-scale=1,viewport-fit=cover\"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>\n";
+var TOP_HTML = "<title>Banco de Semillas</title>\n<meta name=\"claude:viewport-fit-sides\" content=\"cover\">\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Courier+Prime:wght@400;700&display=swap\">\n";
+
+var ST = JSON.parse(document.getElementById('estado').textContent);
+var ANIO = new Date().getFullYear();
+var ART = null, DESC = null, puedeGuardar = null, esDocente = false;
+var CALC = null;
+var UI = { tab: 'banco', q: '', grupo: '', vista: 'fichas', hist: 'pend', hq: '', rtipo: 'salida', pre: null };
+
+/* ===== utilidades ===== */
+function $(s, r){ return (r || document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+var nf1 = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 1 });
+var nf0 = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 });
+function r1(x){ return Math.round(x * 10) / 10; }
+function fPG(p){ return (p == null || isNaN(p)) ? 's/d' : nf1.format(r1(p)) + ' %'; }
+function fCant(c, u){
+  c = +c || 0;
+  if (u === 'g'){ return Math.abs(c) >= 1000 ? nf1.format(r1(c / 1000)) + ' kg' : nf1.format(r1(c)) + ' g'; }
+  return nf0.format(c) + ' ' + (u || '');
+}
+function fFecha(t){ try { return new Date(t).toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' }); } catch(e){ return ''; } }
+function uid(p){ return p + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+function sinTilde(s){ return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+function norm(s){ return sinTilde(s).toLowerCase().replace(/\s+/g, ' ').trim(); }
+function letra(s){ var l = sinTilde(s).trim().charAt(0).toUpperCase(); return /[A-Z]/.test(l) ? l : '#'; }
+function clon(o){ return JSON.parse(JSON.stringify(o)); }
+function num(v){ if (v === '' || v == null) return NaN; return parseFloat(String(v).replace(',', '.')); }
+function ls(k, v){ try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch(e){ return null; } }
+function ss(k, v){ try { if (v === undefined) return sessionStorage.getItem(k); if (v === null) sessionStorage.removeItem(k); else sessionStorage.setItem(k, v); } catch(e){ return null; } }
+function cmpVar(a, b){ var x = a.especie.localeCompare(b.especie, 'es', { sensitivity: 'base' }); return x || String(a.variedad || '').localeCompare(String(b.variedad || ''), 'es', { sensitivity: 'base' }); }
+function cmpMov(a, b){ return a.t < b.t ? -1 : a.t > b.t ? 1 : (a.id < b.id ? -1 : a.id > b.id ? 1 : 0); }
+function nombreVar(v){ return v ? v.especie + (v.variedad ? ' ' + v.variedad : '') : '(variedad borrada)'; }
+function nivel(pg){ return pg == null ? 's' : pg >= 80 ? 'ok' : pg >= 60 ? 'alerta' : 'mal'; }
+var NIVEL_TXT = { ok: 'Bueno', alerta: 'Regular', mal: 'Bajo', s: 'Sin dato' };
+var TIPO_TXT = { salida: 'Salida', devolucion: 'Devolución', ingreso: 'Ingreso', ensayo: 'Ensayo', baja: 'Baja' };
+var TIPO_COD = { salida: 'SAL', devolucion: 'DEV', ingreso: 'ING', ensayo: 'ENS', baja: 'BAJ' };
+
+/* ===== cálculo del banco ===== */
+function calcular(){
+  var vars = {}; ST.variedades.forEach(function(v){ vars[v.id] = v; });
+  var lotes = {}, salidas = {}, efecto = {};
+  var ms = ST.movs.slice().sort(cmpMov);
+  ms.forEach(function(m){
+    var k = m.vid + '|' + m.anio;
+    var L = lotes[k];
+    if (!L){ L = lotes[k] = { key: k, vid: m.vid, anio: +m.anio, stock: 0, pg: null, hist: [], movs: [], ultEnsayo: null }; }
+    L.movs.push(m);
+    var c = +m.cant || 0, antesS = L.stock, antesP = L.pg;
+    if (m.tipo === 'ingreso' || m.tipo === 'devolucion'){
+      var pin = (m.pg === null || m.pg === undefined || m.pg === '') ? null : +m.pg;
+      var prev = Math.max(0, L.stock);
+      if (pin !== null){ L.pg = (prev <= 0 || L.pg === null) ? pin : (prev * L.pg + c * pin) / (prev + c); }
+      L.stock = L.stock + c;
+      if (m.pgFuente === 'ensayo') L.ultEnsayo = m.t;
+    } else if (m.tipo === 'salida' || m.tipo === 'baja'){
+      L.stock = L.stock - c;
+    } else if (m.tipo === 'ensayo'){
+      L.pg = +m.pg; L.ultEnsayo = m.t;
+    }
+    efecto[m.id] = { sA: antesS, sD: L.stock, pA: antesP, pD: L.pg };
+    L.hist.push({ t: m.t, pg: L.pg, stock: L.stock, tipo: m.tipo });
+    if (m.tipo === 'salida') salidas[m.id] = { m: m, devuelto: 0, devs: [] };
+  });
+  ms.forEach(function(m){
+    if (m.tipo === 'devolucion' && m.salidaId && salidas[m.salidaId]){
+      var s = salidas[m.salidaId]; s.devuelto += +m.cant || 0; s.devs.push(m);
+    }
+  });
+  CALC = { vars: vars, lotes: lotes, salidas: salidas, efecto: efecto, ms: ms };
+}
+function lotesDe(vid, todos){
+  var out = [];
+  for (var k in CALC.lotes){ var L = CALC.lotes[k]; if (L.vid === vid && (todos || L.stock > 0)) out.push(L); }
+  return out.sort(function(a, b){ return b.anio - a.anio; });
+}
+function resumen(vid){
+  var ls_ = lotesDe(vid), tot = 0, suma = 0, conPg = 0;
+  ls_.forEach(function(L){ tot += L.stock; if (L.pg != null){ suma += L.stock * L.pg; conPg += L.stock; } });
+  return { total: tot, pg: conPg > 0 ? suma / conPg : null, lotes: ls_ };
+}
+function pendientes(){
+  var out = [];
+  for (var k in CALC.salidas){ var s = CALC.salidas[k]; if (!s.m.cerrada && s.devuelto < (+s.m.cant || 0)) out.push(s); }
+  return out.sort(function(a, b){ return cmpMov(a.m, b.m); });
+}
+function avisosLote(L, v){
+  var out = [], edad = ANIO - L.anio;
+  if (v && v.vida && edad > v.vida) out.push(['alerta', 'Supera su vida útil (' + v.vida + ' años)']);
+  if (!L.ultEnsayo) out.push(['info', 'Sin ensayo propio']);
+  else {
+    var meses = (Date.now() - new Date(L.ultEnsayo).getTime()) / 2629800000;
+    if (meses >= 12) out.push(['alerta', 'Último ensayo hace más de 1 año']);
+  }
+  if (L.pg != null && L.pg < 60) out.push(['mal', 'Conviene renovar']);
+  return out;
+}
+
+/* ===== guardar (la página se publica a sí misma) ===== */
+function construirHTML(st){
+  var css = document.getElementById('app-style').textContent;
+  var code = document.getElementById('app-code').textContent;
+  var json = JSON.stringify(st).replace(/</g, '\\u003c');
+  return HEAD_HTML + TOP_HTML + '<style id="app-style">' + css + '</style>\n<div id="app"></div>\n<script id="estado" type="application/json">' + json + '<\/script>\n<script id="app-code">' + code + '<\/script>\n</body></html>';
+}
+function aplicar(st, p){
+  var ids;
+  if (p.op === 'addMovs'){
+    ids = {}; st.movs.forEach(function(m){ ids[m.id] = 1; });
+    p.movs.forEach(function(m){ if (!ids[m.id]) st.movs.push(m); });
+  } else if (p.op === 'delMov'){
+    st.movs = st.movs.filter(function(m){ return m.id !== p.id; });
+  } else if (p.op === 'updMov'){
+    st.movs.forEach(function(m){ if (m.id === p.id) Object.keys(p.campos).forEach(function(k){ m[k] = p.campos[k]; }); });
+  } else if (p.op === 'setVar'){
+    var i = st.variedades.findIndex(function(v){ return v.id === p.v.id; });
+    if (i >= 0) st.variedades[i] = p.v; else st.variedades.push(p.v);
+  } else if (p.op === 'delVar'){
+    st.variedades = st.variedades.filter(function(v){ return v.id !== p.id; });
+  } else if (p.op === 'config'){
+    Object.keys(p.c).forEach(function(k){ st.config[k] = p.c[k]; });
+  } else if (p.op === 'delEjemplos'){
+    st.movs = st.movs.filter(function(m){ return !m.ej; });
+    var usadas = {}; st.movs.forEach(function(m){ usadas[m.vid] = 1; });
+    st.variedades = st.variedades.filter(function(v){ return !v.ej || usadas[v.id]; });
+    st.variedades.forEach(function(v){ delete v.ej; });
+  }
+  return st;
+}
+var reintentado = false;
+function guardar(patch, desc){
+  patch.pid = uid('p');
+  var nuevo = aplicar(clon(ST), clon(patch));
+  nuevo.ultimoCambio = patch.pid;
+  ss('bs_pend', JSON.stringify({ patch: patch, desc: desc }));
+  ocupado(true);
+  return ART.publish(construirHTML(nuevo)).then(function(){
+    ocupado(false); toast('Guardado: ' + desc);
+  }, function(e){
+    var c = e && e.code;
+    if (c === 'conflict'){ toast('Alguien guardó al mismo tiempo. La página se actualiza…'); return; }
+    ss('bs_pend', null); ocupado(false);
+    if (c === 'upstream_error' && !reintentado){ reintentado = true; setTimeout(function(){ guardar(patch, desc); }, 800 + Math.random() * 900); return; }
+    if (c === 'not_writer' || c === 'not_granted' || c === 'not_declared' || c === 'consent_required' || c === 'capability_disabled' || c === 'capability_removed'){
+      puedeGuardar = false; esDocente = false; pintar(); toast('Esta vista es de solo lectura. Usá «Enviar al docente».'); return;
+    }
+    if (c === 'rate_limited'){ toast('Se guardaron muchos cambios seguidos. Esperá unos segundos y probá de nuevo.'); return; }
+    if (c === 'too_large'){ toast('El registro llegó al tamaño máximo. Exportá la planilla y borrá movimientos viejos.'); return; }
+    toast('No se pudo guardar. Probá de nuevo en un momento.');
+  });
+}
+function revisarPendiente(){
+  var raw = ss('bs_pend'); if (!raw) return null;
+  var p; try { p = JSON.parse(raw); } catch(e){ ss('bs_pend', null); return null; }
+  if (ST.ultimoCambio === p.patch.pid){ ss('bs_pend', null); setTimeout(function(){ toast('Guardado: ' + p.desc); }, 300); return null; }
+  return p;
+}
+
+/* ===== comprobantes para quien no puede guardar ===== */
+function b64(s){ var b = new TextEncoder().encode(s), t = ''; for (var i = 0; i < b.length; i++) t += String.fromCharCode(b[i]); return btoa(t); }
+function deb64(s){ var t = atob(s), b = new Uint8Array(t.length); for (var i = 0; i < t.length; i++) b[i] = t.charCodeAt(i); return new TextDecoder().decode(b); }
+function codigo(m){ return 'BS1.' + b64(JSON.stringify(m)); }
+function leerCodigos(txt){
+  var out = [], re = /BS1\.([A-Za-z0-9+\/=]+)/g, x;
+  while ((x = re.exec(txt))){ try { out.push({ m: JSON.parse(deb64(x[1])) }); } catch(e){ out.push({ err: 'Código dañado o incompleto' }); } }
+  return out;
+}
+function textoMov(m){
+  var v = CALC.vars[m.vid], u = v ? v.unidad : '';
+  var l = ['Banco de Semillas: ' + (m.tipo === 'salida' ? 'SALIDA' : 'DEVOLUCIÓN'),
+    'Alumno/a: ' + m.alumno + (m.curso ? ' (' + m.curso + ')' : ''),
+    'Semilla: ' + nombreVar(v) + (v && v.cientifico ? ' (' + v.cientifico + ')' : '') + ', lote ' + m.anio,
+    'Cantidad: ' + fCant(m.cant, u) + ' · PG ' + fPG(m.pg) + (m.pgFuente === 'estimado' ? ' (estimado)' : '')];
+  if (m.destino) l.push('Destino: ' + m.destino);
+  if (m.obs) l.push('Obs.: ' + m.obs);
+  l.push('', 'Código para cargar:', codigo(m));
+  return l.join('\n');
+}
+
+/* ===== íconos ===== */
+var IC = {
+  banco: '<svg viewBox="0 0 24 24"><path d="M12 21c0-6 0-9 0-11"/><path d="M12 10c0-3.5 2.5-6 6.5-6 0 3.8-2.6 6-6.5 6z"/><path d="M12 13c0-3-2.2-5-5.5-5 0 3.2 2.2 5 5.5 5z"/><path d="M6 21h12"/></svg>',
+  registrar: '<svg viewBox="0 0 24 24"><path d="M7 7h11l-3-3"/><path d="M17 17H6l3 3"/></svg>',
+  historial: '<svg viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r=".8"/><circle cx="4" cy="12" r=".8"/><circle cx="4" cy="18" r=".8"/></svg>',
+  aprende: '<svg viewBox="0 0 24 24"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5z"/><path d="M12 6v13.5"/></svg>',
+  docente: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>',
+  lupa: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>'
+};
+
+/* ===== armado general ===== */
+var app = document.getElementById('app');
+var PEND = null;
+function pintar(){
+  calcular();
+  if (UI.tab === 'docente' && !esDocente) UI.tab = 'banco';
+  var nV = ST.variedades.length, nL = 0, nP = pendientes().length;
+  for (var k in CALC.lotes) if (CALC.lotes[k].stock > 0) nL++;
+  app.innerHTML =
+    '<div class="wrap">' +
+      '<header class="cab"><div><div class="cab-esc">' + esc(ST.config.escuela || 'Escuela agropecuaria') + '</div>' +
+      '<h1>Banco de <span>Semillas</span></h1></div>' +
+      '<div class="cab-datos"><span><b>' + nV + '</b> variedades</span><span><b>' + nL + '</b> lotes con semilla</span><span><b>' + nP + '</b> préstamos abiertos</span></div></header>' +
+      avisoPendiente() +
+      '<main id="main"></main>' +
+    '</div>' +
+    '<nav class="nav" aria-label="Secciones"><div class="nav-in"></div></nav>';
+  pintarNav();
+  var ar = $('#pend-re'), ad = $('#pend-no');
+  if (ar) ar.onclick = function(){
+    var p = PEND;
+    INIT.then(function(){
+      if (puedeGuardar){ PEND = null; ss('bs_pend', null); guardar(p.patch, p.desc); }
+      else toast('Desde esta vista no se puede guardar.');
+    });
+  };
+  if (ad) ad.onclick = function(){ PEND = null; ss('bs_pend', null); pintar(); };
+  pintarTab();
+}
+function pintarNav(){
+  var tabs = [['banco', 'Banco'], ['registrar', 'Llevar / devolver'], ['historial', 'Historial'], ['aprende', 'Aprendé']];
+  if (esDocente) tabs.push(['docente', 'Docente']);
+  var n = $('.nav-in'); if (!n) return;
+  n.innerHTML = tabs.map(function(t){
+    return '<button type="button" data-tab="' + t[0] + '"' + (UI.tab === t[0] ? ' aria-current="page"' : '') + '>' + IC[t[0]] + '<span>' + t[1] + '</span></button>';
+  }).join('');
+  $$('button', n).forEach(function(b){ b.onclick = function(){ irA(b.dataset.tab); }; });
+}
+function avisoPendiente(){
+  if (!PEND) return '';
+  return '<div class="aviso alerta" role="status"><div><b>No se guardó:</b> ' + esc(PEND.desc) + '. Otra persona guardó al mismo tiempo.</div>' +
+    '<div class="btns"><button class="btn chico" id="pend-re" type="button">Volver a guardar</button><button class="btn chico" id="pend-no" type="button">Descartar</button></div></div>';
+}
+function irA(tab){ UI.tab = tab; ls('bs_tab', tab); pintar(); window.scrollTo(0, 0); }
+function pintarTab(){
+  var m = $('#main');
+  if (UI.tab === 'banco'){ m.innerHTML = htmlBanco(); enlazarBanco(); }
+  else if (UI.tab === 'registrar'){ m.innerHTML = htmlRegistrar(); enlazarRegistrar(); }
+  else if (UI.tab === 'historial'){ m.innerHTML = htmlHistorial(); enlazarHistorial(); }
+  else if (UI.tab === 'aprende'){ m.innerHTML = htmlAprende(); }
+  else if (UI.tab === 'docente'){ m.innerHTML = htmlDocente(); enlazarDocente(); }
+}
+
+/* ===== BANCO ===== */
+function grupos(){ var g = {}; ST.variedades.forEach(function(v){ if (v.grupo) g[v.grupo] = 1; }); return Object.keys(g).sort(function(a, b){ return a.localeCompare(b, 'es'); }); }
+function filtradas(){
+  var q = norm(UI.q);
+  return ST.variedades.filter(function(v){
+    if (UI.grupo && v.grupo !== UI.grupo) return false;
+    if (!q) return true;
+    return norm([v.especie, v.variedad, v.cientifico, v.familia, v.grupo].join(' ')).indexOf(q) >= 0;
+  }).sort(cmpVar);
+}
+function htmlBanco(){
+  return '<div class="herr"><div class="buscar">' + IC.lupa + '<input id="b-q" type="search" placeholder="Buscar semilla o nombre científico" aria-label="Buscar" value="' + esc(UI.q) + '"></div>' +
+    '<div class="vista" role="group" aria-label="Vista"><button type="button" data-v="fichas" aria-pressed="' + (UI.vista === 'fichas') + '">Fichas</button><button type="button" data-v="planilla" aria-pressed="' + (UI.vista === 'planilla') + '">Planilla</button></div></div>' +
+    '<div class="chips" style="margin-bottom:12px">' + ['', ].concat(grupos()).map(function(g){
+      return '<button type="button" class="chip" data-g="' + esc(g) + '" aria-pressed="' + (UI.grupo === g) + '">' + (g ? esc(g) : 'Todas') + '</button>';
+    }).join('') + '</div>' +
+    '<div id="b-lista"></div>';
+}
+function enlazarBanco(){
+  var q = $('#b-q');
+  q.oninput = function(){ UI.q = q.value; pintarLista(); };
+  $$('.vista button').forEach(function(b){ b.onclick = function(){ UI.vista = b.dataset.v; ls('bs_vista', UI.vista); $$('.vista button').forEach(function(x){ x.setAttribute('aria-pressed', x === b); }); pintarLista(); }; });
+  $$('.chips .chip').forEach(function(b){ b.onclick = function(){ UI.grupo = b.dataset.g; $$('.chips .chip').forEach(function(x){ x.setAttribute('aria-pressed', x === b); }); pintarLista(); }; });
+  pintarLista();
+}
+function pintarLista(){
+  var vs = filtradas(), cont = $('#b-lista');
+  if (!ST.variedades.length){ cont.innerHTML = '<div class="vacio">Todavía no hay semillas cargadas.' + (esDocente ? ' Cargá la primera desde <b>Docente → Variedades</b>.' : '') + '</div>'; return; }
+  if (!vs.length){ cont.innerHTML = '<div class="vacio">No hay semillas que coincidan con «' + esc(UI.q) + '».</div>'; return; }
+  if (UI.vista === 'planilla'){ cont.innerHTML = htmlPlanilla(vs); }
+  else {
+    var porL = {}; vs.forEach(function(v){ var l = letra(v.especie); (porL[l] = porL[l] || []).push(v); });
+    var abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    var h = '<div class="indice" aria-label="Índice alfabético">' + abc.map(function(l){ return '<button type="button" data-l="' + l + '"' + (porL[l] ? '' : ' disabled') + '>' + l + '</button>'; }).join('') + '</div>';
+    Object.keys(porL).sort().forEach(function(l){
+      h += '<div class="letra" id="letra-' + l + '"><b>' + l + '</b></div><div class="grilla">' + porL[l].map(htmlFicha).join('') + '</div>';
+    });
+    cont.innerHTML = h;
+    $$('.indice button', cont).forEach(function(b){ b.onclick = function(){ var t = document.getElementById('letra-' + b.dataset.l); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }; });
+  }
+  $$('[data-vid]', cont).forEach(function(el){
+    el.onclick = function(){ abrirVar(el.dataset.vid); };
+    el.onkeydown = function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); abrirVar(el.dataset.vid); } };
+  });
+}
+function htmlFicha(v){
+  var r = resumen(v.id), n = nivel(r.pg);
+  var todos = lotesDe(v.id, true);
+  return '<article class="ficha" tabindex="0" role="button" data-vid="' + esc(v.id) + '" aria-label="' + esc(nombreVar(v)) + '">' +
+    '<div class="ficha-cab"><span class="especie">' + esc(v.especie) + '</span><span class="variedad">' + esc(v.variedad || '') + '</span></div>' +
+    '<div class="sci">' + esc(v.cientifico || '') + (v.familia ? '<span style="font-style:normal"> · ' + esc(v.familia) + '</span>' : '') + '</div>' +
+    '<div class="ficha-res"><span class="mono">' + (r.total > 0 ? fCant(r.total, v.unidad) : 'Sin existencias') + '</span>' +
+    (r.total > 0 ? '<span class="pill ' + n + '">PG ' + fPG(r.pg) + '</span>' : '') + '</div>' +
+    '<div class="lotes">' + todos.map(function(L){
+      return '<span class="lote-chip' + (L.stock > 0 ? '' : ' agot') + '"><b>' + L.anio + '</b> ' + fCant(L.stock, v.unidad) + ' · ' + fPG(L.pg) + '</span>';
+    }).join('') + '</div></article>';
+}
+function htmlPlanilla(vs){
+  var filas = '';
+  vs.forEach(function(v){
+    var ls_ = lotesDe(v.id);
+    if (!ls_.length){
+      filas += '<tr data-vid="' + esc(v.id) + '" tabindex="0"><td><b>' + esc(v.especie) + '</b></td><td>' + esc(v.variedad || '') + '</td><td class="sci">' + esc(v.cientifico || '') + '</td><td class="num">—</td><td class="num">—</td><td class="num">0</td><td class="num">—</td><td>Sin existencias</td></tr>';
+    }
+    ls_.forEach(function(L){
+      var n = nivel(L.pg), av = avisosLote(L, v).filter(function(a){ return a[0] !== 'info'; });
+      filas += '<tr data-vid="' + esc(v.id) + '" tabindex="0"><td><b>' + esc(v.especie) + '</b></td><td>' + esc(v.variedad || '') + '</td><td class="sci">' + esc(v.cientifico || '') + '</td>' +
+        '<td class="num">' + L.anio + '</td><td class="num">' + (ANIO - L.anio) + ' a</td><td class="num">' + fCant(L.stock, v.unidad) + '</td>' +
+        '<td class="num"><span class="pill ' + n + '">' + fPG(L.pg) + '</span></td><td>' + NIVEL_TXT[n] + (av.length ? ' · ' + av.map(function(a){ return esc(a[1]); }).join(' · ') : '') + '</td></tr>';
+    });
+  });
+  return '<div class="tabla-caja"><table><thead><tr><th>Especie</th><th>Variedad</th><th>Nombre científico</th><th class="num">Año</th><th class="num">Edad</th><th class="num">Cantidad</th><th class="num">PG</th><th>Estado</th></tr></thead><tbody>' + filas + '</tbody></table></div>';
+}
+
+/* ===== detalle de una variedad ===== */
+function spark(hist){
+  var p = hist.filter(function(h){ return h.pg != null; });
+  if (p.length < 2) return '';
+  var w = 132, h = 38, n = p.length;
+  var pts = p.map(function(e, i){ return [6 + i * (w - 12) / (n - 1), 4 + (1 - e.pg / 100) * (h - 8)]; });
+  var y80 = 4 + 0.2 * (h - 8);
+  return '<svg class="spark" width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="Evolución del PG del lote">' +
+    '<line x1="0" x2="' + w + '" y1="' + y80 + '" y2="' + y80 + '" style="stroke:var(--linea)" stroke-dasharray="3 3"/>' +
+    '<polyline points="' + pts.map(function(q){ return q[0].toFixed(1) + ',' + q[1].toFixed(1); }).join(' ') + '" style="fill:none;stroke:var(--verde)" stroke-width="2" stroke-linejoin="round"/>' +
+    '<circle cx="' + pts[n - 1][0].toFixed(1) + '" cy="' + pts[n - 1][1].toFixed(1) + '" r="3.5" style="fill:var(--verde)"/></svg>';
+}
+function abrirVar(vid){
+  var v = CALC.vars[vid]; if (!v) return;
+  var r = resumen(vid), todos = lotesDe(vid, true);
+  var movs = CALC.ms.filter(function(m){ return m.vid === vid; }).slice().reverse();
+  var h = '<div class="hoja-cab"><div><div class="especie" style="font-size:1.6rem">' + esc(v.especie) + ' <span class="variedad" style="font-size:1rem">' + esc(v.variedad || '') + '</span></div>' +
+    '<div class="sci">' + esc(v.cientifico || '') + '</div></div><button class="cerrar" type="button" aria-label="Cerrar">×</button></div>' +
+    '<dl class="dl"><dt>Familia</dt><dd>' + esc(v.familia || '—') + '</dd><dt>Grupo</dt><dd>' + esc(v.grupo || '—') + '</dd>' +
+    '<dt>Vida útil aprox.</dt><dd>' + (v.vida ? v.vida + ' años' : '—') + '</dd>' +
+    '<dt>Existencia total</dt><dd class="mono"><b>' + fCant(r.total, v.unidad) + '</b></dd>' +
+    '<dt>PG promedio</dt><dd>' + (r.total > 0 ? '<span class="pill ' + nivel(r.pg) + '">' + fPG(r.pg) + '</span> <small style="color:var(--tenue)">ponderado por cantidad</small>' : '—') + '</dd>' +
+    (v.notas ? '<dt>Notas</dt><dd>' + esc(v.notas) + '</dd>' : '') + '</dl>' +
+    '<div class="btns" style="margin-bottom:14px"><button class="btn prim" type="button" id="h-llevar"' + (r.total > 0 ? '' : ' disabled') + '>Me llevo de esta</button><button class="btn" type="button" id="h-dev">Devolver</button>' +
+    (esDocente ? '<button class="btn" type="button" id="h-edit">Editar ficha</button>' : '') + '</div>' +
+    '<h3 class="h3" style="margin-bottom:8px">Lotes por año de cosecha</h3><div class="stack">' +
+    (todos.length ? todos.map(function(L){
+      var n = nivel(L.pg), av = avisosLote(L, v);
+      return '<div class="lote"><div class="lote-top"><span class="lote-anio">' + L.anio + '</span><span class="mono">' + (L.stock > 0 ? fCant(L.stock, v.unidad) : 'agotado') + '</span><span class="pill ' + n + '">PG ' + fPG(L.pg) + '</span></div>' +
+        '<div class="medidor ' + n + '"><i style="width:' + Math.max(0, Math.min(100, L.pg || 0)) + '%"></i><u style="left:80%"></u></div>' +
+        '<div class="lote-pie"><span>' + (ANIO - L.anio) + ' años · ' + (L.ultEnsayo ? 'último ensayo ' + fFecha(L.ultEnsayo) : 'sin ensayo propio') + '</span>' + spark(L.hist) + '</div>' +
+        (av.length ? '<div class="btns">' + av.map(function(a){ return '<span class="etq ' + a[0] + '">' + esc(a[1]) + '</span>'; }).join('') + '</div>' : '') + '</div>';
+    }).join('') : '<div class="vacio">Esta variedad todavía no tiene lotes.</div>') + '</div>' +
+    '<h3 class="h3" style="margin:18px 0 6px">Movimientos</h3><div class="lista">' + (movs.length ? movs.map(htmlMov).join('') : '<p class="nota" style="padding:10px 0;margin:0">Sin movimientos.</p>') + '</div>';
+  hoja(h, function(box){
+    $('#h-llevar', box).onclick = function(){ cerrarHoja(); UI.rtipo = 'salida'; UI.pre = { vid: vid }; irA('registrar'); };
+    $('#h-dev', box).onclick = function(){ cerrarHoja(); UI.rtipo = 'devolucion'; UI.pre = { vid: vid }; irA('registrar'); };
+    var he = $('#h-edit', box); if (he) he.onclick = function(){ cerrarHoja(); UI.preVar = vid; irA('docente'); };
+    enlazarMovs(box);
+  });
+}
+var hojaAbierta = null;
+function hoja(html, enlazar){
+  cerrarHoja();
+  var velo = document.createElement('div'); velo.className = 'velo';
+  velo.innerHTML = '<div class="hoja" role="dialog" aria-modal="true">' + html + '</div>';
+  document.body.appendChild(velo); hojaAbierta = velo;
+  velo.onclick = function(e){ if (e.target === velo) cerrarHoja(); };
+  $('.cerrar', velo).onclick = cerrarHoja;
+  document.addEventListener('keydown', escHoja);
+  if (enlazar) enlazar(velo);
+  $('.cerrar', velo).focus();
+}
+function escHoja(e){ if (e.key === 'Escape') cerrarHoja(); }
+function cerrarHoja(){ if (hojaAbierta){ hojaAbierta.remove(); hojaAbierta = null; document.removeEventListener('keydown', escHoja); } }
+
+/* ===== LLEVAR / DEVOLVER ===== */
+function optsVar(soloConStock, sel){
+  return ST.variedades.slice().sort(cmpVar).filter(function(v){ return !soloConStock || resumen(v.id).total > 0; }).map(function(v){
+    return '<option value="' + esc(v.id) + '"' + (v.id === sel ? ' selected' : '') + '>' + esc(nombreVar(v)) + '</option>';
+  }).join('');
+}
+function htmlRegistrar(){
+  return '<section class="panel"><h2 class="h2">Llevar o devolver semillas</h2>' +
+    '<p class="nota">Anotá lo que te llevás y lo que traés. Con cada devolución el banco recalcula cuánta semilla hay y cómo viene germinando.</p>' +
+    '<div class="seg" role="radiogroup" aria-label="Tipo de registro"><input type="radio" name="rtipo" id="rt-sal" value="salida"' + (UI.rtipo === 'salida' ? ' checked' : '') + '><label for="rt-sal">Me llevo</label>' +
+    '<input type="radio" name="rtipo" id="rt-dev" value="devolucion"' + (UI.rtipo === 'devolucion' ? ' checked' : '') + '><label for="rt-dev">Devuelvo</label></div>' +
+    '<form id="f-reg" novalidate><div class="fila2"><label class="campo"><span>Nombre y apellido</span><input id="r-alumno" autocomplete="name" value="' + esc(ls('bs_alumno') || '') + '"></label>' +
+    '<label class="campo"><span>Curso y división</span><input id="r-curso" placeholder="Ej.: 4.° A" value="' + esc(ls('bs_curso') || '') + '"></label></div>' +
+    '<div id="r-cuerpo" class="stack"></div>' +
+    '<label class="campo"><span>Observaciones (opcional)</span><input id="r-obs" placeholder="Ej.: sembrada en el cantero 3"></label>' +
+    '<div id="r-prev" class="prev" aria-live="polite"></div><div id="r-err" class="err" role="alert"></div>' +
+    '<button class="btn prim" id="r-btn" type="submit"></button>' +
+    '<p class="nota" id="r-modo" style="margin:0;font-size:.88rem"></p></form>' +
+    '<div id="r-comp" class="stack" hidden></div></section>';
+}
+function enlazarRegistrar(){
+  $$('input[name="rtipo"]').forEach(function(r){ r.onchange = function(){ UI.rtipo = r.value; cuerpoRegistrar(); }; });
+  $('#r-alumno').oninput = function(){ if (UI.rtipo === 'devolucion') llenarSalidas(); };
+  $('#f-reg').onsubmit = function(e){ e.preventDefault(); enviarRegistro(); };
+  cuerpoRegistrar();
+}
+function botonModo(){
+  var b = $('#r-btn'), p = $('#r-modo'); if (!b) return;
+  if (puedeGuardar === false){
+    b.textContent = 'Preparar comprobante para el docente';
+    p.textContent = 'Desde este dispositivo no se puede guardar directo: se arma un mensaje con un código que le mandás al docente para que lo cargue.';
+  } else {
+    b.textContent = UI.rtipo === 'salida' ? 'Registrar salida' : 'Registrar devolución';
+    p.textContent = '';
+  }
+}
+function cuerpoRegistrar(){
+  var c = $('#r-cuerpo'), pre = UI.pre || {}; UI.pre = null;
+  $('#r-err').textContent = '';
+  if (UI.rtipo === 'salida'){
+    var hay = ST.variedades.some(function(v){ return resumen(v.id).total > 0; });
+    if (!hay){ c.innerHTML = '<div class="vacio">No hay semillas con existencias para llevar.</div>'; $('#r-prev').innerHTML = ''; botonModo(); return; }
+    c.innerHTML = '<label class="campo"><span>Semilla</span><select id="r-var">' + optsVar(true, pre.vid) + '</select></label>' +
+      '<div class="fila2"><label class="campo"><span>Año del lote</span><select id="r-lote"></select></label>' +
+      '<label class="campo"><span>Cantidad que te llevás (<span id="r-u"></span>)</span><input id="r-cant" type="number" inputmode="decimal" min="0" step="any"></label></div>' +
+      '<label class="campo"><span>¿Para qué la usás?</span><select id="r-dest"><option>Huerta escolar</option><option>Huerta familiar</option><option>Multiplicación para el banco</option><option>Proyecto o ensayo</option><option>Otro</option></select></label>' +
+      '<div class="calc"><label for="r-plantas">¿Cuántas plantas querés lograr?</label><input id="r-plantas" type="number" inputmode="numeric" min="1" placeholder="20"><output id="r-plantas-out"></output></div>';
+    $('#r-var').onchange = function(){ llenarLotes(); prevSalida(); };
+    $('#r-lote').onchange = prevSalida;
+    $('#r-cant').oninput = prevSalida;
+    $('#r-plantas').oninput = prevSalida;
+    llenarLotes(); prevSalida();
+  } else {
+    c.innerHTML = '<label class="campo"><span>¿Qué salida estás devolviendo?</span><select id="d-sal"></select></label>' +
+      '<label class="campo" id="d-libre" hidden><span>Semilla</span><select id="d-var">' + optsVar(false, pre.vid) + '</select></label>' +
+      '<fieldset class="campo"><legend>¿Qué semilla traés?</legend>' +
+      '<label class="op"><input type="radio" name="d-tipo" value="cosecha" checked><span>Semilla que coseché<small>La multipliqué en la huerta: es de la cosecha nueva.</small></span></label>' +
+      '<label class="op"><input type="radio" name="d-tipo" value="sinusar"><span>La misma que me llevé, sin usar<small>Sobró y la devuelvo.</small></span></label></fieldset>' +
+      '<div class="fila2"><label class="campo"><span>Año de cosecha de la semilla</span><input id="d-anio" type="number" inputmode="numeric" min="1990" max="' + ANIO + '"></label>' +
+      '<label class="campo"><span>Cantidad que devolvés (<span id="d-u"></span>)</span><input id="d-cant" type="number" inputmode="decimal" min="0" step="any"></label></div>' +
+      '<fieldset class="campo"><legend>Poder germinativo de lo que traés</legend>' +
+      '<label class="op"><input type="radio" name="d-pgm" value="ensayo" checked><span>Hice el ensayo de germinación<small>Cuento cuántas semillas puse y cuántas germinaron.</small></span></label>' +
+      '<div class="fila2" id="d-ens" style="padding:6px 0 4px"><label class="campo"><span>Semillas puestas a germinar</span><input id="d-es" type="number" inputmode="numeric" min="1" placeholder="50"></label>' +
+      '<label class="campo"><span>Semillas que germinaron</span><input id="d-ge" type="number" inputmode="numeric" min="0" placeholder="42"></label></div>' +
+      '<label class="op"><input type="radio" name="d-pgm" value="estimado"><span>No hice el ensayo<small>Se toma el PG con que salió y queda marcado como estimado.</small></span></label></fieldset>';
+    llenarSalidas(pre.vid);
+    $('#d-sal').onchange = function(){ ajustarDev(true); };
+    $('#d-var').onchange = function(){ ajustarDev(true); };
+    $$('input[name="d-tipo"]').forEach(function(r){ r.onchange = function(){ ajustarDev(true); }; });
+    $$('input[name="d-pgm"]').forEach(function(r){ r.onchange = function(){ $('#d-ens').hidden = r.value !== 'ensayo' || !r.checked; prevDev(); }; });
+    ['#d-anio', '#d-cant', '#d-es', '#d-ge'].forEach(function(s){ $(s).oninput = prevDev; });
+    ajustarDev(true);
+  }
+  botonModo();
+}
+function llenarLotes(){
+  var vid = $('#r-var').value, v = CALC.vars[vid];
+  $('#r-lote').innerHTML = lotesDe(vid).map(function(L){ return '<option value="' + L.anio + '">' + L.anio + ' · ' + fCant(L.stock, v.unidad) + ' disponibles · PG ' + fPG(L.pg) + '</option>'; }).join('');
+  $('#r-u').textContent = v ? v.unidad : '';
+}
+function prevSalida(){
+  var vid = $('#r-var').value, v = CALC.vars[vid], L = CALC.lotes[vid + '|' + $('#r-lote').value];
+  var out = $('#r-prev'); if (!v || !L){ out.innerHTML = ''; return; }
+  var c = num($('#r-cant').value), edad = ANIO - L.anio;
+  var h = '<p>Te llevás semilla de <b>' + L.anio + '</b> (' + edad + (edad === 1 ? ' año' : ' años') + ') con un poder germinativo de <b>' + fPG(L.pg) + '</b>.' +
+    (L.pg != null ? ' De cada 100 semillas que siembres, se espera que germinen unas ' + nf0.format(L.pg) + '.' : ' Este lote no tiene dato de PG.') + '</p>';
+  if (!isNaN(c) && c > 0){
+    if (c > L.stock) h += '<p class="err">Hay solo ' + fCant(L.stock, v.unidad) + ' en este lote.</p>';
+    else h += '<p>En el banco quedan <b>' + fCant(L.stock - c, v.unidad) + '</b> de este lote.</p>';
+  }
+  var av = avisosLote(L, v).filter(function(a){ return a[0] !== 'info'; });
+  if (av.length) h += '<p>' + av.map(function(a){ return '<span class="etq ' + a[0] + '">' + esc(a[1]) + '</span>'; }).join(' ') + '</p>';
+  out.innerHTML = h;
+  var pl = num($('#r-plantas').value), po = $('#r-plantas-out');
+  if (!isNaN(pl) && pl > 0 && L.pg > 0){
+    var s = Math.ceil(pl / (L.pg / 100));
+    po.innerHTML = 'Sembrá al menos <b>' + s + ' semillas</b> <span class="mono" style="font-size:.85rem">(' + nf0.format(pl) + ' ÷ ' + nf1.format(r1(L.pg / 100)) + ')</span>';
+  } else po.textContent = '';
+}
+function salidasDe(nombre){
+  var n = norm(nombre), ps = pendientes();
+  var mias = n ? ps.filter(function(s){ return norm(s.m.alumno).indexOf(n) >= 0 || n.indexOf(norm(s.m.alumno)) >= 0; }) : [];
+  return mias.length ? mias : ps;
+}
+function llenarSalidas(preVid){
+  var sel = $('#d-sal'); if (!sel) return;
+  var actual = sel.value, ps = salidasDe($('#r-alumno').value);
+  if (preVid){ var f = ps.filter(function(s){ return s.m.vid === preVid; }); if (f.length) ps = f; }
+  sel.innerHTML = ps.map(function(s){
+    var v = CALC.vars[s.m.vid];
+    return '<option value="' + esc(s.m.id) + '">' + esc(s.m.alumno) + ' · ' + esc(nombreVar(v)) + ' ' + s.m.anio + ' · ' + fCant(s.m.cant, v ? v.unidad : '') + ' (' + fFecha(s.m.t) + ')</option>';
+  }).join('') + '<option value="">No tengo salida registrada</option>';
+  if (actual && $$('option', sel).some(function(o){ return o.value === actual; })) sel.value = actual;
+  if (preVid && !ps.some(function(s){ return s.m.vid === preVid; })) { sel.value = ''; $('#d-var').value = preVid; }
+  ajustarDev(sel.value !== actual || !!preVid);
+}
+function devActual(){
+  var sid = $('#d-sal').value, s = sid ? CALC.salidas[sid] : null;
+  var vid = s ? s.m.vid : $('#d-var').value;
+  var tipo = ($('input[name="d-tipo"]:checked') || {}).value;
+  return { s: s, vid: vid, v: CALC.vars[vid], tipo: tipo };
+}
+function ajustarDev(cambioAnio){
+  if (!$('#d-sal')) return;
+  var d = devActual();
+  $('#d-libre').hidden = !!d.s;
+  if (cambioAnio) $('#d-anio').value = (d.tipo === 'sinusar' && d.s) ? d.s.m.anio : ANIO;
+  $('#d-u').textContent = d.v ? d.v.unidad : '';
+  prevDev();
+}
+function pgDev(d){
+  var modo = ($('input[name="d-pgm"]:checked') || {}).value;
+  if (modo === 'ensayo'){
+    var es = num($('#d-es').value), ge = num($('#d-ge').value);
+    if (isNaN(es) || es <= 0 || isNaN(ge) || ge < 0) return { pg: null, fuente: 'ensayo', falta: true };
+    if (ge > es) return { pg: null, fuente: 'ensayo', error: 'Germinaron más semillas de las que pusiste.' };
+    return { pg: ge / es * 100, fuente: 'ensayo', es: es, ge: ge };
+  }
+  var anio = +$('#d-anio').value, L = CALC.lotes[d.vid + '|' + anio];
+  var ref = d.s ? d.s.m.pg : (L ? L.pg : null);
+  return { pg: ref == null ? null : +ref, fuente: 'estimado' };
+}
+function prevDev(){
+  var out = $('#r-prev'), d = devActual();
+  if (!d.v){ out.innerHTML = ''; return; }
+  var c = num($('#d-cant').value), anio = parseInt($('#d-anio').value, 10), P = pgDev(d), u = d.v.unidad;
+  var h = '';
+  if (P.error){ out.innerHTML = '<p class="err">' + esc(P.error) + '</p>'; return; }
+  if (P.fuente === 'ensayo' && !P.falta) h += '<div class="formula">PG = ' + nf0.format(P.ge) + ' germinadas ÷ ' + nf0.format(P.es) + ' puestas × 100 = <b>' + fPG(P.pg) + '</b></div>';
+  if (d.s && P.pg != null){
+    var dif = r1(P.pg - d.s.m.pg), cl = dif > 0 ? 'mas' : dif < 0 ? 'menos' : 'igual';
+    h += '<div class="flecha"><span class="de">Salió con ' + fPG(d.s.m.pg) + '</span><span aria-hidden="true">→</span><span class="a">Vuelve con ' + fPG(P.pg) + '</span><span class="delta ' + cl + '">' +
+      (dif > 0 ? '+' + nf1.format(dif) + ' puntos' : dif < 0 ? '−' + nf1.format(-dif) + ' puntos' : 'igual') + '</span></div>';
+  }
+  if (!isNaN(c) && c > 0 && !isNaN(anio)){
+    var L = CALC.lotes[d.vid + '|' + anio], prev = L ? Math.max(0, L.stock) : 0, ppg = L ? L.pg : null;
+    if (P.pg == null){
+      h += '<p>Se suman ' + fCant(c, u) + ' al lote ' + anio + '. Sin dato de PG: conviene hacer el ensayo.</p>';
+    } else if (prev <= 0 || ppg == null){
+      h += '<p>El lote <b>' + esc(d.v.especie) + ' ' + anio + '</b> ' + (L ? 'estaba vacío' : 'es nuevo en el banco') + ': queda con ' + fCant(c, u) + ' y PG ' + fPG(P.pg) + '.</p>';
+    } else {
+      var npg = (prev * ppg + c * P.pg) / (prev + c);
+      h += '<p>El lote <b>' + esc(d.v.especie) + ' ' + anio + '</b> pasa de PG ' + fPG(ppg) + ' a <b>' + fPG(npg) + '</b>:</p>' +
+        '<div class="formula">(' + fCant(prev, u) + ' × ' + fPG(ppg) + ' + ' + fCant(c, u) + ' × ' + fPG(P.pg) + ') ÷ ' + fCant(prev + c, u) + ' = ' + fPG(npg) + '</div>';
+    }
+    if (d.s && d.tipo === 'cosecha' && d.s.m.cant > 0){
+      var f = c / d.s.m.cant;
+      h += '<p>Te llevaste ' + fCant(d.s.m.cant, u) + ' y devolvés ' + fCant(c, u) + ': ' + (f >= 1 ? 'multiplicaste la semilla <b>×' + nf1.format(r1(f)) + '</b>.' : 'devolvés el ' + nf0.format(f * 100) + ' % de lo que llevaste.') + '</p>';
+    }
+  }
+  if (P.fuente === 'estimado' && P.pg != null) h += '<p><span class="etq alerta">PG estimado</span> Se usa ' + fPG(P.pg) + ' hasta que alguien haga el ensayo.</p>';
+  out.innerHTML = h;
+}
+function enviarRegistro(){
+  var err = $('#r-err'); err.textContent = '';
+  var alumno = $('#r-alumno').value.trim(), curso = $('#r-curso').value.trim(), obs = $('#r-obs').value.trim();
+  if (!alumno){ err.textContent = 'Escribí tu nombre y apellido.'; $('#r-alumno').focus(); return; }
+  ls('bs_alumno', alumno); ls('bs_curso', curso);
+  var m = { id: uid('m'), t: new Date().toISOString(), tipo: UI.rtipo, alumno: alumno, curso: curso, obs: obs };
+  if (UI.rtipo === 'salida'){
+    if (!$('#r-var')){ err.textContent = 'No hay semillas disponibles.'; return; }
+    var vid = $('#r-var').value, L = CALC.lotes[vid + '|' + $('#r-lote').value], c = num($('#r-cant').value);
+    if (!L){ err.textContent = 'Elegí el lote.'; return; }
+    if (isNaN(c) || c <= 0){ err.textContent = 'Indicá la cantidad que te llevás.'; $('#r-cant').focus(); return; }
+    if (c > L.stock){ err.textContent = 'No alcanza: en ese lote hay ' + fCant(L.stock, CALC.vars[vid].unidad) + '.'; return; }
+    m.vid = vid; m.anio = L.anio; m.cant = c; m.pg = L.pg == null ? null : r1(L.pg); m.destino = $('#r-dest').value;
+  } else {
+    var d = devActual(), cd = num($('#d-cant').value), anio = parseInt($('#d-anio').value, 10), P = pgDev(d);
+    if (!d.v){ err.textContent = 'Elegí la semilla.'; return; }
+    if (isNaN(anio) || anio < 1990 || anio > ANIO){ err.textContent = 'Revisá el año de cosecha.'; return; }
+    if (isNaN(cd) || cd <= 0){ err.textContent = 'Indicá la cantidad que devolvés.'; $('#d-cant').focus(); return; }
+    if (P.error){ err.textContent = P.error; return; }
+    if (P.fuente === 'ensayo' && P.falta){ err.textContent = 'Completá el ensayo (puestas y germinadas) o elegí «No hice el ensayo».'; return; }
+    m.vid = d.vid; m.anio = anio; m.cant = cd; m.pg = P.pg == null ? null : r1(P.pg); m.pgFuente = P.fuente; m.tipoSem = d.tipo;
+    if (P.fuente === 'ensayo'){ m.es = P.es; m.ge = P.ge; }
+    if (d.s) m.salidaId = d.s.m.id;
+  }
+  var desc = (m.tipo === 'salida' ? 'salida de ' : 'devolución de ') + nombreVar(CALC.vars[m.vid]) + ' (' + alumno + ')';
+  var seguir = function(){
+    if (puedeGuardar) guardar({ op: 'addMovs', movs: [m] }, desc);
+    else mostrarComprobante(m);
+  };
+  if (puedeGuardar === null) INIT.then(seguir); else seguir();
+}
+function mostrarComprobante(m){
+  var txt = textoMov(m), wa = (ST.config.wa || '').replace(/\D/g, '');
+  var href = 'https://wa.me/' + wa + '?text=' + encodeURIComponent(txt);
+  var box = $('#r-comp'); $('#f-reg').hidden = true; box.hidden = false;
+  box.innerHTML = '<div class="prev"><p><b>Tu comprobante está listo.</b> Mandáselo al docente: cuando lo cargue, queda registrado en el banco.</p></div>' +
+    '<div class="btns"><a class="btn prim" href="' + esc(href) + '" target="_blank" rel="noopener">Enviar por WhatsApp</a><button class="btn" type="button" id="c-copiar">Copiar mensaje</button></div>' +
+    '<label class="campo"><span>Mensaje</span><textarea id="c-txt" readonly rows="9">' + esc(txt) + '</textarea></label>' +
+    '<button class="btn" type="button" id="c-otro">Hacer otro registro</button>';
+  $('#c-copiar').onclick = function(){ copiar(txt, $('#c-txt')); };
+  $('#c-otro').onclick = function(){ pintarTab(); };
+}
+
+/* ===== HISTORIAL ===== */
+function htmlMov(m){
+  var v = CALC.vars[m.vid], u = v ? v.unidad : '', s = m.tipo === 'salida' ? CALC.salidas[m.id] : null;
+  var l2 = [];
+  if (m.alumno) l2.push(esc(m.alumno) + (m.curso ? ' · ' + esc(m.curso) : ''));
+  if (m.tipo === 'ensayo') l2.push(esc(m.ge) + ' de ' + esc(m.es) + ' germinaron');
+  if (m.tipo === 'devolucion'){
+    l2.push(m.tipoSem === 'sinusar' ? 'sin usar' : 'cosecha propia');
+    var sal = m.salidaId && CALC.salidas[m.salidaId];
+    if (sal && m.pg != null && sal.m.pg != null){ var dif = r1(m.pg - sal.m.pg); l2.push('salió con ' + fPG(sal.m.pg) + (dif ? ' (' + (dif > 0 ? '+' : '−') + nf1.format(Math.abs(dif)) + ')' : ' (igual)')); }
+  }
+  if (m.destino) l2.push(esc(m.destino));
+  if (m.obs) l2.push(esc(m.obs));
+  if (s){
+    if (m.cerrada) l2.push('<span class="etq info">Cerrada</span>');
+    else if (s.devuelto >= m.cant) l2.push('<span class="etq info">Devuelta</span>');
+    else if (s.devuelto > 0) l2.push('<span class="etq alerta">Devolvió ' + fCant(s.devuelto, u) + '</span>');
+    else l2.push('<span class="etq alerta">Pendiente</span>');
+  }
+  var acc = '';
+  if (esDocente){
+    acc = '<div class="mov-acc" data-mid="' + esc(m.id) + '">' +
+      (s && !m.cerrada && s.devuelto < m.cant ? '<button class="btn chico" type="button" data-acc="cerrar">Cerrar sin devolución</button>' : '') +
+      '<button class="btn chico peligro" type="button" data-acc="anular">Anular</button></div>';
+  }
+  return '<div class="mov"><div class="mov-tipo t-' + m.tipo + '" title="' + TIPO_TXT[m.tipo] + '">' + TIPO_COD[m.tipo] + '</div>' +
+    '<div class="mov-l1"><strong>' + TIPO_TXT[m.tipo] + '</strong><span>' + esc(nombreVar(v)) + ' ' + m.anio + '</span>' +
+    (m.tipo !== 'ensayo' ? '<span class="mono">' + fCant(m.cant, u) + '</span>' : '') +
+    (m.pg != null ? '<span class="pill ' + nivel(m.pg) + '">' + fPG(m.pg) + (m.pgFuente === 'estimado' ? ' est.' : '') + '</span>' : '') +
+    '<span class="fecha">' + fFecha(m.t) + '</span>' + (m.ej ? '<span class="etq info">ejemplo</span>' : '') + '</div>' +
+    '<div class="mov-l2">' + l2.map(function(x){ return '<span>' + x + '</span>'; }).join('') + '</div>' + acc + '</div>';
+}
+function enlazarMovs(root){
+  $$('.mov-acc button', root).forEach(function(b){
+    b.onclick = function(){
+      var mid = b.parentNode.dataset.mid, acc = b.dataset.acc;
+      if (b.dataset.conf !== '1'){ b.dataset.conf = '1'; b.textContent = acc === 'anular' ? '¿Seguro? Tocá para anular' : '¿Seguro? Tocá para cerrar'; return; }
+      var m = CALC.ms.filter(function(x){ return x.id === mid; })[0], d = TIPO_TXT[m.tipo].toLowerCase() + ' de ' + nombreVar(CALC.vars[m.vid]);
+      cerrarHoja();
+      if (acc === 'anular') guardar({ op: 'delMov', id: mid }, 'anular ' + d);
+      else guardar({ op: 'updMov', id: mid, campos: { cerrada: true } }, 'cerrar ' + d);
+    };
+  });
+}
+function htmlHistorial(){
+  var np = pendientes().length;
+  return '<h2 class="h2">Historial del banco</h2><p class="nota">Quién se llevó qué, qué volvió y con qué poder germinativo.</p>' +
+    '<div class="seg tres" role="radiogroup" aria-label="Vista del historial">' +
+    [['pend', 'Pendientes (' + np + ')'], ['todo', 'Todo'], ['alum', 'Por alumno']].map(function(o){
+      return '<input type="radio" name="hv" id="hv-' + o[0] + '" value="' + o[0] + '"' + (UI.hist === o[0] ? ' checked' : '') + '><label for="hv-' + o[0] + '">' + o[1] + '</label>';
+    }).join('') + '</div>' +
+    '<div class="herr"><div class="buscar">' + IC.lupa + '<input id="h-q" type="search" placeholder="Buscar alumno, curso o semilla" aria-label="Buscar en el historial" value="' + esc(UI.hq) + '"></div></div><div id="h-lista"></div>';
+}
+function enlazarHistorial(){
+  $$('input[name="hv"]').forEach(function(r){ r.onchange = function(){ UI.hist = r.value; pintarHist(); }; });
+  $('#h-q').oninput = function(){ UI.hq = this.value; pintarHist(); };
+  pintarHist();
+}
+function coincide(m, q){ if (!q) return true; return norm([m.alumno, m.curso, nombreVar(CALC.vars[m.vid]), m.anio, m.destino, m.obs].join(' ')).indexOf(q) >= 0; }
+function pintarHist(){
+  var q = norm(UI.hq), c = $('#h-lista'), h = '';
+  if (UI.hist === 'pend'){
+    var ps = pendientes().filter(function(s){ return coincide(s.m, q); });
+    h = ps.length ? '<div class="lista">' + ps.map(function(s){ return htmlMov(s.m); }).join('') + '</div>' : '<div class="vacio">No hay préstamos pendientes' + (q ? ' para esa búsqueda' : '') + '.</div>';
+  } else if (UI.hist === 'todo'){
+    var ms = CALC.ms.filter(function(m){ return coincide(m, q); }).reverse();
+    h = ms.length ? '<div class="lista">' + ms.map(htmlMov).join('') + '</div>' : '<div class="vacio">Sin movimientos.</div>';
+  } else {
+    var g = {};
+    CALC.ms.forEach(function(m){ if (!m.alumno || !coincide(m, q)) return; var k = norm(m.alumno); (g[k] = g[k] || { nombre: m.alumno, curso: m.curso, movs: [] }).movs.push(m); if (m.curso) g[k].curso = m.curso; });
+    var ks = Object.keys(g).sort();
+    h = ks.length ? '<div class="lista">' + ks.map(function(k){
+      var a = g[k], sal = a.movs.filter(function(m){ return m.tipo === 'salida'; }), dev = a.movs.filter(function(m){ return m.tipo === 'devolucion'; });
+      var pend = sal.filter(function(m){ var s = CALC.salidas[m.id]; return s && !m.cerrada && s.devuelto < m.cant; }).length;
+      return '<details class="alumno"><summary><b>' + esc(a.nombre) + '</b><span class="variedad">' + esc(a.curso || '') + '</span><span class="mono" style="font-size:.85rem">' + sal.length + ' salidas · ' + dev.length + ' devoluciones</span>' +
+        (pend ? '<span class="etq alerta">' + pend + ' pendiente' + (pend > 1 ? 's' : '') + '</span>' : '') + '</summary>' + a.movs.slice().reverse().map(htmlMov).join('') + '</details>';
+    }).join('') + '</div>' : '<div class="vacio">Sin alumnos registrados.</div>';
+  }
+  c.innerHTML = h; enlazarMovs(c);
+}
+
+/* ===== APRENDÉ ===== */
+function htmlAprende(){
+  return '<article class="art"><h2 class="h2">Cómo funciona el banco</h2>' +
+    '<p>Cada semilla se guarda por <b>variedad</b> y por <b>año de cosecha</b>: eso es un lote. Cada lote tiene una cantidad y un <b>poder germinativo (PG)</b>, que es el porcentaje de semillas que germinan en condiciones favorables.</p>' +
+    '<h3>Calcular el PG con un ensayo</h3><div class="caja-f formula">PG (%) = semillas germinadas ÷ semillas puestas × 100</div>' +
+    '<ol><li>Contá 50 o 100 semillas al azar del lote (con 4 repeticiones de 25 el resultado es más confiable).</li>' +
+    '<li>Ponelas sobre papel absorbente húmedo, en un plato tapado o enrolladas en papel dentro de una bolsa.</li>' +
+    '<li>Dejalas en un lugar templado (20 a 25 °C) y mantené el papel húmedo, sin encharcar.</li>' +
+    '<li>Contá las que germinaron con raíz y tallito normales al final del ensayo.</li></ol>' +
+    '<div class="tabla-caja"><table style="min-width:0"><thead><tr><th>Especie</th><th class="num">Días al conteo final (aprox.)</th></tr></thead><tbody>' +
+    [['Lechuga, maíz', '7'], ['Trigo, arveja, zapallo', '8'], ['Poroto', '9'], ['Girasol, rabanito', '10'], ['Cebolla', '12'], ['Tomate, zanahoria', '14']].map(function(r){ return '<tr style="cursor:default"><td>' + r[0] + '</td><td class="num">' + r[1] + '</td></tr>'; }).join('') + '</tbody></table></div>' +
+    '<h3>Qué pasa cuando alguien devuelve semilla</h3>' +
+    '<p>La semilla que vuelve se mezcla con la que había en el lote del mismo año. Por eso el PG nuevo es un <b>promedio ponderado</b>: pesa más el que tenga más cantidad.</p>' +
+    '<div class="caja-f formula">PG nuevo = (cant. en banco × PG banco + cant. devuelta × PG devuelto) ÷ cantidad total</div>' +
+    '<p>Ejemplo: hay 460 g con PG 88 % y alguien devuelve 300 g con PG 76 %. (460 × 88 + 300 × 76) ÷ 760 = <b>83,3 %</b>. El lote bajó un poco porque la semilla que volvió germina menos.</p>' +
+    '<p>Si devolvés semilla que cosechaste, va al lote del año de esa cosecha. Si es la misma que te llevaste sin usar, vuelve a su lote original.</p>' +
+    '<h3>¿Cuántas semillas sembrar?</h3><div class="caja-f formula">semillas a sembrar = plantas que querés ÷ (PG ÷ 100)</div>' +
+    '<p>Con PG 80 % y 20 plantas: 20 ÷ 0,8 = 25 semillas. Cuanto más bajo el PG, más semilla hace falta.</p>' +
+    '<h3>Cómo leer los colores</h3><p><span class="pill ok">80 % o más</span> bueno · <span class="pill alerta">60 a 79 %</span> regular · <span class="pill mal">menos de 60 %</span> bajo, conviene renovar el lote. Son umbrales orientativos del banco escolar; cada especie tiene su propio mínimo comercial.</p>' +
+    '<h3>Por qué importa el año</h3><p>La semilla envejece y pierde poder germinativo, más rápido con calor y humedad. Cebolla y perejil duran poco (1 a 2 años); zapallo, tomate y lechuga, varios años. Cuando un lote supera su vida útil aproximada, aparece un aviso para repetir el ensayo. Guardá la semilla seca, fresca, a oscuras y en frascos bien cerrados.</p>' +
+    '</article>';
+}
+
+/* ===== DOCENTE ===== */
+function htmlDocente(){
+  var hayEj = ST.variedades.some(function(v){ return v.ej; }) || ST.movs.some(function(m){ return m.ej; });
+  var vSel = UI.preVar || '';
+  var unidades = ['g', 'semillas', 'sobres'];
+  return '<h2 class="h2">Gestión del banco</h2><p class="nota">Solo lo ven quienes pueden editar la página.</p><div class="stack">' +
+    sec('comp', 'Cargar comprobantes de alumnos',
+      '<p class="nota" style="margin:0">Pegá acá los mensajes que te mandaron por WhatsApp. Podés pegar varios juntos.</p>' +
+      '<label class="campo"><span>Mensajes</span><textarea id="g-comp-txt" placeholder="Pegá el mensaje con el código BS1…"></textarea></label>' +
+      '<div class="btns"><button class="btn" type="button" id="g-comp-leer">Leer comprobantes</button></div><div id="g-comp-res" class="stack"></div>') +
+    sec('ing', 'Ingreso de semilla (lote nuevo o más cantidad)',
+      '<form id="g-ing" class="stack"><label class="campo"><span>Variedad</span><select id="gi-var">' + optsVar(false, vSel) + '</select></label>' +
+      '<div class="fila2"><label class="campo"><span>Año de cosecha</span><input id="gi-anio" type="number" inputmode="numeric" value="' + ANIO + '"></label>' +
+      '<label class="campo"><span>Cantidad</span><input id="gi-cant" type="number" inputmode="decimal" step="any" min="0"></label>' +
+      '<label class="campo"><span>PG (%)</span><input id="gi-pg" type="number" inputmode="decimal" step="any" min="0" max="100"></label></div>' +
+      '<label class="campo"><span>Origen del PG</span><select id="gi-fuente"><option value="ensayo">Ensayo propio</option><option value="dato">Dato del envase o proveedor</option></select></label>' +
+      '<label class="campo"><span>Origen de la semilla</span><input id="gi-obs" placeholder="Ej.: cosecha parcela escolar, donación INTA, compra"></label>' +
+      '<div class="err" id="gi-err"></div><button class="btn prim" type="submit">Registrar ingreso</button></form>') +
+    sec('ens', 'Ensayo de germinación de un lote',
+      '<form id="g-ens" class="stack"><div class="fila2"><label class="campo"><span>Variedad</span><select id="ge-var">' + optsVar(false, vSel) + '</select></label>' +
+      '<label class="campo"><span>Lote</span><select id="ge-lote"></select></label></div>' +
+      '<div class="fila2"><label class="campo"><span>Semillas puestas</span><input id="ge-es" type="number" inputmode="numeric" min="1"></label>' +
+      '<label class="campo"><span>Semillas germinadas</span><input id="ge-ge" type="number" inputmode="numeric" min="0"></label></div>' +
+      '<label class="campo"><span>Observaciones</span><input id="ge-obs" placeholder="Ej.: rollo de papel, 4 × 25, 7 días"></label>' +
+      '<div id="ge-prev" class="prev"></div><div class="err" id="ge-err"></div><button class="btn prim" type="submit">Registrar ensayo</button></form>') +
+    sec('baja', 'Baja o descarte',
+      '<form id="g-baja" class="stack"><div class="fila2"><label class="campo"><span>Variedad</span><select id="gb-var">' + optsVar(true, vSel) + '</select></label>' +
+      '<label class="campo"><span>Lote</span><select id="gb-lote"></select></label></div>' +
+      '<div class="fila2"><label class="campo"><span>Cantidad</span><input id="gb-cant" type="number" inputmode="decimal" step="any" min="0"></label>' +
+      '<label class="campo"><span>Motivo</span><select id="gb-mot"><option>Semilla vencida</option><option>Hongos o insectos</option><option>Usada en ensayo</option><option>Otro</option></select></label></div>' +
+      '<div class="err" id="gb-err"></div><button class="btn prim" type="submit">Registrar baja</button></form>') +
+    sec('var', 'Variedades (nueva o editar ficha)',
+      '<form id="g-var" class="stack"><label class="campo"><span>Ficha</span><select id="gv-sel"><option value="">Nueva variedad</option>' + optsVar(false, vSel) + '</select></label>' +
+      '<div class="fila2"><label class="campo"><span>Especie (nombre común)</span><input id="gv-esp" placeholder="Ej.: Maíz"></label><label class="campo"><span>Variedad</span><input id="gv-var" placeholder="Ej.: Colorado criollo"></label></div>' +
+      '<div class="fila2"><label class="campo"><span>Nombre científico</span><input id="gv-sci" placeholder="Ej.: Zea mays"></label><label class="campo"><span>Familia</span><input id="gv-fam" placeholder="Ej.: Poaceae"></label></div>' +
+      '<div class="fila2"><label class="campo"><span>Grupo</span><input id="gv-gru" list="gv-gru-l" placeholder="Hortaliza, Cereal…"><datalist id="gv-gru-l">' + ['Hortaliza', 'Cereal', 'Legumbre', 'Oleaginosa', 'Aromática', 'Forrajera', 'Flor', 'Frutal'].concat(grupos()).filter(function(x, i, a){ return a.indexOf(x) === i; }).map(function(g){ return '<option value="' + esc(g) + '">'; }).join('') + '</datalist></label>' +
+      '<label class="campo"><span>Unidad</span><select id="gv-uni">' + unidades.map(function(u){ return '<option>' + u + '</option>'; }).join('') + '</select></label>' +
+      '<label class="campo"><span>Vida útil aprox. (años)</span><input id="gv-vida" type="number" inputmode="numeric" min="1" max="30"></label></div>' +
+      '<label class="campo"><span>Notas</span><input id="gv-not" placeholder="Ej.: origen, manejo, cuidados"></label>' +
+      '<div class="err" id="gv-err"></div><div class="btns"><button class="btn prim" type="submit" id="gv-ok">Guardar ficha</button><button class="btn peligro" type="button" id="gv-del" hidden>Borrar ficha</button></div></form>') +
+    sec('qr', 'Cartel con QR',
+      (ST.config.qr ? '<div class="qr-caja"><div class="qr">' + qrSVG() + '</div><div class="stack" style="flex:1 1 220px;min-width:0"><p>Imprimilo y pegalo en el banco. Al escanearlo se abre esta página con el listado de semillas.</p>' +
+        '<div class="url" id="g-url">' + esc(ST.config.url) + '</div><div class="btns"><button class="btn" type="button" id="g-url-c">Copiar enlace</button><button class="btn" type="button" id="g-cartel">Descargar cartel</button></div></div></div>'
+        : '<p>El QR todavía no está generado.</p>') +
+      '<p class="nota" style="margin:0">Para que lo vean sin cuenta, compartí la página con enlace público desde el menú Compartir.</p>') +
+    sec('exp', 'Exportar planilla',
+      '<p>Descargá el inventario o el historial completo para abrir en Excel o Google Sheets.</p><div class="btns"><button class="btn" type="button" id="g-exp-inv">Inventario (CSV)</button><button class="btn" type="button" id="g-exp-mov">Movimientos (CSV)</button></div><div id="g-exp-res"></div>') +
+    sec('aj', 'Ajustes',
+      '<form id="g-aj" class="stack"><label class="campo"><span>Nombre de la escuela</span><input id="ga-esc" value="' + esc(ST.config.escuela || '') + '"></label>' +
+      '<label class="campo"><span>WhatsApp del docente (con código de país, sin espacios)</span><input id="ga-wa" inputmode="tel" placeholder="5492345000000" value="' + esc(ST.config.wa || '') + '"></label>' +
+      '<p class="nota" style="margin:0">Si lo cargás, el botón de los alumnos abre directo el chat con vos.</p><button class="btn prim" type="submit">Guardar ajustes</button></form>') +
+    (hayEj ? sec('ej', 'Datos de ejemplo',
+      '<p>Las variedades y movimientos marcados como ejemplo sirven para ver cómo funciona. Borralos cuando cargues tus semillas.</p><div class="btns"><button class="btn peligro" type="button" id="g-ej">Borrar datos de ejemplo</button></div>') : '') +
+    '</div>';
+}
+function sec(id, titulo, cuerpo){ return '<details class="sec" id="sec-' + id + '"' + (UI.secAbierta === id ? ' open' : '') + '><summary>' + titulo + '</summary><div class="sec-in">' + cuerpo + '</div></details>'; }
+function lotesOpts(sel, vid, soloStock){
+  var v = CALC.vars[vid];
+  sel.innerHTML = lotesDe(vid, !soloStock).map(function(L){ return '<option value="' + L.anio + '">' + L.anio + ' · ' + fCant(L.stock, v.unidad) + ' · PG ' + fPG(L.pg) + '</option>'; }).join('') || '<option value="">Sin lotes</option>';
+}
+function enlazarDocente(){
+  $$('details.sec').forEach(function(d){ d.ontoggle = function(){ if (d.open) UI.secAbierta = d.id.slice(4); }; });
+  // comprobantes
+  var leidos = [];
+  $('#g-comp-leer').onclick = function(){
+    var res = leerCodigos($('#g-comp-txt').value), box = $('#g-comp-res');
+    var ids = {}; ST.movs.forEach(function(m){ ids[m.id] = 1; });
+    leidos = [];
+    if (!res.length){ box.innerHTML = '<p class="err">No encontré ningún código BS1 en el texto.</p>'; return; }
+    box.innerHTML = '<div class="lista">' + res.map(function(r){
+      if (r.err) return '<div class="mov"><div class="mov-tipo t-baja">!</div><div class="mov-l1">' + esc(r.err) + '</div></div>';
+      var m = r.m;
+      if (!m || !m.id || !CALC.vars[m.vid] || (m.tipo !== 'salida' && m.tipo !== 'devolucion')) return '<div class="mov"><div class="mov-tipo t-baja">!</div><div class="mov-l1">El comprobante es de una semilla que ya no está en el banco.</div></div>';
+      if (ids[m.id]) return '<div class="mov"><div class="mov-tipo t-ingreso">OK</div><div class="mov-l1">Ya cargado: ' + esc(m.alumno) + ' · ' + esc(nombreVar(CALC.vars[m.vid])) + '</div></div>';
+      leidos.push(m); return htmlMov(m);
+    }).join('') + '</div>' + (leidos.length ? '<button class="btn prim" type="button" id="g-comp-ok">Cargar ' + leidos.length + ' movimiento' + (leidos.length > 1 ? 's' : '') + '</button>' : '');
+    var ok = $('#g-comp-ok'); if (ok) ok.onclick = function(){ guardar({ op: 'addMovs', movs: leidos }, leidos.length + ' comprobante' + (leidos.length > 1 ? 's' : '') + ' de alumnos'); };
+  };
+  // ingreso
+  $('#g-ing').onsubmit = function(e){
+    e.preventDefault(); var er = $('#gi-err'); er.textContent = '';
+    var vid = $('#gi-var').value, anio = parseInt($('#gi-anio').value, 10), c = num($('#gi-cant').value), pg = num($('#gi-pg').value);
+    if (!vid){ er.textContent = 'Primero creá la variedad.'; return; }
+    if (isNaN(anio) || anio < 1990 || anio > ANIO){ er.textContent = 'Revisá el año.'; return; }
+    if (isNaN(c) || c <= 0){ er.textContent = 'Indicá la cantidad.'; return; }
+    if (isNaN(pg) || pg < 0 || pg > 100){ er.textContent = 'El PG va de 0 a 100.'; return; }
+    guardar({ op: 'addMovs', movs: [{ id: uid('m'), t: new Date().toISOString(), tipo: 'ingreso', vid: vid, anio: anio, cant: c, pg: r1(pg), pgFuente: $('#gi-fuente').value, obs: $('#gi-obs').value.trim() }] }, 'ingreso de ' + nombreVar(CALC.vars[vid]) + ' ' + anio);
+  };
+  // ensayo
+  var geVar = $('#ge-var'), geLote = $('#ge-lote');
+  function prevEns(){
+    var es = num($('#ge-es').value), ge = num($('#ge-ge').value), L = CALC.lotes[geVar.value + '|' + geLote.value], o = $('#ge-prev');
+    if (isNaN(es) || es <= 0 || isNaN(ge) || ge < 0 || ge > es){ o.innerHTML = ''; return; }
+    var pg = ge / es * 100;
+    o.innerHTML = '<div class="formula">PG = ' + ge + ' ÷ ' + es + ' × 100 = <b>' + fPG(pg) + '</b></div>' + (L ? '<p>El lote pasa de ' + fPG(L.pg) + ' a <b>' + fPG(pg) + '</b>.</p>' : '');
+  }
+  if (geVar.value) lotesOpts(geLote, geVar.value, false);
+  geVar.onchange = function(){ lotesOpts(geLote, geVar.value, false); prevEns(); };
+  geLote.onchange = prevEns; $('#ge-es').oninput = prevEns; $('#ge-ge').oninput = prevEns;
+  $('#g-ens').onsubmit = function(e){
+    e.preventDefault(); var er = $('#ge-err'); er.textContent = '';
+    var es = num($('#ge-es').value), ge = num($('#ge-ge').value);
+    if (!geLote.value){ er.textContent = 'Esa variedad no tiene lotes.'; return; }
+    if (isNaN(es) || es <= 0 || isNaN(ge) || ge < 0){ er.textContent = 'Completá puestas y germinadas.'; return; }
+    if (ge > es){ er.textContent = 'Germinadas no puede superar a puestas.'; return; }
+    guardar({ op: 'addMovs', movs: [{ id: uid('m'), t: new Date().toISOString(), tipo: 'ensayo', vid: geVar.value, anio: +geLote.value, cant: 0, pg: r1(ge / es * 100), pgFuente: 'ensayo', es: es, ge: ge, obs: $('#ge-obs').value.trim() }] }, 'ensayo de ' + nombreVar(CALC.vars[geVar.value]) + ' ' + geLote.value);
+  };
+  // baja
+  var gbVar = $('#gb-var'), gbLote = $('#gb-lote');
+  if (gbVar.value) lotesOpts(gbLote, gbVar.value, true);
+  gbVar.onchange = function(){ lotesOpts(gbLote, gbVar.value, true); };
+  $('#g-baja').onsubmit = function(e){
+    e.preventDefault(); var er = $('#gb-err'); er.textContent = '';
+    var L = CALC.lotes[gbVar.value + '|' + gbLote.value], c = num($('#gb-cant').value);
+    if (!L){ er.textContent = 'Elegí un lote.'; return; }
+    if (isNaN(c) || c <= 0 || c > L.stock){ er.textContent = 'La cantidad tiene que estar entre 0 y ' + fCant(L.stock, CALC.vars[L.vid].unidad) + '.'; return; }
+    guardar({ op: 'addMovs', movs: [{ id: uid('m'), t: new Date().toISOString(), tipo: 'baja', vid: L.vid, anio: L.anio, cant: c, obs: $('#gb-mot').value }] }, 'baja de ' + nombreVar(CALC.vars[L.vid]) + ' ' + L.anio);
+  };
+  // variedades
+  var gvSel = $('#gv-sel'), gvDel = $('#gv-del');
+  function cargarFicha(){
+    var v = CALC.vars[gvSel.value] || {};
+    $('#gv-esp').value = v.especie || ''; $('#gv-var').value = v.variedad || ''; $('#gv-sci').value = v.cientifico || ''; $('#gv-fam').value = v.familia || '';
+    $('#gv-gru').value = v.grupo || ''; $('#gv-uni').value = v.unidad || 'g'; $('#gv-vida').value = v.vida || ''; $('#gv-not').value = v.notas || '';
+    gvDel.hidden = !v.id; gvDel.dataset.conf = ''; gvDel.textContent = 'Borrar ficha';
+    $('#gv-ok').textContent = v.id ? 'Guardar cambios' : 'Crear variedad';
+  }
+  gvSel.onchange = cargarFicha; cargarFicha();
+  if (UI.preVar){ $('#sec-var').open = true; UI.secAbierta = 'var'; UI.preVar = null; setTimeout(function(){ $('#sec-var').scrollIntoView({ block: 'start' }); }, 50); }
+  $('#g-var').onsubmit = function(e){
+    e.preventDefault(); var er = $('#gv-err'); er.textContent = '';
+    var esp = $('#gv-esp').value.trim();
+    if (!esp){ er.textContent = 'Escribí el nombre de la especie.'; return; }
+    var old = CALC.vars[gvSel.value];
+    var v = { id: old ? old.id : uid('v'), especie: esp, variedad: $('#gv-var').value.trim(), cientifico: $('#gv-sci').value.trim(), familia: $('#gv-fam').value.trim(),
+      grupo: $('#gv-gru').value.trim(), unidad: $('#gv-uni').value, vida: parseInt($('#gv-vida').value, 10) || null, notas: $('#gv-not').value.trim() };
+    if (old && old.ej) v.ej = true;
+    guardar({ op: 'setVar', v: v }, (old ? 'cambios en ' : 'nueva variedad ') + nombreVar(v));
+  };
+  gvDel.onclick = function(){
+    var vid = gvSel.value, usada = ST.movs.some(function(m){ return m.vid === vid; });
+    if (usada){ $('#gv-err').textContent = 'Esta variedad tiene movimientos. Anulalos primero o dejala sin existencias.'; return; }
+    if (gvDel.dataset.conf !== '1'){ gvDel.dataset.conf = '1'; gvDel.textContent = '¿Seguro? Tocá para borrar'; return; }
+    guardar({ op: 'delVar', id: vid }, 'borrar ' + nombreVar(CALC.vars[vid]));
+  };
+  // QR
+  var uc = $('#g-url-c'); if (uc) uc.onclick = function(){ copiar(ST.config.url, $('#g-url')); };
+  var gc = $('#g-cartel'); if (gc) gc.onclick = function(){ descargar('cartel-banco-de-semillas.svg', cartelSVG()); };
+  // exportar
+  $('#g-exp-inv').onclick = function(){ descargar('inventario-banco-semillas.csv', '﻿' + csvInventario()); };
+  $('#g-exp-mov').onclick = function(){ descargar('movimientos-banco-semillas.csv', '﻿' + csvMovs()); };
+  // ajustes
+  $('#g-aj').onsubmit = function(e){ e.preventDefault(); guardar({ op: 'config', c: { escuela: $('#ga-esc').value.trim(), wa: $('#ga-wa').value.replace(/\D/g, '') } }, 'ajustes'); };
+  var ej = $('#g-ej'); if (ej) ej.onclick = function(){
+    if (ej.dataset.conf !== '1'){ ej.dataset.conf = '1'; ej.textContent = '¿Seguro? Tocá para borrar'; return; }
+    guardar({ op: 'delEjemplos' }, 'borrar datos de ejemplo');
+  };
+}
+
+/* ===== exportar y descargar ===== */
+function celda(x){ x = x == null ? '' : String(x); return /[;"\n]/.test(x) ? '"' + x.replace(/"/g, '""') + '"' : x; }
+function dec(x){ return x == null || isNaN(x) ? '' : String(r1(x)).replace('.', ','); }
+function csvInventario(){
+  var f = [['Especie', 'Variedad', 'Nombre científico', 'Familia', 'Grupo', 'Año de cosecha', 'Edad (años)', 'Cantidad', 'Unidad', 'PG actual (%)', 'Estado', 'Último ensayo']];
+  ST.variedades.slice().sort(cmpVar).forEach(function(v){
+    lotesDe(v.id).forEach(function(L){
+      f.push([v.especie, v.variedad, v.cientifico, v.familia, v.grupo, L.anio, ANIO - L.anio, dec(L.stock), v.unidad, dec(L.pg), NIVEL_TXT[nivel(L.pg)], L.ultEnsayo ? fFecha(L.ultEnsayo) : '']);
+    });
+  });
+  return f.map(function(r){ return r.map(celda).join(';'); }).join('\r\n');
+}
+function csvMovs(){
+  var f = [['Fecha', 'Tipo', 'Alumno', 'Curso', 'Especie', 'Variedad', 'Año del lote', 'Cantidad', 'Unidad', 'PG (%)', 'Origen del PG', 'Destino', 'Observaciones']];
+  CALC.ms.forEach(function(m){
+    var v = CALC.vars[m.vid] || {};
+    f.push([new Date(m.t).toLocaleDateString('es-AR'), TIPO_TXT[m.tipo], m.alumno, m.curso, v.especie, v.variedad, m.anio, dec(m.cant), v.unidad, dec(m.pg), m.pgFuente, m.destino, m.obs]);
+  });
+  return f.map(function(r){ return r.map(celda).join(';'); }).join('\r\n');
+}
+function descargar(nombre, datos){
+  var res = $('#g-exp-res');
+  if (DESC){
+    DESC.save({ filename: nombre, data: datos }).then(function(){ toast('Descargado: ' + nombre); }, function(e){
+      if (e && e.code === 'declined') return;
+      if (e && e.code === 'rate_limited'){ toast('Esperá un momento y probá de nuevo.'); return; }
+      mostrarTexto(nombre, datos);
+    });
+  } else mostrarTexto(nombre, datos);
+  function mostrarTexto(n, d){
+    if (!res) return toast('No se puede descargar desde esta vista.');
+    res.innerHTML = '<p class="nota">No se pudo descargar desde esta vista. Copiá el contenido y pegalo en un archivo ' + esc(n) + '.</p><label class="campo"><span>' + esc(n) + '</span><textarea id="g-exp-txt" readonly>' + esc(d) + '</textarea></label><button class="btn chico" type="button" id="g-exp-c">Copiar</button>';
+    $('#g-exp-c').onclick = function(){ copiar(d, $('#g-exp-txt')); };
+  }
+}
+function copiar(texto, el){
+  try {
+    navigator.clipboard.writeText(texto).then(function(){ toast('Copiado'); }, function(){ selTxt(el); });
+  } catch(e){ selTxt(el); }
+}
+function selTxt(el){
+  if (!el) return;
+  if (el.select){ el.focus(); el.select(); }
+  else { var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+  toast('Texto seleccionado: copialo con el menú del teléfono.');
+}
+
+/* ===== QR y cartel ===== */
+function qrSVG(){
+  var q = ST.config.qr, n = q.n + 8;
+  return '<svg viewBox="0 0 ' + n + ' ' + n + '" role="img" aria-label="Código QR de esta página" shape-rendering="crispEdges"><rect width="' + n + '" height="' + n + '" style="fill:var(--qr-fondo)"/><path transform="translate(4 4)" style="fill:var(--qr-tinta)" d="' + q.d + '"/></svg>';
+}
+function cartelSVG(){
+  var q = ST.config.qr, n = q.n + 8, W = 600, H = 820, k = 400 / n;
+  var esc2 = function(s){ return esc(s); };
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '">' +
+    '<rect width="' + W + '" height="' + H + '" fill="#FFFFFF"/><rect x="22" y="22" width="' + (W - 44) + '" height="' + (H - 44) + '" rx="12" fill="none" stroke="#2E5E3E" stroke-width="4"/>' +
+    '<text x="300" y="98" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700" fill="#1D2A20">Banco de Semillas</text>' +
+    '<text x="300" y="138" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#5B6A5E">' + esc2(ST.config.escuela || '') + '</text>' +
+    '<g transform="translate(100 168) scale(' + k.toFixed(4) + ')" shape-rendering="crispEdges"><rect width="' + n + '" height="' + n + '" fill="#FFFFFF"/><path transform="translate(4 4)" fill="#000000" d="' + q.d + '"/></g>' +
+    '<text x="300" y="625" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#2E5E3E">Escaneá con la cámara del celular</text>' +
+    '<text x="300" y="670" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#1D2A20">Mirá qué semillas hay, su año y su poder germinativo,</text>' +
+    '<text x="300" y="700" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#1D2A20">y anotá lo que te llevás o devolvés.</text>' +
+    '<text x="300" y="760" text-anchor="middle" font-family="Courier New, monospace" font-size="15" fill="#5B6A5E">Sale una semilla, vuelve una cosecha.</text></svg>';
+}
+
+/* ===== avisos ===== */
+var tt = null;
+function toast(msg){
+  var t = $('.toast'); if (!t){ t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); document.body.appendChild(t); }
+  t.textContent = msg; t.hidden = false; clearTimeout(tt); tt = setTimeout(function(){ t.hidden = true; }, 3800);
+}
+function ocupado(on){
+  var o = $('.ocupado');
+  if (on && !o){ o = document.createElement('div'); o.className = 'ocupado'; o.innerHTML = '<div>Guardando…</div>'; document.body.appendChild(o); }
+  else if (!on && o) o.remove();
+}
+
+/* ===== arranque ===== */
+function usar(n){ try { return (window.claude && window.claude.use) ? window.claude.use(n).catch(function(){ return null; }) : Promise.resolve(null); } catch(e){ return Promise.resolve(null); } }
+var INIT = Promise.all([usar('artifact'), usar('user'), usar('downloads')]).then(function(r){
+  ART = r[0]; DESC = r[2];
+  var u = r[1];
+  return (u ? u.canEdit().catch(function(){ return false; }) : Promise.resolve(false)).then(function(ce){
+    esDocente = !!ce && !!ART; puedeGuardar = esDocente;
+  });
+}).catch(function(){ puedeGuardar = false; esDocente = false; });
+
+var h0 = (location.hash || '').replace('#', '');
+var pedida = ['banco', 'registrar', 'historial', 'aprende', 'docente'].indexOf(h0) >= 0 ? h0 : (ls('bs_tab') || 'banco');
+UI.tab = pedida;
+UI.vista = ls('bs_vista') === 'planilla' ? 'planilla' : 'fichas';
+PEND = revisarPendiente();
+pintar();
+INIT.then(function(){
+  if (esDocente && pedida === 'docente') UI.tab = 'docente';
+  var ae = document.activeElement, enForm = ae && ae.closest && ae.closest('form');
+  pintarNav();
+  if (!enForm && (esDocente || UI.tab === 'docente')) pintarTab(); else botonModo();
+});
+})();
+</script>
+</body></html>
