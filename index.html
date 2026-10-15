@@ -389,7 +389,8 @@ function aplicar(st, p){
   return st;
 }
 var reintentado = false;
-function guardar(patch, desc){
+function guardar(patch, desc, alGuardar, alFallar){
+  if (API) return guardarAPI(patch, desc, alGuardar, alFallar);
   patch.pid = uid('p');
   var nuevo = aplicar(clon(ST), clon(patch));
   nuevo.ultimoCambio = patch.pid;
@@ -417,6 +418,88 @@ function revisarPendiente(){
   return p;
 }
 
+/* ===== planilla de Google (Apps Script) ===== */
+var API = '';
+var PLANILLA = 'https://docs.google.com/spreadsheets/d/1vCNJ68T7k5-Fvmm-BcT-DSVqVU8_d5nIhtEY2Dw7c9w/edit';
+var CLAVE = '', RED = '';
+function api(pedido){
+  return fetch(API, { method: 'POST', body: JSON.stringify(pedido) }).then(function(r){ return r.json(); });
+}
+function aplicarEstado(e){
+  if (!e) return;
+  ST.variedades = e.variedades || []; ST.movs = e.movs || [];
+  if (e.config){ if (e.config.escuela) ST.config.escuela = e.config.escuela; if (e.config.wa) ST.config.wa = e.config.wa; }
+}
+function cargarEstado(){
+  return fetch(API + '?accion=estado&_=' + Date.now()).then(function(r){ return r.json(); }).then(function(r){
+    if (!r || !r.ok) throw new Error((r && r.error) || 'sin datos');
+    aplicarEstado(r.estado); RED = 'ok'; return true;
+  }).catch(function(){ RED = 'sin'; return false; });
+}
+function iniciarAPI(){
+  var clave = ls('bs_clave') || '';
+  return cargarEstado().then(function(hay){
+    puedeGuardar = hay;
+    if (!hay || !clave) return;
+    return api({ op: 'verificar', clave: clave }).then(function(r){
+      if (r && r.ok){ CLAVE = clave; esDocente = true; } else ls('bs_clave', '');
+    }, function(){});
+  });
+}
+function guardarAPI(patch, desc, alGuardar, alFallar){
+  var pedido = clon(patch); if (CLAVE) pedido.clave = CLAVE;
+  ocupado(true);
+  return api(pedido).then(function(r){
+    ocupado(false);
+    if (!r || !r.ok){ var e = (r && r.error) || 'La planilla no respondió.'; if (alFallar) alFallar(e); else toast(e); return; }
+    aplicarEstado(r.estado); RED = 'ok'; cerrarHoja(); pintar(); toast('Guardado: ' + desc);
+    if (alGuardar) alGuardar();
+  }, function(){
+    ocupado(false);
+    var e = 'No hay conexión con la planilla.';
+    if (alFallar) alFallar(e); else toast(e + ' Probá de nuevo en un momento.');
+  });
+}
+function htmlAcceso(){
+  return '<div class="btns">' + (esDocente
+    ? '<button class="btn chico" type="button" id="b-salir">Salir del modo docente</button>'
+    : '<button class="btn chico" type="button" id="b-docente">Soy docente</button>') + '</div>';
+}
+function enlazarAcceso(){
+  var bd = $('#b-docente'), bs = $('#b-salir');
+  if (bd) bd.onclick = abrirIngreso;
+  if (bs) bs.onclick = function(){ CLAVE = ''; ls('bs_clave', ''); esDocente = false; UI.tab = 'banco'; pintar(); toast('Saliste del modo docente'); };
+}
+function abrirIngreso(){
+  hoja('<div class="hoja-cab"><div><div class="especie" style="font-size:1.4rem">Entrar como docente</div></div><button class="cerrar" type="button" aria-label="Cerrar">×</button></div>' +
+    '<form id="f-clave" class="stack" novalidate><label class="campo"><span>Clave de docente</span><input id="k-clave" type="password" autocomplete="current-password"></label>' +
+    '<p class="nota" style="margin:0">Es la clave que escribiste en la pestaña Config de la planilla de Google.</p>' +
+    '<div class="err" id="k-err" role="alert"></div><button class="btn prim" type="submit" id="k-ok">Entrar</button></form>', function(box){
+    $('#f-clave', box).onsubmit = function(ev){
+      ev.preventDefault();
+      var c = $('#k-clave', box).value.trim(), er = $('#k-err', box), b = $('#k-ok', box);
+      if (!c){ er.textContent = 'Escribí la clave.'; return; }
+      b.disabled = true; er.textContent = '';
+      api({ op: 'verificar', clave: c }).then(function(r){
+        b.disabled = false;
+        if (!r || !r.ok){ er.textContent = (r && r.error) || 'No se pudo comprobar la clave.'; return; }
+        CLAVE = c; ls('bs_clave', c); esDocente = true; cerrarHoja(); irA('docente'); toast('Entraste como docente');
+      }, function(){ b.disabled = false; er.textContent = 'No hay conexión con la planilla. Probá de nuevo.'; });
+    };
+  });
+  var k = $('#k-clave'); if (k) k.focus();
+}
+function mostrarRegistrado(m){
+  var box = $('#r-comp'); if (!box) return;
+  var wa = (ST.config.wa || '').replace(/\D/g, '');
+  var href = 'https://wa.me/' + wa + '?text=' + encodeURIComponent(textoMov(m, true));
+  $('#f-reg').hidden = true; box.hidden = false;
+  box.innerHTML = '<div class="prev"><p><b>Listo, quedó registrado en el banco.</b> ' + (m.tipo === 'salida' ? 'Cuando coseches, acordate de devolver semilla.' : 'Gracias por devolver semilla al banco.') + '</p></div>' +
+    (wa ? '<div class="btns"><a class="btn" href="' + esc(href) + '" target="_blank" rel="noopener">Avisar al docente por WhatsApp</a></div><p class="nota" style="margin:0">El aviso es opcional: el registro ya está guardado.</p>' : '') +
+    '<button class="btn prim" type="button" id="c-otro">Hacer otro registro</button>';
+  $('#c-otro').onclick = function(){ pintarTab(); };
+}
+
 /* ===== comprobantes para quien no puede guardar ===== */
 function b64(s){ var b = new TextEncoder().encode(s), t = ''; for (var i = 0; i < b.length; i++) t += String.fromCharCode(b[i]); return btoa(t); }
 function deb64(s){ var t = atob(s), b = new Uint8Array(t.length); for (var i = 0; i < t.length; i++) b[i] = t.charCodeAt(i); return new TextDecoder().decode(b); }
@@ -426,7 +509,7 @@ function leerCodigos(txt){
   while ((x = re.exec(txt))){ try { out.push({ m: JSON.parse(deb64(x[1])) }); } catch(e){ out.push({ err: 'Código dañado o incompleto' }); } }
   return out;
 }
-function textoMov(m){
+function textoMov(m, sinCodigo){
   var v = CALC.vars[m.vid], u = v ? v.unidad : '';
   var l = ['Banco de Semillas: ' + (m.tipo === 'salida' ? 'SALIDA' : 'DEVOLUCIÓN'),
     'Alumno/a: ' + m.alumno + (m.curso ? ' (' + m.curso + ')' : ''),
@@ -434,7 +517,7 @@ function textoMov(m){
     'Cantidad: ' + fCant(m.cant, u) + (m.sinPesar ? ' aprox.' : '') + ' · PG ' + fPG(m.pg) + (m.pgFuente === 'estimado' ? ' (estimado)' : '')];
   if (m.destino) l.push('Destino: ' + m.destino);
   if (m.obs) l.push('Obs.: ' + m.obs);
-  l.push('', 'Código para cargar:', codigo(m));
+  if (!sinCodigo) l.push('', 'Código para cargar:', codigo(m));
   return l.join('\n');
 }
 
@@ -461,12 +544,14 @@ function pintar(){
     '<div class="wrap">' +
       '<header class="cab"><div><div class="cab-esc">' + esc(ST.config.escuela || 'Escuela agropecuaria') + '</div>' +
       '<h1>Banco de <span>Semillas</span></h1></div>' +
-      '<div class="cab-datos"><span><b>' + nV + '</b> variedades</span><span><b>' + nL + '</b> lotes con semilla</span><span><b>' + nP + '</b> préstamos abiertos</span>' + (nSP ? '<span><b>' + nSP + '</b> por pesar</span>' : '') + '</div></header>' +
+      '<div class="cab-datos"><span><b>' + nV + '</b> variedades</span><span><b>' + nL + '</b> lotes con semilla</span><span><b>' + nP + '</b> préstamos abiertos</span>' + (nSP ? '<span><b>' + nSP + '</b> por pesar</span>' : '') + '</div>' + (API ? htmlAcceso() : '') + '</header>' +
+      (API && RED === 'sin' ? '<div class="aviso alerta" role="status"><div>No se pudo conectar con la planilla. Se muestran los últimos datos guardados en la página, y lo que registres se arma como comprobante para mandar por WhatsApp.</div></div>' : '') +
       avisoPendiente() +
       '<main id="main"></main>' +
     '</div>' +
     '<nav class="nav" aria-label="Secciones"><div class="nav-in"></div></nav>';
   pintarNav();
+  if (API) enlazarAcceso();
   var ar = $('#pend-re'), ad = $('#pend-no');
   if (ar) ar.onclick = function(){
     var p = PEND;
@@ -849,16 +934,18 @@ function enviarRegistro(){
   }
   var desc = (m.tipo === 'salida' ? 'salida de ' : 'devolución de ') + nombreVar(CALC.vars[m.vid]) + ' (' + alumno + ')';
   var seguir = function(){
-    if (puedeGuardar) guardar({ op: 'addMovs', movs: [m] }, desc);
+    if (puedeGuardar) guardar({ op: 'addMovs', movs: [m] }, desc, function(){ mostrarRegistrado(m); }, function(e){ mostrarComprobante(m, e); });
     else mostrarComprobante(m);
   };
   if (puedeGuardar === null) INIT.then(seguir); else seguir();
 }
-function mostrarComprobante(m){
+function mostrarComprobante(m, problema){
   var txt = textoMov(m), wa = (ST.config.wa || '').replace(/\D/g, '');
   var href = 'https://wa.me/' + wa + '?text=' + encodeURIComponent(txt);
   var box = $('#r-comp'); $('#f-reg').hidden = true; box.hidden = false;
-  box.innerHTML = '<div class="prev"><p><b>Tu comprobante está listo.</b> Mandáselo al docente: cuando lo cargue, queda registrado en el banco.</p></div>' +
+  box.innerHTML = (problema
+      ? '<div class="aviso alerta"><div><b>No se pudo guardar en la planilla.</b> ' + esc(problema) + ' Mandale este comprobante al docente para que lo cargue.</div></div>'
+      : '<div class="prev"><p><b>Tu comprobante está listo.</b> Mandáselo al docente: cuando lo cargue, queda registrado en el banco.</p></div>') +
     '<div class="btns"><a class="btn prim" href="' + esc(href) + '" target="_blank" rel="noopener">Enviar por WhatsApp</a><button class="btn" type="button" id="c-copiar">Copiar mensaje</button></div>' +
     '<label class="campo"><span>Mensaje</span><textarea id="c-txt" readonly rows="9">' + esc(txt) + '</textarea></label>' +
     '<button class="btn" type="button" id="c-otro">Hacer otro registro</button>';
@@ -975,7 +1062,7 @@ function htmlDocente(){
   var hayEj = ST.variedades.some(function(v){ return v.ej; }) || ST.movs.some(function(m){ return m.ej; });
   var vSel = UI.preVar || '';
   var unidades = ['g', 'semillas', 'sobres'];
-  return '<h2 class="h2">Gestión del banco</h2><p class="nota">Solo lo ven quienes pueden editar la página.</p><div class="stack">' +
+  return '<h2 class="h2">Gestión del banco</h2><p class="nota">' + (API ? 'Solo se ve con la clave de docente. Lo que cargues acá se guarda en <a href="' + PLANILLA + '" target="_blank" rel="noopener">la planilla de Google</a>.' : 'Solo lo ven quienes pueden editar la página.') + '</p><div class="stack">' +
     sec('comp', 'Cargar comprobantes de alumnos',
       '<p class="nota" style="margin:0">Pegá acá los mensajes que te mandaron por WhatsApp. Podés pegar varios juntos.</p>' +
       '<label class="campo"><span>Mensajes</span><textarea id="g-comp-txt" placeholder="Pegá el mensaje con el código BS1…"></textarea></label>' +
@@ -1016,7 +1103,7 @@ function htmlDocente(){
       (ST.config.qr ? '<div class="qr-caja"><div class="qr">' + qrSVG() + '</div><div class="stack" style="flex:1 1 220px;min-width:0"><p>Imprimilo y pegalo en el banco. Al escanearlo se abre la página pública del banco, que cualquiera puede ver sin cuenta.</p>' +
         '<div class="url" id="g-url">' + esc(ST.config.url) + '</div><div class="btns"><button class="btn" type="button" id="g-url-c">Copiar enlace</button><button class="btn" type="button" id="g-cartel">Descargar cartel</button></div></div></div>'
         : '<p>El QR todavía no está generado.</p>') +
-      '<p class="nota" style="margin:0">La página pública es una copia: muestra el banco tal como estaba la última vez que se actualizó.</p>') +
+      '<p class="nota" style="margin:0">' + (API ? 'La página toma los datos de la planilla de Google, así que siempre está al día.' : 'La página pública es una copia: muestra el banco tal como estaba la última vez que se actualizó.') + '</p>') +
     sec('exp', 'Exportar planilla',
       '<p>Descargá el inventario o el historial completo para abrir en Excel o Google Sheets.</p><div class="btns"><button class="btn" type="button" id="g-exp-inv">Inventario (CSV)</button><button class="btn" type="button" id="g-exp-mov">Movimientos (CSV)</button></div><div id="g-exp-res"></div>') +
     sec('aj', 'Ajustes',
@@ -1213,7 +1300,7 @@ function ocupado(on){
 
 /* ===== arranque ===== */
 function usar(n){ try { return (window.claude && window.claude.use) ? window.claude.use(n).catch(function(){ return null; }) : Promise.resolve(null); } catch(e){ return Promise.resolve(null); } }
-var INIT = Promise.all([usar('artifact'), usar('user'), usar('downloads')]).then(function(r){
+var INIT = API ? iniciarAPI() : Promise.all([usar('artifact'), usar('user'), usar('downloads')]).then(function(r){
   ART = r[0]; DESC = r[2];
   var u = r[1];
   return (u ? u.canEdit().catch(function(){ return false; }) : Promise.resolve(false)).then(function(ce){
@@ -1231,7 +1318,7 @@ INIT.then(function(){
   if (esDocente && pedida === 'docente') UI.tab = 'docente';
   var ae = document.activeElement, enForm = ae && ae.closest && ae.closest('form');
   pintarNav();
-  if (!enForm && (esDocente || UI.tab === 'docente')) pintarTab(); else botonModo();
+  if (API && !enForm) pintar(); else if (!enForm && (esDocente || UI.tab === 'docente')) pintarTab(); else botonModo();
 });
 })();
 </script></body></html>
