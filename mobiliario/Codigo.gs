@@ -1,5 +1,3 @@
-/** @OnlyCurrentDoc */
-
 /**
  * Sillas, tablones y caballetes: conecta la página pública con esta planilla.
  *
@@ -10,7 +8,11 @@
  *   (pestaña Config, fila "Clave docente").
  * - Las pestañas Inventario y Retirado ahora se recalculan solas.
  * - La columna oculta "Datos" de Movimientos es la que usa la página: no la edites.
+ * - Funciona pegado en la planilla (Extensiones → Apps Script) o como proyecto
+ *   aparte en script.google.com: en ese caso usa la planilla de ID_PLANILLA.
  */
+
+var ID_PLANILLA = '1IQ2TKQMFmDeCvQM1-GXyaktZ-aZOGSaeofznr0-tQcw';
 
 var ZONA = 'America/Argentina/Buenos_Aires';
 var H_INV = 'Inventario', H_RET = 'Retirado ahora', H_MOV = 'Movimientos', H_MUE = 'Muebles', H_CFG = 'Config';
@@ -98,7 +100,13 @@ function atender(p) {
 
 /* ===== Lectura ===== */
 
-function hoja(nombre) { return SpreadsheetApp.getActiveSpreadsheet().getSheetByName(nombre); }
+function libro() {
+  var a = null;
+  try { a = SpreadsheetApp.getActiveSpreadsheet(); } catch (e) {}
+  return a || SpreadsheetApp.openById(ID_PLANILLA);
+}
+
+function hoja(nombre) { return libro().getSheetByName(nombre); }
 
 function leerConfig() {
   var c = { avisar: true };
@@ -313,14 +321,14 @@ function importar(est, reemplazar) {
 
 /* Crea las pestañas que falten. Se puede correr a mano desde el editor y es seguro repetirla. */
 function prepararPlanilla() {
-  var libro = SpreadsheetApp.getActiveSpreadsheet();
+  var libro_ = libro();
   var orden = [H_INV, H_RET, H_MOV, H_MUE, H_CFG];
-  var falta = orden.filter(function (n) { return !libro.getSheetByName(n); });
+  var falta = orden.filter(function (n) { return !libro_.getSheetByName(n); });
   if (!falta.length) return;
-  var libre = libro.getSheets().filter(function (h) { return h.getLastRow() === 0; })[0] || null;
+  var libre = libro_.getSheets().filter(function (h) { return h.getLastRow() === 0; })[0] || null;
   falta.forEach(function (n) {
     var h;
-    if (libre) { h = libre; h.setName(n); libre = null; } else h = libro.insertSheet(n);
+    if (libre) { h = libre; h.setName(n); libre = null; } else h = libro_.insertSheet(n);
     if (n === H_MOV) {
       h.getRange(1, 1, 1, CAB_MOV.length).setValues([CAB_MOV]);
       h.hideColumns(CAB_MOV.length);
@@ -339,7 +347,7 @@ function prepararPlanilla() {
     }
     formatear(h);
   });
-  orden.forEach(function (n, i) { libro.setActiveSheet(libro.getSheetByName(n)); libro.moveActiveSheet(i + 1); });
+  orden.forEach(function (n, i) { libro_.setActiveSheet(libro_.getSheetByName(n)); libro_.moveActiveSheet(i + 1); });
   recalcular();
 }
 
@@ -390,7 +398,7 @@ function avisar(movs, cfg) {
     var asunto = 'Mobiliario: ' + (TIPO_TXT[prin.tipo] || prin.tipo).toLowerCase() + ' de ' + itemsTxt(itemsDe(prin), TP) + (prin.quien ? ' (' + prin.quien + ')' : '');
     var l = [];
     movs.forEach(function (m) { l = l.concat(textoMov(m, TP)); l.push(''); });
-    l.push('Ya quedó guardado en la planilla: ' + SpreadsheetApp.getActiveSpreadsheet().getUrl());
+    l.push('Ya quedó guardado en la planilla: ' + libro().getUrl());
     if (cfg.url) l.push('Página: ' + cfg.url);
     MailApp.sendEmail(cfg.mail, asunto, l.join('\n'));
   } catch (e) {}
