@@ -261,7 +261,7 @@ details.sec>.sec-in{padding:0 16px 16px;display:flex;flex-direction:column;gap:1
 }
 </style>
 <div id="app"></div>
-<script id="estado" type="application/json">{"v":1,"config":{"escuela":"CFR Saladillo","wa":"5492344400874","url":"https://bautililli8-source.github.io/Banco-semilla/mobiliario/","copia":"2026-10-16T12:07:18.000Z"},"ultimoCambio":"pmvax4amws4lbb","tipos":[{"id":"t-sillas","nombre":"Silla","plural":"Sillas","clase":"silla","guardado":"Depósito","notas":"De plástico: si se rompen, se descartan.","reparable":false},{"id":"t-tablones","nombre":"Tablón","plural":"Tablones","clase":"tablon","guardado":"Depósito","notas":"De madera: se reparan.","reparable":true},{"id":"t-cab-madera","nombre":"Caballete de madera","plural":"Caballetes de madera","clase":"caballete","guardado":"Depósito","notas":"Se reparan.","reparable":true},{"id":"t-cab-hierro","nombre":"Caballete de hierro","plural":"Caballetes de hierro","clase":"caballete","guardado":"Depósito","notas":"Se reparan.","reparable":true}],"movs":[{"id":"m-recuento-inicial","t":"2026-10-16T11:29:00.000Z","tipo":"ingreso","items":[{"tid":"t-sillas","cant":436},{"tid":"t-tablones","cant":56},{"tid":"t-cab-madera","cant":20},{"tid":"t-cab-hierro","cant":72}],"origen":"Primer recuento","obs":""},{"id":"m-tablones-afuera","t":"2026-10-16T11:29:01.000Z","tipo":"prestamo","quien":"Escuela","rol":"uso general","items":[{"tid":"t-tablones","cant":3}],"lugar":"Parrilla del gimnasio","hasta":"","obs":"Quedan ahí para uso de la escuela"},{"id":"mmvawoaar7g5go","t":"2026-10-16T11:50:05.088Z","tipo":"prestamo","quien":"Lilli Bautista Gabriel","rol":"Santa maria","items":[{"tid":"t-sillas","cant":100},{"tid":"t-tablones","cant":20},{"tid":"t-cab-hierro","cant":40}],"lugar":"Santa maria","hasta":"2026-10-23","obs":""},{"id":"mmvawtj1ccrsh0","t":"2026-10-16T11:54:09.696Z","tipo":"ingreso","items":[{"tid":"t-sillas","cant":1}],"origen":"Compra","obs":""},{"id":"mmvawujqjw26km","t":"2026-10-16T11:54:57.259Z","tipo":"rotura","tid":"t-sillas","cant":1,"falla":"Otro","detalle":"","lugar":"Depósito","quien":"Bauti Lilli","rol":"","descarte":true},{"id":"mmvax4amwv1h7k","t":"2026-10-16T12:02:32.024Z","tipo":"devolucion","prestamoId":"mmvawoaar7g5go","quien":"Bauti Lilli","rol":"","items":[{"tid":"t-sillas","cant":100,"rotas":0},{"tid":"t-tablones","cant":20,"rotas":0},{"tid":"t-cab-hierro","cant":40,"rotas":0}],"obs":""}],"reservas":[]}</script>
+<script id="estado" type="application/json">{"v":1,"config":{"escuela":"CFR Saladillo","wa":"5492344400874","url":"https://bautililli8-source.github.io/Banco-semilla/mobiliario/","copia":"2026-10-16T13:53:40.000Z"},"ultimoCambio":"pmvaxguwpkltak","tipos":[{"id":"t-sillas","nombre":"Silla","plural":"Sillas","clase":"silla","guardado":"Depósito","notas":"De plástico: si se rompen, se descartan.","reparable":false},{"id":"t-tablones","nombre":"Tablón","plural":"Tablones","clase":"tablon","guardado":"Depósito","notas":"De madera: se reparan.","reparable":true},{"id":"t-cab-madera","nombre":"Caballete de madera","plural":"Caballetes de madera","clase":"caballete","guardado":"Depósito","notas":"Se reparan.","reparable":true},{"id":"t-cab-hierro","nombre":"Caballete de hierro","plural":"Caballetes de hierro","clase":"caballete","guardado":"Depósito","notas":"Se reparan.","reparable":true}],"movs":[{"id":"m-recuento-inicial","t":"2026-10-16T11:29:00.000Z","tipo":"ingreso","items":[{"tid":"t-sillas","cant":436},{"tid":"t-tablones","cant":56},{"tid":"t-cab-madera","cant":20},{"tid":"t-cab-hierro","cant":72}],"origen":"Primer recuento","obs":""},{"id":"m-tablones-afuera","t":"2026-10-16T11:29:01.000Z","tipo":"prestamo","quien":"Escuela","rol":"uso general","items":[{"tid":"t-tablones","cant":3}],"lugar":"Parrilla del gimnasio","hasta":"","obs":"Quedan ahí para uso de la escuela"},{"id":"mmvawoaar7g5go","t":"2026-10-16T11:50:05.088Z","tipo":"prestamo","quien":"Lilli Bautista Gabriel","rol":"Santa maria","items":[{"tid":"t-sillas","cant":100},{"tid":"t-tablones","cant":20},{"tid":"t-cab-hierro","cant":40}],"lugar":"Santa maria","hasta":"2026-10-23","obs":""},{"id":"mmvawtj1ccrsh0","t":"2026-10-16T11:54:09.696Z","tipo":"ingreso","items":[{"tid":"t-sillas","cant":1}],"origen":"Compra","obs":""},{"id":"mmvawujqjw26km","t":"2026-10-16T11:54:57.259Z","tipo":"rotura","tid":"t-sillas","cant":1,"falla":"Otro","detalle":"","lugar":"Depósito","quien":"Bauti Lilli","rol":"","descarte":true},{"id":"mmvax4amwv1h7k","t":"2026-10-16T12:02:32.024Z","tipo":"devolucion","prestamoId":"mmvawoaar7g5go","quien":"Bauti Lilli","rol":"","items":[{"tid":"t-sillas","cant":100,"rotas":0},{"tid":"t-tablones","cant":20,"rotas":0},{"tid":"t-cab-hierro","cant":40,"rotas":0}],"obs":""},{"id":"mmvaxguwpw7rj3","t":"2026-10-16T12:12:18.168Z","tipo":"devolucion","prestamoId":"m-tablones-afuera","quien":"Bauti Lilli","rol":"","items":[{"tid":"t-tablones","cant":3,"rotas":0}],"obs":""}],"reservas":[]}</script>
 <script id="app-code">(function(){
 'use strict';
 /* ===== Plantilla para que la página se vuelva a publicar con su estado ===== */
@@ -270,9 +270,124 @@ var TOP_HTML = "<title>Sillas, Tablones y Caballetes</title>\n<meta name=\"claud
 
 var ST = JSON.parse(document.getElementById('estado').textContent);
 ST.tipos = ST.tipos || []; ST.movs = ST.movs || []; ST.reservas = ST.reservas || []; ST.config = ST.config || {};
+var SNAP = JSON.parse(JSON.stringify(ST));
 var HOY = diaLocal(new Date());
 var COPIA = '';
 try { if (!window.claude && ST.config.copia) COPIA = new Date(ST.config.copia).toLocaleString('es-AR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); } catch(e){}
+
+/* ===== planilla de Google (Apps Script) ===== */
+var API = '';
+var PLANILLA = 'https://docs.google.com/spreadsheets/d/1IQ2TKQMFmDeCvQM1-GXyaktZ-aZOGSaeofznr0-tQcw/edit';
+var EN_CLAUDE = !!window.claude;
+var MODO = API && !EN_CLAUDE ? 'api' : (EN_CLAUDE ? 'claude' : 'copia');
+var VIEJA = EN_CLAUDE && !!API;
+var CLAVE = '', RED = '', ACT = null;
+function api(pedido){ return fetch(API, { method: 'POST', body: JSON.stringify(pedido) }).then(function(r){ return r.json(); }); }
+function aplicarEstado(e){
+  if (!e) return;
+  if (e.tipos && e.tipos.length) ST.tipos = e.tipos;
+  ST.movs = e.movs || [];
+  if (e.config) ['escuela', 'wa', 'url'].forEach(function(k){ if (e.config[k]) ST.config[k] = e.config[k]; });
+}
+function cargarEstado(){
+  return api(CLAVE ? { op: 'estado', clave: CLAVE } : { op: 'estado' }).then(function(r){
+    if (!r || !r.ok) throw new Error((r && r.error) || 'sin datos');
+    aplicarEstado(r.estado); RED = 'ok'; ACT = new Date(); puedeGuardar = true; return true;
+  }).catch(function(){ RED = 'sin'; puedeGuardar = false; return false; });
+}
+function iniciarAPI(){
+  CLAVE = ls('mb_clave') || '';
+  return cargarEstado().then(function(ok){
+    if (!ok || !CLAVE) return;
+    return api({ op: 'verificar', clave: CLAVE }).then(function(r){
+      if (r && r.ok) esDocente = true; else { CLAVE = ''; ls('mb_clave', ''); }
+    }, function(){});
+  });
+}
+function errorGuardar(e){
+  var el = (hojaAbierta && $('.err', hojaAbierta)) || $('#r-err') || $('#gi-err');
+  if (el) el.textContent = e;
+  toast(e);
+}
+function guardarAPI(patch, desc, despues){
+  var pedido = clon(patch); if (CLAVE) pedido.clave = CLAVE;
+  ocupado(true);
+  return api(pedido).then(function(r){
+    ocupado(false);
+    if (!r || !r.ok){ errorGuardar((r && r.error) || 'La planilla no respondió. Probá de nuevo.'); return; }
+    aplicarEstado(r.estado); RED = 'ok'; ACT = new Date();
+    cerrarHoja(); pintar();
+    if (despues) despues(); else toast('Guardado: ' + desc);
+  }, function(){ ocupado(false); errorGuardar('No hay conexión con la planilla. Probá de nuevo en un momento.'); });
+}
+function refrescar(){
+  if (MODO !== 'api' || document.hidden || hojaAbierta || $('.ocupado')) return;
+  cargarEstado().then(function(){
+    var ae = document.activeElement;
+    if ((UI.tab === 'inventario' || UI.tab === 'historial') && !(ae && ae.id === 'h-q')){ var y = window.scrollY; pintar(); window.scrollTo(0, y); }
+  });
+}
+function hora(d){ try { return d.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }); } catch(e){ return ''; } }
+function estadoDatos(){
+  if (MODO === 'api'){
+    if (RED === 'ok') return '<span>al día · ' + esc(hora(ACT)) + '</span>';
+    if (RED === 'sin') return '<span>sin conexión' + (COPIA ? ' · datos del ' + esc(COPIA) : '') + '</span>';
+    return '<span>cargando…</span>';
+  }
+  return COPIA ? '<span>datos del ' + esc(COPIA) + '</span>' : '';
+}
+function avisoVieja(){
+  var u = ST.config.url || '';
+  return '<div class="aviso alerta" role="status"><p><b>Esta copia ya no registra movimientos.</b> Ahora todo se guarda en la planilla de Google y se ve al día en la página pública' +
+    (u ? ': <a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(u) + '</a>' : '') + '.</p></div>';
+}
+function avisoConexion(){
+  if (VIEJA) return avisoVieja();
+  if (MODO === 'api' && RED === 'sin') return '<div class="aviso alerta" role="status"><p><b>No se pudo conectar con la planilla.</b> Se muestran los datos guardados en la página' + (COPIA ? ' (del ' + esc(COPIA) + ')' : '') + '. Lo que registres se arma como mensaje para el docente.</p><div class="btns"><button class="btn chico" type="button" id="b-reint">Probar de nuevo</button></div></div>';
+  return '';
+}
+function mostrarRegistrado(paq){
+  var box = $('#r-comp'), f = $('#f-reg'); if (!box || !f) return;
+  var wa = (ST.config.wa || '').replace(/\D/g, '');
+  f.hidden = true; box.hidden = false;
+  box.innerHTML = '<div class="prev"><p><b>Listo, quedó registrado.</b> Ya se ve en el inventario y al docente le llega un aviso.</p></div>' +
+    (wa ? '<div class="btns"><a class="btn" href="https://wa.me/' + wa + '?text=' + encodeURIComponent(textoPaquete(paq, false)) + '" target="_blank" rel="noopener">Avisar también por WhatsApp</a></div>' : '') +
+    '<button class="btn prim" type="button" id="c-otro">Anotar otra cosa</button>';
+  $('#c-otro').onclick = function(){ pintarTab(); };
+}
+function abrirIngreso(){
+  if (MODO !== 'api') return;
+  if (RED !== 'ok'){ toast('No hay conexión con la planilla.'); return; }
+  hoja(cabHoja('Entrar como docente') + '<form id="f-clave" class="stack" novalidate><label class="campo"><span>Clave de docente</span><input id="k-clave" type="password" autocomplete="current-password"></label>' +
+    '<p class="nota" style="margin:0">Es la clave que escribiste en la pestaña Config de la planilla de Google.</p><div class="err" id="k-err" role="alert"></div><button class="btn prim" type="submit" id="k-ok">Entrar</button></form>', function(v){
+    $('#f-clave', v).onsubmit = function(e){
+      e.preventDefault();
+      var c = $('#k-clave', v).value.trim(), er = $('#k-err', v), b = $('#k-ok', v);
+      if (!c){ er.textContent = 'Escribí la clave.'; return; }
+      b.disabled = true; er.textContent = '';
+      api({ op: 'verificar', clave: c }).then(function(r){
+        b.disabled = false;
+        if (!r || !r.ok){ er.textContent = (r && r.error) || 'No se pudo comprobar la clave.'; return; }
+        CLAVE = c; ls('mb_clave', c); esDocente = true; cerrarHoja();
+        cargarEstado().then(function(){ irA('docente'); toast('Entraste como docente.'); });
+      }, function(){ b.disabled = false; er.textContent = 'No hay conexión con la planilla. Probá de nuevo.'; });
+    };
+  });
+}
+function htmlPlanilla(){
+  return '<div class="aviso"><p>Todo lo que se registra queda guardado en la planilla y te llega un mail de aviso.' + (PLANILLA ? ' <a href="' + esc(PLANILLA) + '" target="_blank" rel="noopener">Abrir la planilla</a>' : '') + '</p>' +
+    '<div class="btns"><button class="btn chico" type="button" id="g-salir">Salir del modo docente</button></div></div>';
+}
+function secImportar(){
+  if (ST.movs.length || !SNAP.movs.length) return '';
+  return sec('imp', 'Pasar los datos de esta página a la planilla', '<p>La planilla todavía está vacía. Pasale los ' + SNAP.movs.length + ' registros que tiene la página (recuento, retiros y roturas) para seguir desde ahí.</p><div class="btns"><button class="btn prim" type="button" id="g-imp">Pasar los datos</button></div>');
+}
+function enlazarPlanilla(){
+  var s = $('#g-salir');
+  if (s) s.onclick = function(){ CLAVE = ''; ls('mb_clave', ''); esDocente = false; UI.tab = 'inventario'; cargarEstado().then(function(){ pintar(); }); toast('Saliste del modo docente.'); };
+  var b = $('#g-imp');
+  if (b) b.onclick = function(){ guardarAPI({ op: 'importar', estado: { tipos: SNAP.tipos, movs: SNAP.movs, config: { escuela: SNAP.config.escuela, wa: SNAP.config.wa, url: SNAP.config.url } } }, 'datos pasados a la planilla'); };
+}
 var ART = null, DESC = null, puedeGuardar = null, esDocente = false;
 var C = null, TP = {};
 var UI = { tab: 'inventario', rtipo: 'prestamo', hist: 'abiertos', hq: '', pre: null, secAbierta: null, devElegido: false, donde: 'lugar' };
@@ -410,6 +525,7 @@ function aplicar(st, p){
 }
 var reintentado = false;
 function guardar(patch, desc){
+  if (MODO === 'api') return guardarAPI(patch, desc);
   if (!ART){ toast('Desde esta vista no se puede guardar.'); return; }
   patch.pid = uid('p');
   var nuevo = aplicar(clon(ST), clon(patch));
@@ -437,11 +553,7 @@ function revisarPendiente(){
   if (ST.ultimoCambio === p.patch.pid){ ss('mb_pend', null); setTimeout(function(){ toast('Guardado: ' + p.desc); }, 300); return null; }
   return p;
 }
-function paqueteAPatch(paq){
-  var ops = [];
-  if (paq.movs && paq.movs.length) ops.push({ op: 'addMovs', movs: paq.movs });
-  return { op: 'multi', ops: ops };
-}
+function paqueteAPatch(paq){ return { op: 'addMovs', movs: paq.movs || [] }; }
 
 /* ===== mensajes para quien no puede guardar ===== */
 function b64(s){ var b = new TextEncoder().encode(s), t = ''; for (var i = 0; i < b.length; i++) t += String.fromCharCode(b[i]); return btoa(t); }
@@ -453,7 +565,7 @@ function leerCodigos(txt){
   return out;
 }
 function rotasTxt(items){ var r = items.filter(function(i){ return +i.rotas > 0; }); return r.length ? ' (vienen rotos: ' + itemsTxt(r.map(function(i){ return { tid: i.tid, cant: +i.rotas }; })) + ')' : ''; }
-function textoPaquete(paq){
+function textoPaquete(paq, conCodigo){
   var l = [], w = (paq.movs && paq.movs[0]) || {};
   (paq.movs || []).forEach(function(m){
     if (m.tipo === 'prestamo'){ l.push('RETIRO', 'Lleva: ' + itemsTxt(m.items), 'Adónde: ' + m.lugar + (m.hasta ? ' · hasta el ' + fDia(m.hasta, true) : '')); if (m.tel) l.push('Teléfono: ' + m.tel); }
@@ -463,7 +575,7 @@ function textoPaquete(paq){
     else if (m.tipo === 'reparacion'){ var r = C.R[m.roturaId]; l.push('REPARACIÓN', 'Arreglados: ' + n0(m.cant) + ' ' + nomT(m.tid, m.cant) + (r ? ' (' + r.m.falla.toLowerCase() + ', en ' + r.m.lugar + ')' : '')); }
     if (m.obs) l.push((m.tipo === 'reparacion' ? 'Qué se hizo: ' : m.tipo === 'prestamo' ? 'Para qué: ' : 'Obs.: ') + m.obs);
   });
-  return ['Sillas, tablones y caballetes' + (ST.config.escuela ? ' · ' + ST.config.escuela : ''), 'Nombre: ' + (w.quien || '') + (w.rol ? ' (' + w.rol + ')' : '')].concat(l, ['', 'Código para cargar:', codigo(paq)]).join('\n');
+  return ['Sillas, tablones y caballetes' + (ST.config.escuela ? ' · ' + ST.config.escuela : ''), 'Nombre: ' + (w.quien || '') + (w.rol ? ' (' + w.rol + ')' : '')].concat(l, conCodigo === false ? ['', 'Ya quedó registrado en la página.'] : ['', 'Código para cargar:', codigo(paq)]).join('\n');
 }
 function mostrarComprobante(paq, formSel, boxSel, volver){
   var txt = textoPaquete(paq), wa = (ST.config.wa || '').replace(/\D/g, '');
@@ -506,8 +618,8 @@ function pintar(){
     '<div class="wrap">' +
       '<header class="cab"><div><div class="cab-esc">' + esc(ST.config.escuela || 'Escuela') + ' · Depósito</div>' +
       '<h1>Sillas, tablones y caballetes</h1></div>' +
-      '<div class="cab-datos"><span><b>' + n0(dep) + '</b> en el depósito</span><span><b>' + n0(pre) + '</b> retirados</span><span><b>' + n0(rot) + '</b> para reparar</span><span><b>' + n0(tot) + '</b> en total</span>' + (COPIA ? '<span>datos del ' + esc(COPIA) + '</span>' : '') + '</div></header>' +
-      avisoEjemplo() + avisoPendiente() +
+      '<div class="cab-datos"><span><b>' + n0(dep) + '</b> en el depósito</span><span><b>' + n0(pre) + '</b> retirados</span><span><b>' + n0(rot) + '</b> para reparar</span><span><b>' + n0(tot) + '</b> en total</span>' + estadoDatos() + '</div></header>' +
+      avisoEjemplo() + avisoConexion() + avisoPendiente() +
       '<main id="main"></main>' +
     '</div>' +
     '<nav class="nav" aria-label="Secciones"><div class="nav-in"></div></nav>';
@@ -521,16 +633,17 @@ function pintar(){
     });
   };
   if (ad) ad.onclick = function(){ PEND = null; ss('mb_pend', null); pintar(); };
+  var br = $('#b-reint'); if (br) br.onclick = function(){ cargarEstado().then(function(){ pintar(); }); };
   pintarTab();
 }
 function pintarNav(){
   var tabs = [['inventario', 'Inventario'], ['registrar', 'Registrar'], ['historial', 'Historial']];
-  if (esDocente) tabs.push(['docente', 'Docente']);
+  if (esDocente || MODO === 'api') tabs.push(['docente', 'Docente']);
   var n = $('.nav-in'); if (!n) return;
   n.innerHTML = tabs.map(function(t){
     return '<button type="button" data-tab="' + t[0] + '"' + (UI.tab === t[0] ? ' aria-current="page"' : '') + '>' + IC[t[0]] + '<span>' + t[1] + '</span></button>';
   }).join('');
-  $$('button', n).forEach(function(b){ b.onclick = function(){ irA(b.dataset.tab); }; });
+  $$('button', n).forEach(function(b){ b.onclick = function(){ if (b.dataset.tab === 'docente' && !esDocente) abrirIngreso(); else irA(b.dataset.tab); }; });
 }
 function avisoEjemplo(){
   var hay = ST.movs.some(function(m){ return m.ej; });
@@ -547,7 +660,7 @@ function irA(tab){ UI.tab = tab; ls('mb_tab', tab); pintar(); window.scrollTo(0,
 function pintarTab(){
   var m = $('#main');
   if (UI.tab === 'inventario'){ m.innerHTML = htmlInventario(); enlazarInventario(); }
-  else if (UI.tab === 'registrar'){ m.innerHTML = htmlRegistrar(); enlazarRegistrar(); }
+  else if (UI.tab === 'registrar'){ m.innerHTML = htmlRegistrar(); if (!VIEJA) enlazarRegistrar(); }
   else if (UI.tab === 'historial'){ m.innerHTML = htmlHistorial(); enlazarHistorial(); }
   else if (UI.tab === 'docente'){ m.innerHTML = htmlDocente(); enlazarDocente(); }
 }
@@ -679,6 +792,7 @@ function radio(v, txt){ return '<input type="radio" name="rtipo" id="rt-' + v + 
 
 /* ===== PEDIR / DEVOLVER / ROTURA ===== */
 function htmlRegistrar(){
+  if (VIEJA) return avisoVieja();
   return '<section class="panel"><h2 class="h2">Registrar</h2>' +
     '<p class="nota">Anotá lo que retirás del depósito, lo que devolvés, lo que se rompe y lo que se arregla. Así se sabe qué hay, quién lo tiene y dónde está.</p>' +
     '<div class="seg" role="radiogroup" aria-label="Qué querés anotar">' + radio('prestamo', 'Retiro') + radio('devolucion', 'Devolución') + radio('rotura', 'Rotura') + radio('reparacion', 'Reparación') + '</div>' +
@@ -867,7 +981,8 @@ function enviarRegistro(){
     desc = 'reparación de ' + n0(pn) + ' ' + nomT(rr.m.tid, pn);
   }
   var seguir = function(){
-    if (puedeGuardar) guardar(paqueteAPatch(paq), desc);
+    if (puedeGuardar && MODO === 'api') guardarAPI(paqueteAPatch(paq), desc, function(){ if (esDocente) toast('Guardado: ' + desc); else mostrarRegistrado(paq); });
+    else if (puedeGuardar) guardar(paqueteAPatch(paq), desc);
     else mostrarComprobante(paq, '#f-reg', '#r-comp', function(){ pintarTab(); });
   };
   if (puedeGuardar === null) INIT.then(seguir); else seguir();
@@ -997,7 +1112,7 @@ function opts(arr, sel){ return arr.map(function(o){ var v = Array.isArray(o) ? 
 function optsTipos(sel, nuevo){ return (nuevo ? '<option value="">Mueble nuevo</option>' : '') + ST.tipos.map(function(t){ return '<option value="' + t.id + '"' + (t.id === sel ? ' selected' : '') + '>' + esc(t.plural) + '</option>'; }).join(''); }
 function htmlDocente(){
   var hayEj = ST.movs.some(function(m){ return m.ej; });
-  return '<h2 class="h2">Gestión del depósito</h2><p class="nota">Solo lo ven quienes pueden editar la página.</p><div class="stack">' +
+  return '<h2 class="h2">Gestión del depósito</h2>' + (MODO === 'api' ? htmlPlanilla() : '<p class="nota">Solo lo ven quienes pueden editar la página.</p>') + '<div class="stack">' + (MODO === 'api' ? secImportar() : '') +
     (hayEj ? sec('ej', 'Datos de ejemplo', '<p>Los retiros, roturas y reparaciones marcados «ejemplo» sirven para ver cómo funciona. Borralos antes de cargar el recuento real: los tres tipos de muebles quedan.</p><div class="btns"><button class="btn peligro" type="button" id="g-ej">Borrar datos de ejemplo</button></div>') : '') +
     sec('comp', 'Cargar mensajes de alumnos y docentes',
       '<p class="nota" style="margin:0">Pegá acá los mensajes que te mandaron por WhatsApp. Podés pegar varios juntos.</p>' +
@@ -1028,6 +1143,7 @@ function htmlDocente(){
     '</div>';
 }
 function enlazarDocente(){
+  enlazarPlanilla();
   $$('details.sec').forEach(function(d){ d.ontoggle = function(){ if (d.open){ UI.secAbierta = d.id.slice(4); ss('mb_sec', UI.secAbierta); } }; });
   var bej = $('#g-ej'); if (bej) bej.onclick = function(){
     hoja(cabHoja('Borrar datos de ejemplo') + '<p>Se borran los retiros, roturas, reparaciones y altas de ejemplo. Los muebles (sillas, tablones y caballetes) quedan.</p><div class="btns"><button class="btn peligro" type="button" id="h-si">Borrar</button><button class="btn" type="button" id="h-no">Volver</button></div>', function(v){
@@ -1162,6 +1278,7 @@ function pintarQR(){
   $('#gq-c').onclick = function(){ copiar(url, $('#gq-u')); };
   $('#gq-d').onclick = function(){
     var svg = cartelSVG(q);
+    if (!EN_CLAUDE){ descargar('cartel-mobiliario.svg', svg); return; }
     if (DESC) DESC.save({ filename: 'cartel-mobiliario.svg', data: svg }).then(function(){ toast('Cartel descargado.'); }, function(e){ if (!e || e.code !== 'declined') mostrarCartel(svg); });
     else mostrarCartel(svg);
   };
@@ -1193,6 +1310,15 @@ function csvMovs(){
   return csv(f);
 }
 function descargar(nombre, datos){
+  if (!EN_CLAUDE){
+    try {
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([datos], { type: /\.svg$/.test(nombre) ? 'image/svg+xml' : 'text/csv;charset=utf-8' }));
+      a.download = nombre; document.body.appendChild(a); a.click();
+      setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+      toast('Descargado: ' + nombre); return;
+    } catch(e){}
+  }
   if (DESC){
     DESC.save({ filename: nombre, data: datos }).then(function(){ toast('Descargado: ' + nombre); }, function(e){ if (e && e.code === 'declined') return; mostrarTexto(nombre, datos); });
   } else mostrarTexto(nombre, datos);
@@ -1227,11 +1353,11 @@ function ocupado(on){
 
 /* ===== arranque ===== */
 function usar(n){ try { return (window.claude && window.claude.use) ? window.claude.use(n).catch(function(){ return null; }) : Promise.resolve(null); } catch(e){ return Promise.resolve(null); } }
-var INIT = Promise.all([usar('artifact'), usar('user'), usar('downloads')]).then(function(r){
+var INIT = MODO === 'api' ? iniciarAPI() : Promise.all([usar('artifact'), usar('user'), usar('downloads')]).then(function(r){
   ART = r[0]; DESC = r[2];
   var u = r[1];
   return (u ? u.canEdit().catch(function(){ return false; }) : Promise.resolve(false)).then(function(ce){
-    esDocente = !!ce && !!ART; puedeGuardar = esDocente;
+    esDocente = !!ce && !!ART && !VIEJA; puedeGuardar = esDocente;
   });
 }).catch(function(){ puedeGuardar = false; esDocente = false; });
 
@@ -1249,6 +1375,10 @@ INIT.then(function(){
   if (enForm){ pintarNav(); botonModo(); }
   else { var y = window.scrollY; pintar(); window.scrollTo(0, y); }
 });
+if (MODO === 'api'){
+  setInterval(refrescar, 60000);
+  document.addEventListener('visibilitychange', function(){ if (!document.hidden) refrescar(); });
+}
 })();
 </script>
 
