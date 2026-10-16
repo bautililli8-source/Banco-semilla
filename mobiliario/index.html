@@ -261,7 +261,7 @@ details.sec>.sec-in{padding:0 16px 16px;display:flex;flex-direction:column;gap:1
 }
 </style>
 <div id="app"></div>
-<script id="estado" type="application/json">{"v":1,"config":{"escuela":"CFR Saladillo","wa":"5492344400874","url":"https://bautililli8-source.github.io/Banco-semilla/mobiliario/","copia":"2026-10-16T12:03:18.000Z"},"ultimoCambio":"pmvax4amws4lbb","tipos":[{"id":"t-sillas","nombre":"Silla","plural":"Sillas","clase":"silla","guardado":"Depósito","notas":""},{"id":"t-tablones","nombre":"Tablón","plural":"Tablones","clase":"tablon","guardado":"Depósito","notas":""},{"id":"t-cab-madera","nombre":"Caballete de madera","plural":"Caballetes de madera","clase":"caballete","guardado":"Depósito","notas":""},{"id":"t-cab-hierro","nombre":"Caballete de hierro","plural":"Caballetes de hierro","clase":"caballete","guardado":"Depósito","notas":""}],"movs":[{"id":"m-recuento-inicial","t":"2026-10-16T11:29:00.000Z","tipo":"ingreso","items":[{"tid":"t-sillas","cant":436},{"tid":"t-tablones","cant":56},{"tid":"t-cab-madera","cant":20},{"tid":"t-cab-hierro","cant":72}],"origen":"Primer recuento","obs":""},{"id":"m-tablones-afuera","t":"2026-10-16T11:29:01.000Z","tipo":"prestamo","quien":"Escuela","rol":"uso general","items":[{"tid":"t-tablones","cant":3}],"lugar":"Parrilla del gimnasio","hasta":"","obs":"Quedan ahí para uso de la escuela"},{"id":"mmvawoaar7g5go","t":"2026-10-16T11:50:05.088Z","tipo":"prestamo","quien":"Lilli Bautista Gabriel","rol":"Santa maria","items":[{"tid":"t-sillas","cant":100},{"tid":"t-tablones","cant":20},{"tid":"t-cab-hierro","cant":40}],"lugar":"Santa maria","hasta":"2026-10-23","obs":""},{"id":"mmvawtj1ccrsh0","t":"2026-10-16T11:54:09.696Z","tipo":"ingreso","items":[{"tid":"t-sillas","cant":1}],"origen":"Compra","obs":""},{"id":"mmvawujqjw26km","t":"2026-10-16T11:54:57.259Z","tipo":"rotura","tid":"t-sillas","cant":1,"falla":"Otro","detalle":"","lugar":"Depósito","quien":"Bauti Lilli","rol":""},{"id":"mmvax4amwv1h7k","t":"2026-10-16T12:02:32.024Z","tipo":"devolucion","prestamoId":"mmvawoaar7g5go","quien":"Bauti Lilli","rol":"","items":[{"tid":"t-sillas","cant":100,"rotas":0},{"tid":"t-tablones","cant":20,"rotas":0},{"tid":"t-cab-hierro","cant":40,"rotas":0}],"obs":""}],"reservas":[]}</script>
+<script id="estado" type="application/json">{"v":1,"config":{"escuela":"CFR Saladillo","wa":"5492344400874","url":"https://bautililli8-source.github.io/Banco-semilla/mobiliario/","copia":"2026-10-16T12:07:18.000Z"},"ultimoCambio":"pmvax4amws4lbb","tipos":[{"id":"t-sillas","nombre":"Silla","plural":"Sillas","clase":"silla","guardado":"Depósito","notas":"De plástico: si se rompen, se descartan.","reparable":false},{"id":"t-tablones","nombre":"Tablón","plural":"Tablones","clase":"tablon","guardado":"Depósito","notas":"De madera: se reparan.","reparable":true},{"id":"t-cab-madera","nombre":"Caballete de madera","plural":"Caballetes de madera","clase":"caballete","guardado":"Depósito","notas":"Se reparan.","reparable":true},{"id":"t-cab-hierro","nombre":"Caballete de hierro","plural":"Caballetes de hierro","clase":"caballete","guardado":"Depósito","notas":"Se reparan.","reparable":true}],"movs":[{"id":"m-recuento-inicial","t":"2026-10-16T11:29:00.000Z","tipo":"ingreso","items":[{"tid":"t-sillas","cant":436},{"tid":"t-tablones","cant":56},{"tid":"t-cab-madera","cant":20},{"tid":"t-cab-hierro","cant":72}],"origen":"Primer recuento","obs":""},{"id":"m-tablones-afuera","t":"2026-10-16T11:29:01.000Z","tipo":"prestamo","quien":"Escuela","rol":"uso general","items":[{"tid":"t-tablones","cant":3}],"lugar":"Parrilla del gimnasio","hasta":"","obs":"Quedan ahí para uso de la escuela"},{"id":"mmvawoaar7g5go","t":"2026-10-16T11:50:05.088Z","tipo":"prestamo","quien":"Lilli Bautista Gabriel","rol":"Santa maria","items":[{"tid":"t-sillas","cant":100},{"tid":"t-tablones","cant":20},{"tid":"t-cab-hierro","cant":40}],"lugar":"Santa maria","hasta":"2026-10-23","obs":""},{"id":"mmvawtj1ccrsh0","t":"2026-10-16T11:54:09.696Z","tipo":"ingreso","items":[{"tid":"t-sillas","cant":1}],"origen":"Compra","obs":""},{"id":"mmvawujqjw26km","t":"2026-10-16T11:54:57.259Z","tipo":"rotura","tid":"t-sillas","cant":1,"falla":"Otro","detalle":"","lugar":"Depósito","quien":"Bauti Lilli","rol":"","descarte":true},{"id":"mmvax4amwv1h7k","t":"2026-10-16T12:02:32.024Z","tipo":"devolucion","prestamoId":"mmvawoaar7g5go","quien":"Bauti Lilli","rol":"","items":[{"tid":"t-sillas","cant":100,"rotas":0},{"tid":"t-tablones","cant":20,"rotas":0},{"tid":"t-cab-hierro","cant":40,"rotas":0}],"obs":""}],"reservas":[]}</script>
 <script id="app-code">(function(){
 'use strict';
 /* ===== Plantilla para que la página se vuelva a publicar con su estado ===== */
@@ -279,9 +279,9 @@ var UI = { tab: 'inventario', rtipo: 'prestamo', hist: 'abiertos', hq: '', pre: 
 
 var LUGARES = ['Depósito', 'SUM', 'Comedor', 'Patio', 'Patio cubierto', 'Gimnasio', 'Parrilla del gimnasio', 'Galpón', 'Sala de profesores', 'Biblioteca'];
 var FALLAS = {
-  silla: ['Pata floja', 'Pata rota o doblada', 'Asiento roto', 'Respaldo roto', 'Tornillo o remache suelto', 'Otro'],
+  silla: ['Pata rota', 'Asiento roto o rajado', 'Respaldo roto', 'Otro'],
   tablon: ['Tabla rajada o partida', 'Astillado (puede lastimar)', 'Combado o torcido', 'Otro'],
-  caballete: ['Bisagra o traba rota', 'Pata doblada', 'Soldadura suelta', 'No se sostiene firme', 'Otro'],
+  caballete: ['Pata doblada o rajada', 'Bisagra o traba rota', 'Soldadura suelta', 'No se sostiene firme', 'Otro'],
   otro: ['Roto', 'Flojo', 'Astillado (puede lastimar)', 'Otro']
 };
 var CLASES = [['silla', 'Silla'], ['tablon', 'Tablón (con caballetes arma una mesa)'], ['caballete', 'Caballete (van 2 por tablón)'], ['otro', 'Otro mueble']];
@@ -318,14 +318,19 @@ function nomT(tid, n){ var t = TP[tid]; if (!t) return n === 1 ? 'mueble borrado
 function itemsTxt(items){ var a = ordenar(items || []).filter(function(i){ return +i.cant > 0; }).map(function(i){ return n0(i.cant) + ' ' + nomT(i.tid, +i.cant); }); return a.length ? lista(a) : 'nada'; }
 function objAItems(o){ return Object.keys(o).map(function(k){ return { tid: k, cant: o[k] }; }).filter(function(i){ return i.cant > 0; }); }
 function itemsDe(m){ return m.items ? m.items : (m.tid ? [{ tid: m.tid, cant: m.cant }] : []); }
+function reparable(tid){ var t = TP[tid]; return !t || t.reparable !== false; }
+function avisoRoturas(rs){
+  var a = rs.filter(function(r){ return reparable(r.tid); }), b = rs.filter(function(r){ return !reparable(r.tid); });
+  return (a.length ? '<p class="mini alerta">Van a «para reparar»: ' + esc(itemsTxt(a)) + '.</p>' : '') + (b.length ? '<p class="mini alerta">Se descartan porque no tienen arreglo: ' + esc(itemsTxt(b)) + '. Se descuentan del total.</p>' : '');
+}
 function ej(o){ return o && o.ej ? '<span class="etq ej">ejemplo</span>' : ''; }
 function quienTxt(o){ return esc(o.quien || 'Sin nombre') + (o.rol ? ' <span class="tenue">(' + esc(o.rol) + ')</span>' : ''); }
 
 /* ===== cálculo del depósito ===== */
 function calc(st){
   var tp = {}, T = {};
-  st.tipos.forEach(function(t){ tp[t.id] = t; T[t.id] = { total: 0, prestado: 0, rotas: 0 }; });
-  function S(tid){ return T[tid] || (T[tid] = { total: 0, prestado: 0, rotas: 0, huerfano: true }); }
+  st.tipos.forEach(function(t){ tp[t.id] = t; T[t.id] = { total: 0, prestado: 0, rotas: 0, desc: 0 }; });
+  function S(tid){ return T[tid] || (T[tid] = { total: 0, prestado: 0, rotas: 0, desc: 0, huerfano: true }); }
   var ms = st.movs.slice().sort(cmpMov), P = {}, R = {};
   ms.forEach(function(m){
     var c, k = +m.cant || 0;
@@ -339,6 +344,7 @@ function calc(st){
       (m.items || []).forEach(function(i){ c = Math.min(+i.cant || 0, p2.pend[i.tid] || 0); p2.pend[i.tid] = (p2.pend[i.tid] || 0) - c; S(i.tid).prestado -= c; });
       p2.devs.push(m);
     } else if (m.tipo === 'rotura'){
+      if (m.descarte){ S(m.tid).total -= k; S(m.tid).desc += k; return; }
       R[m.id] = { m: m, abiertas: k, reps: [], bajas: [] }; S(m.tid).rotas += k;
     } else if (m.tipo === 'reparacion'){
       var r = R[m.roturaId]; if (!r) return;
@@ -452,8 +458,8 @@ function textoPaquete(paq){
   (paq.movs || []).forEach(function(m){
     if (m.tipo === 'prestamo'){ l.push('RETIRO', 'Lleva: ' + itemsTxt(m.items), 'Adónde: ' + m.lugar + (m.hasta ? ' · hasta el ' + fDia(m.hasta, true) : '')); if (m.tel) l.push('Teléfono: ' + m.tel); }
     else if (m.tipo === 'devolucion'){ var p = C.P[m.prestamoId]; l.push('DEVOLUCIÓN', 'Devuelve: ' + itemsTxt(m.items) + rotasTxt(m.items)); if (p) l.push('Del retiro del ' + fFecha(p.m.t) + ' (' + p.m.lugar + ')'); }
-    else if (m.tipo === 'rotura' && m.origen){ l.push('Rotos: ' + n0(m.cant) + ' ' + nomT(m.tid, m.cant) + ', ' + m.falla.toLowerCase()); }
-    else if (m.tipo === 'rotura'){ l.push('ROTURA', n0(m.cant) + ' ' + nomT(m.tid, m.cant) + ': ' + m.falla, 'Está en: ' + m.lugar); if (m.detalle) l.push('Detalle: ' + m.detalle); }
+    else if (m.tipo === 'rotura' && m.origen){ l.push('Rotos: ' + n0(m.cant) + ' ' + nomT(m.tid, m.cant) + ', ' + m.falla.toLowerCase() + (m.descarte ? ' (se descartan)' : '')); }
+    else if (m.tipo === 'rotura'){ l.push(m.descarte ? 'ROTURA (SE DESCARTA)' : 'ROTURA', n0(m.cant) + ' ' + nomT(m.tid, m.cant) + ': ' + m.falla, 'Está en: ' + m.lugar); if (m.detalle) l.push('Detalle: ' + m.detalle); }
     else if (m.tipo === 'reparacion'){ var r = C.R[m.roturaId]; l.push('REPARACIÓN', 'Arreglados: ' + n0(m.cant) + ' ' + nomT(m.tid, m.cant) + (r ? ' (' + r.m.falla.toLowerCase() + ', en ' + r.m.lugar + ')' : '')); }
     if (m.obs) l.push((m.tipo === 'reparacion' ? 'Qué se hizo: ' : m.tipo === 'prestamo' ? 'Para qué: ' : 'Obs.: ') + m.obs);
   });
@@ -500,7 +506,7 @@ function pintar(){
     '<div class="wrap">' +
       '<header class="cab"><div><div class="cab-esc">' + esc(ST.config.escuela || 'Escuela') + ' · Depósito</div>' +
       '<h1>Sillas, tablones y caballetes</h1></div>' +
-      '<div class="cab-datos"><span><b>' + n0(dep) + '</b> en el depósito</span><span><b>' + n0(pre) + '</b> retirados</span><span><b>' + n0(rot) + '</b> ' + (rot === 1 ? 'roto' : 'rotos') + '</span><span><b>' + n0(tot) + '</b> en total</span>' + (COPIA ? '<span>datos del ' + esc(COPIA) + '</span>' : '') + '</div></header>' +
+      '<div class="cab-datos"><span><b>' + n0(dep) + '</b> en el depósito</span><span><b>' + n0(pre) + '</b> retirados</span><span><b>' + n0(rot) + '</b> para reparar</span><span><b>' + n0(tot) + '</b> en total</span>' + (COPIA ? '<span>datos del ' + esc(COPIA) + '</span>' : '') + '</div></header>' +
       avisoEjemplo() + avisoPendiente() +
       '<main id="main"></main>' +
     '</div>' +
@@ -579,14 +585,15 @@ function htmlAtender(){
   }).join('') + '</section>';
 }
 function htmlTipo(t){
-  var x = C.T[t.id], tot = Math.max(1, x.total);
+  var x = C.T[t.id], tot = Math.max(1, x.total), rep = t.reparable !== false;
   function w(v){ return Math.max(0, Math.min(100, Math.max(0, v) / tot * 100)).toFixed(1) + '%'; }
   return '<article class="tcard"><div class="tcard-cab"><span class="tico">' + icono(t.clase) + '</span><div><h2 class="tnom">' + esc(t.plural) + '</h2>' +
     (t.guardado ? '<div class="tsub">Se guardan en ' + esc(t.guardado) + '</div>' : '') + '</div></div>' +
     '<div class="big"><b>' + n0(Math.max(0, x.disp)) + '</b><span>disponibles<br>en el depósito</span></div>' +
-    '<div class="barra" role="img" aria-label="' + esc(n0(x.disp) + ' en el depósito, ' + n0(x.prestado) + ' retirados, ' + n0(x.rotas) + ' rotos') + '"><i class="b-disp" style="width:' + w(x.disp) + '"></i><i class="b-pre" style="width:' + w(x.prestado) + '"></i><i class="b-rot" style="width:' + w(x.rotas) + '"></i></div>' +
-    '<dl class="ley"><dt><i class="c-disp"></i>En el depósito</dt><dd>' + n0(x.disp) + '</dd><dt><i class="c-pre"></i>Retirados</dt><dd>' + n0(x.prestado) + '</dd><dt><i class="c-rot"></i>Rotos</dt><dd>' + n0(x.rotas) + '</dd>' +
+    '<div class="barra" role="img" aria-label="' + esc(n0(x.disp) + ' en el depósito, ' + n0(x.prestado) + ' retirados, ' + n0(x.rotas) + ' para reparar') + '"><i class="b-disp" style="width:' + w(x.disp) + '"></i><i class="b-pre" style="width:' + w(x.prestado) + '"></i><i class="b-rot" style="width:' + w(x.rotas) + '"></i></div>' +
+    '<dl class="ley"><dt><i class="c-disp"></i>En el depósito</dt><dd>' + n0(x.disp) + '</dd><dt><i class="c-pre"></i>Retirados</dt><dd>' + n0(x.prestado) + '</dd>' + (rep || x.rotas ? '<dt><i class="c-rot"></i>Para reparar</dt><dd>' + n0(x.rotas) + '</dd>' : '') +
     '<dt class="tot">Total</dt><dd class="tot">' + n0(x.total) + '</dd></dl>' +
+    (x.desc > 0 ? '<p class="mini tenue">Descartados por rotura: ' + n0(x.desc) + '</p>' : '') +
     (x.disp < 0 ? '<p class="mini mal">Los números no cierran: se anotó más de lo que hay. Revisá el historial o cargá un alta.</p>' : '') +
     (t.notas ? '<p class="mini tenue">' + esc(t.notas) + '</p>' : '') + '</article>';
 }
@@ -621,7 +628,7 @@ function htmlDonde(){
   if (C.rotas.length){
     var sr = {};
     C.rotas.forEach(function(r){ sr[r.m.tid] = (sr[r.m.tid] || 0) + r.abiertas; });
-    h += '<div class="lugar rot"><div class="lugar-cab"><span class="lugar-nom">Rotos <span class="lugar-tag">esperan arreglo</span></span>' + chips(objAItems(sr)) + '</div><ul class="quienes">' + C.rotas.map(function(r){
+    h += '<div class="lugar rot"><div class="lugar-cab"><span class="lugar-nom">Para reparar</span>' + chips(objAItems(sr)) + '</div><ul class="quienes">' + C.rotas.map(function(r){
       return '<li><b>' + n0(r.abiertas) + ' ' + esc(nomT(r.m.tid, r.abiertas)) + '</b> · ' + esc(r.m.falla) + ' · en ' + esc(r.m.lugar) + ' · avisó ' + esc(r.m.quien || 'sin nombre') + ' ' + ej(r.m) + '</li>';
     }).join('') + '</ul></div>';
   }
@@ -778,7 +785,7 @@ function itemsDevolucion(){
       var t = TP[i.tid];
       return '<div class="dev"><div class="dev-cab"><span class="tico">' + icono(t ? t.clase : 'otro') + '</span><b>' + esc(t ? t.plural : 'Mueble borrado') + '</b><span class="mono tenue">faltan volver ' + n0(i.cant) + '</span></div>' +
         '<div class="fila2 chica"><label class="campo"><span>Devuelvo</span><input id="d-c-' + i.tid + '" type="number" inputmode="numeric" min="0" max="' + i.cant + '" value="' + i.cant + '"></label>' +
-        '<label class="campo"><span>¿Cuántos vienen rotos?</span><input id="d-r-' + i.tid + '" type="number" inputmode="numeric" min="0" value="0"></label></div>' +
+        '<label class="campo"><span>' + (reparable(i.tid) ? '¿Cuántos vienen rotos?' : '¿Cuántos rotos? Se descartan') + '</span><input id="d-r-' + i.tid + '" type="number" inputmode="numeric" min="0" value="0"></label></div>' +
         '<label class="campo" id="d-fw-' + i.tid + '" hidden><span>¿Qué les pasó?</span><select id="d-f-' + i.tid + '"></select></label></div>';
     }).join('') + '</div>';
   its.forEach(function(i){ llenarFallas($('#d-f-' + i.tid), TP[i.tid]); $('#d-c-' + i.tid).oninput = prevDevolucion; $('#d-r-' + i.tid).oninput = prevDevolucion; });
@@ -804,12 +811,15 @@ function prevDevolucion(){
   if (D.error || !D.p){ box.innerHTML = D.error && D.p ? '<p class="mini mal">' + esc(D.error) + '</p>' : ''; return; }
   var resto = pendItems(D.p).map(function(i){ var d = D.items.filter(function(x){ return x.tid === i.tid; })[0]; return { tid: i.tid, cant: i.cant - (d ? d.cant : 0) }; }).filter(function(i){ return i.cant > 0; });
   box.innerHTML = '<p>' + (resto.length ? 'Después de esto todavía faltan volver <b>' + esc(itemsTxt(resto)) + '</b>.' : '<b>Con esto el retiro queda completo.</b>') + '</p>' +
-    (D.roturas.length ? '<p class="mini alerta">Van a «para reparar»: ' + esc(itemsTxt(D.roturas)) + '.</p>' : '');
+    avisoRoturas(D.roturas);
 }
 function prevRotura(){
-  var tid = $('#k-tipo').value, n = ent($('#k-cant').value), d = Math.max(0, C.T[tid].disp), box = $('#r-prev');
+  var tid = $('#k-tipo').value, n = ent($('#k-cant').value), x = C.T[tid], d = Math.max(0, x.disp), box = $('#r-prev');
   if (isNaN(n) || n <= 0){ box.innerHTML = ''; return; }
-  box.innerHTML = '<div class="flechas"><div class="flecha"><span class="nom">' + esc(TP[tid].plural) + ' disponibles</span><span class="de">' + n0(d) + '</span><span aria-hidden="true">→</span><span class="a' + (d - n < 0 ? ' neg' : '') + '">' + n0(d - n) + '</span></div></div>' +
+  var rep = reparable(tid);
+  box.innerHTML = '<div class="flechas"><div class="flecha"><span class="nom">' + esc(TP[tid].plural) + ' disponibles</span><span class="de">' + n0(d) + '</span><span aria-hidden="true">→</span><span class="a' + (d - n < 0 ? ' neg' : '') + '">' + n0(d - n) + '</span></div>' +
+    (rep ? '' : '<div class="flecha"><span class="nom">Total</span><span class="de">' + n0(x.total) + '</span><span aria-hidden="true">→</span><span class="a">' + n0(x.total - n) + '</span></div>') + '</div>' +
+    (rep ? '<p class="mini">Pasa a «para reparar» hasta que se arregle.</p>' : '<p class="mini alerta">' + esc(TP[tid].plural) + ': no tienen arreglo. Se descartan y se descuentan del total.</p>') +
     (n > d ? '<p class="mini mal">En el depósito hay ' + n0(d) + '. Si lo que se rompió está retirado, avisalo al devolverlo.</p>' : '');
 }
 function enviarRegistro(){
@@ -837,15 +847,17 @@ function enviarRegistro(){
     if (D.error){ err.textContent = D.error; return; }
     var m = { id: uid('m'), t: t, tipo: 'devolucion', prestamoId: D.p.m.id, quien: quien, rol: rol, items: D.items, obs: obs };
     paq.movs.push(m);
-    D.roturas.forEach(function(r){ paq.movs.push({ id: uid('m'), t: t, tipo: 'rotura', tid: r.tid, cant: r.cant, falla: r.falla, detalle: '', lugar: 'Depósito', quien: quien, rol: rol, origen: m.id }); });
+    D.roturas.forEach(function(r){ var mr = { id: uid('m'), t: t, tipo: 'rotura', tid: r.tid, cant: r.cant, falla: r.falla, detalle: '', lugar: 'Depósito', quien: quien, rol: rol, origen: m.id }; if (!reparable(r.tid)) mr.descarte = true; paq.movs.push(mr); });
     desc = 'devolución de ' + itemsTxt(D.items) + ' (' + quien + ')';
   } else if (UI.rtipo === 'rotura'){
     var tid = $('#k-tipo').value, n = ent($('#k-cant').value), disp = Math.max(0, C.T[tid].disp), kl = $('#k-lugar').value.trim();
     if (isNaN(n) || n <= 0){ err.textContent = 'Indicá cuántos se rompieron.'; return; }
     if (n > disp){ err.textContent = 'En el depósito hay ' + n0(disp) + ' ' + nomT(tid, disp) + '. Si lo que se rompió está retirado, avisalo al devolverlo.'; return; }
     if (!kl){ err.textContent = 'Escribí dónde está, así se puede encontrar.'; return; }
-    paq.movs.push({ id: uid('m'), t: t, tipo: 'rotura', tid: tid, cant: n, falla: $('#k-falla').value, detalle: obs, lugar: kl, quien: quien, rol: rol });
-    desc = 'rotura de ' + n0(n) + ' ' + nomT(tid, n);
+    var mr = { id: uid('m'), t: t, tipo: 'rotura', tid: tid, cant: n, falla: $('#k-falla').value, detalle: obs, lugar: kl, quien: quien, rol: rol };
+    if (!reparable(tid)) mr.descarte = true;
+    paq.movs.push(mr);
+    desc = (mr.descarte ? 'descarte de ' : 'rotura de ') + n0(n) + ' ' + nomT(tid, n);
   } else {
     var rr = $('#p-rot') ? C.R[$('#p-rot').value] : null, pn = $('#p-cant') ? ent($('#p-cant').value) : NaN;
     if (!rr){ err.textContent = 'No hay nada esperando arreglo.'; return; }
@@ -866,7 +878,7 @@ function cabHoja(t){ return '<div class="hoja-cab"><h2 class="h2">' + esc(t) + '
 /* ===== HISTORIAL ===== */
 function chip(v, txt, n){ return '<button type="button" class="chip" data-h="' + v + '" aria-pressed="' + (UI.hist === v) + '">' + txt + (n != null ? '<b>' + n + '</b>' : '') + '</button>'; }
 function htmlHistorial(){
-  return '<div class="herr"><div class="chips" role="group" aria-label="Qué mostrar">' + chip('abiertos', 'Retirado ahora', C.abiertos.length) + chip('reparar', 'Rotos', C.rotas.length) + chip('todo', 'Todos los movimientos', null) + '</div>' +
+  return '<div class="herr"><div class="chips" role="group" aria-label="Qué mostrar">' + chip('abiertos', 'Retirado ahora', C.abiertos.length) + chip('reparar', 'Para reparar', C.rotas.length) + chip('todo', 'Todos los movimientos', null) + '</div>' +
     '<div class="buscar">' + IC.lupa + '<input id="h-q" type="search" placeholder="Buscar nombre, lugar o mueble" aria-label="Buscar" value="' + esc(UI.hq) + '"></div></div><div id="h-lista"></div>';
 }
 function enlazarHistorial(){
@@ -919,7 +931,7 @@ function htmlRot(r){
 function resumenMov(m){
   if (m.tipo === 'prestamo') return ['Retiro: ' + itemsTxt(m.items), [quienTxt(m), 'en ' + esc(m.lugar), m.hasta ? 'vuelve ' + esc(fDia(m.hasta)) : '', esc(m.motivo || '')]];
   if (m.tipo === 'devolucion'){ var p = C.P[m.prestamoId]; return ['Devolución: ' + itemsTxt(m.items) + rotasTxt(m.items), [quienTxt(m), p ? 'del retiro del ' + fCorta(p.m.t) + ' en ' + esc(p.m.lugar) : '']]; }
-  if (m.tipo === 'rotura') return ['Rotura: ' + n0(m.cant) + ' ' + nomT(m.tid, m.cant) + ' · ' + m.falla, ['avisó ' + quienTxt(m), 'en ' + esc(m.lugar), esc(m.detalle || ''), m.origen ? 'al devolver' : '']];
+  if (m.tipo === 'rotura') return [(m.descarte ? 'Rotura y descarte: ' : 'Rotura: ') + n0(m.cant) + ' ' + nomT(m.tid, m.cant) + ' · ' + m.falla, ['avisó ' + quienTxt(m), 'en ' + esc(m.lugar), esc(m.detalle || ''), m.origen ? 'al devolver' : '']];
   if (m.tipo === 'reparacion'){ var ro = C.R[m.roturaId]; return ['Reparación: ' + n0(m.cant) + ' ' + nomT(m.tid, m.cant) + (ro ? ' · ' + ro.m.falla.toLowerCase() : ''), [m.quien ? 'arregló ' + quienTxt(m) : '', 'vuelven al depósito']]; }
   if (m.tipo === 'baja') return ['Baja: ' + n0(m.cant) + ' ' + nomT(m.tid, m.cant) + ' · ' + (m.motivo || ''), [m.prestamoId ? 'no volvieron de un retiro' : m.roturaId ? 'rotos sin arreglo' : '']];
   if (m.tipo === 'ingreso') return ['Alta: ' + itemsTxt(m.items), [esc(m.origen || '')]];
@@ -1000,6 +1012,7 @@ function htmlDocente(){
       '<form id="g-tipo" novalidate><label class="campo"><span>Mueble</span><select id="gt-sel">' + optsTipos(UI.tipoSel || '', true) + '</select></label>' +
       '<div class="fila2"><label class="campo"><span>Nombre (uno)</span><input id="gt-nom" placeholder="Ej.: Banco"></label><label class="campo"><span>Nombre (varios)</span><input id="gt-plu" placeholder="Ej.: Bancos"></label></div>' +
       '<div class="fila2"><label class="campo"><span>Qué es</span><select id="gt-cla">' + opts(CLASES) + '</select></label><label class="campo"><span>Dónde se guardan</span><input id="gt-gua" placeholder="Ej.: Depósito del SUM"></label></div>' +
+      '<label class="campo"><span>Si se rompe</span><select id="gt-rep"><option value="si">Se repara: pasa a «para reparar»</option><option value="no">Se descarta: no tiene arreglo</option></select></label>' +
       '<label class="campo"><span>Notas</span><input id="gt-not" placeholder="Ej.: sillas plásticas apilables"></label>' +
       '<div class="err" id="gt-err"></div><div class="btns"><button class="btn prim" type="submit">Guardar</button><button class="btn peligro" type="button" id="gt-del" hidden>Borrar este mueble</button></div></form>') +
     sec('qr', 'Cartel con QR',
@@ -1068,7 +1081,7 @@ function enlazarDocente(){
   function cargarTipo(){
     var t = TP[$('#gt-sel').value] || {};
     $('#gt-nom').value = t.nombre || ''; $('#gt-plu').value = t.plural || ''; $('#gt-cla').value = t.clase || 'otro';
-    $('#gt-gua').value = t.guardado || (t.id ? '' : 'Depósito'); $('#gt-not').value = t.notas || '';
+    $('#gt-gua').value = t.guardado || (t.id ? '' : 'Depósito'); $('#gt-not').value = t.notas || ''; $('#gt-rep').value = t.reparable === false ? 'no' : 'si';
     $('#gt-del').hidden = !t.id; $('#gt-err').textContent = '';
   }
   $('#gt-sel').onchange = function(){ UI.tipoSel = this.value; cargarTipo(); };
@@ -1077,7 +1090,7 @@ function enlazarDocente(){
     e.preventDefault(); var er = $('#gt-err'); er.textContent = '';
     var id = $('#gt-sel').value, nom = $('#gt-nom').value.trim(), plu = $('#gt-plu').value.trim();
     if (!nom || !plu){ er.textContent = 'Completá el nombre en singular y en plural.'; return; }
-    var t = { id: id || uid('t'), nombre: nom, plural: plu, clase: $('#gt-cla').value, guardado: $('#gt-gua').value.trim(), notas: $('#gt-not').value.trim() };
+    var t = { id: id || uid('t'), nombre: nom, plural: plu, clase: $('#gt-cla').value, guardado: $('#gt-gua').value.trim(), notas: $('#gt-not').value.trim(), reparable: $('#gt-rep').value !== 'no' };
     UI.tipoSel = t.id;
     guardar({ op: 'setTipo', t: t }, (id ? 'cambios en ' : 'mueble nuevo: ') + plu.toLowerCase());
   };
@@ -1161,8 +1174,8 @@ function mostrarCartel(svg){
 function celda(x){ x = x == null ? '' : String(x); return /[;"\n]/.test(x) ? '"' + x.replace(/"/g, '""') + '"' : x; }
 function csv(filas){ return '﻿' + filas.map(function(f){ return f.map(celda).join(';'); }).join('\r\n'); }
 function csvInventario(){
-  return csv([['Mueble', 'Total', 'En el depósito', 'Retirados', 'Rotos', 'Dónde se guardan']].concat(ST.tipos.map(function(t){
-    var x = C.T[t.id]; return [t.plural, x.total, x.disp, x.prestado, x.rotas, t.guardado || ''];
+  return csv([['Mueble', 'Total', 'En el depósito', 'Retirados', 'Para reparar', 'Descartados por rotura', 'Dónde se guardan']].concat(ST.tipos.map(function(t){
+    var x = C.T[t.id]; return [t.plural, x.total, x.disp, x.prestado, x.rotas, x.desc, t.guardado || ''];
   })));
 }
 function csvPrestado(){
@@ -1174,7 +1187,7 @@ function csvMovs(){
   var f = [['Fecha', 'Tipo', 'Mueble', 'Cantidad', 'Rotos', 'Quién', 'Curso o área', 'Lugar', 'Teléfono', 'Falla u origen', 'Vuelve', 'Observaciones', 'Ejemplo']];
   C.ms.forEach(function(m){
     itemsDe(m).forEach(function(i){
-      f.push([diaLocal(new Date(m.t)), TIPO_TXT[m.tipo] || m.tipo, TP[i.tid] ? TP[i.tid].plural : '', i.cant, i.rotas || '', m.quien || '', m.rol || '', m.lugar || '', m.tel || '', m.motivo || m.falla || m.origen || '', m.hasta || '', m.obs || m.detalle || '', m.ej ? 'sí' : '']);
+      f.push([diaLocal(new Date(m.t)), (m.descarte ? 'Rotura y descarte' : TIPO_TXT[m.tipo] || m.tipo), TP[i.tid] ? TP[i.tid].plural : '', i.cant, i.rotas || '', m.quien || '', m.rol || '', m.lugar || '', m.tel || '', m.motivo || m.falla || m.origen || '', m.hasta || '', m.obs || m.detalle || '', m.ej ? 'sí' : '']);
     });
   });
   return csv(f);
