@@ -1,0 +1,1232 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Sillas, Tablones y Caballetes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&family=Saira+Stencil+One&display=swap">
+<script defer src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<style id="app-style">/* Depósito escolar: una chapa por tipo de mueble con su conteo por estado y una planilla de «dónde está cada cosa»; barra inferior de secciones para el pulgar. */
+:root{
+  --piso:#ECEEED; --chapa:#FAFBFA; --tinta:#1B2226; --tenue:#56636A; --linea:#D0D6D7;
+  --hierro:#24506C; --sobre-hierro:#F6F9FB; --hierro-suave:#DBE6ED;
+  --pino:#94601F; --pino-suave:#F1E3CC;
+  --ok:#2E7549; --ok-suave:#DCEEE2; --alerta:#935A05; --alerta-suave:#F6E7C9; --mal:#AE3F2A; --mal-suave:#F5DCD5;
+  --velo:rgba(27,34,38,.45);
+  --sombra:0 1px 0 rgba(27,34,38,.05), 0 8px 22px -16px rgba(27,34,38,.45);
+  --qr-fondo:#FFFFFF; --qr-tinta:#000000;
+  --f-cartel:"Saira Stencil One","Arial Black",Impact,sans-serif;
+  --f-texto:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-dato:"Courier Prime",ui-monospace,"Courier New",monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --piso:#111517; --chapa:#192024; --tinta:#E3E9EB; --tenue:#9BA8AD; --linea:#2D383D;
+    --hierro:#8DB9D8; --sobre-hierro:#0E1A22; --hierro-suave:#1F3240;
+    --pino:#E0A75E; --pino-suave:#3A2C18;
+    --ok:#74C892; --ok-suave:#1C3324; --alerta:#E7AE52; --alerta-suave:#3A2C14; --mal:#EE8A73; --mal-suave:#3D201A;
+    --velo:rgba(0,0,0,.6); --sombra:0 1px 0 rgba(0,0,0,.35), 0 10px 24px -16px rgba(0,0,0,.9);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --piso:#111517; --chapa:#192024; --tinta:#E3E9EB; --tenue:#9BA8AD; --linea:#2D383D;
+  --hierro:#8DB9D8; --sobre-hierro:#0E1A22; --hierro-suave:#1F3240;
+  --pino:#E0A75E; --pino-suave:#3A2C18;
+  --ok:#74C892; --ok-suave:#1C3324; --alerta:#E7AE52; --alerta-suave:#3A2C14; --mal:#EE8A73; --mal-suave:#3D201A;
+  --velo:rgba(0,0,0,.6); --sombra:0 1px 0 rgba(0,0,0,.35), 0 10px 24px -16px rgba(0,0,0,.9);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--piso);color:var(--tinta);font-family:var(--f-texto);font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--hierro);outline-offset:2px}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 120px}
+
+/* encabezado */
+.cab{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 20px;padding-bottom:14px;border-bottom:2px solid var(--tinta);margin-bottom:16px}
+.cab-esc{font-family:var(--f-dato);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--tenue)}
+.cab h1{font-family:var(--f-cartel);font-weight:400;font-size:clamp(1.8rem,6.6vw,3rem);line-height:1;margin:.14em 0 0;letter-spacing:.01em;text-wrap:balance}
+.cab-datos{font-family:var(--f-dato);font-size:.85rem;color:var(--tenue);display:flex;flex-wrap:wrap;gap:4px 14px;font-variant-numeric:tabular-nums}
+.cab-datos b{color:var(--tinta);font-weight:700}
+
+/* barra inferior */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--chapa);border-top:1px solid var(--linea);padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px));padding-top:6px;padding-bottom:calc(6px + env(safe-area-inset-bottom,0px))}
+.nav-in{max-width:640px;margin:0 auto;display:flex;justify-content:space-around;gap:2px}
+.nav button{flex:1 1 0;min-width:0;background:none;border:0;border-radius:10px;padding:6px 2px 5px;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--tenue);font-size:.72rem;line-height:1.15;cursor:pointer}
+.nav button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav button[aria-current="page"]{color:var(--hierro);background:var(--hierro-suave);font-weight:700}
+
+/* tipografía y bloques */
+.h2{font-family:var(--f-texto);font-weight:700;font-size:1.4rem;line-height:1.15;margin:0 0 4px;letter-spacing:-.01em;text-wrap:balance}
+.h3{font-family:var(--f-texto);font-weight:700;font-size:1.1rem;margin:0;line-height:1.2;text-wrap:balance}
+.nota{color:var(--tenue);margin:0 0 14px;max-width:64ch}
+.mono{font-family:var(--f-dato);font-variant-numeric:tabular-nums}
+.tenue{color:var(--tenue)}
+.vacio{padding:26px 16px;text-align:center;color:var(--tenue);border:1px dashed var(--linea);border-radius:8px;display:flex;flex-direction:column;gap:10px;align-items:center}
+.stack{display:flex;flex-direction:column;gap:14px}
+
+/* fichas de cada mueble */
+.tipos{display:grid;grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));gap:12px;margin-bottom:14px}
+@media (max-width:900px){.tipos{grid-template-columns:repeat(var(--cols-m,2),minmax(0,1fr))}}
+@media (max-width:540px){.tipos{grid-template-columns:minmax(0,1fr)}}
+.tcard{background:var(--chapa);border:1px solid var(--linea);border-radius:8px;padding:14px 16px 16px;display:flex;flex-direction:column;gap:12px;min-width:0;box-shadow:var(--sombra)}
+.tcard-cab{display:flex;gap:12px;align-items:center}
+.tico{flex:0 0 auto;width:38px;height:38px;border-radius:8px;display:grid;place-items:center;background:var(--hierro-suave);color:var(--hierro)}
+.tico svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tnom{font-weight:700;font-size:1.2rem;line-height:1.15;margin:0}
+.tsub{font-size:.86rem;color:var(--tenue)}
+.big{display:flex;align-items:flex-end;gap:10px}
+.big b{font-family:var(--f-cartel);font-weight:400;font-size:3.3rem;line-height:.9;color:var(--hierro);font-variant-numeric:tabular-nums}
+.big span{font-size:.9rem;color:var(--tenue);line-height:1.25;padding-bottom:3px}
+.barra{display:flex;height:12px;border-radius:3px;overflow:hidden;background:var(--piso);border:1px solid var(--linea)}
+.barra i{display:block;height:100%}
+.b-disp,.c-disp{background:var(--hierro)} .b-pre,.c-pre{background:var(--pino)} .b-rot,.c-rot{background:var(--mal)}
+.ley{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;margin:0;font-size:.92rem}
+.ley dt{display:flex;align-items:center;gap:7px;color:var(--tenue)}
+.ley dd{margin:0;text-align:right;font-family:var(--f-dato);font-variant-numeric:tabular-nums;font-weight:700}
+.ley i{width:10px;height:10px;border-radius:2px;display:inline-block;flex:0 0 auto}
+.ley .tot{border-top:1px solid var(--linea);padding-top:4px;margin-top:3px}
+.ley dt.tot{color:var(--tinta);font-weight:700}
+
+/* para atender */
+.atender{background:var(--chapa);border:1px solid var(--linea);border-radius:8px;padding:12px 16px;margin-bottom:14px;display:flex;flex-direction:column;gap:8px}
+.at-fila{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.at-fila p{margin:0;flex:1 1 220px;min-width:0}
+.punto{width:10px;height:10px;border-radius:50%;flex:0 0 auto;background:var(--tenue)}
+.punto.mal{background:var(--mal)} .punto.alerta{background:var(--alerta)} .punto.ok{background:var(--ok)}
+
+/* dónde está */
+.sec-tit{margin:4px 0 10px}
+.sec-tit .nota{margin:0}
+.lugares{background:var(--chapa);border:1px solid var(--linea);border-radius:8px}
+.lugar{padding:12px 16px;border-bottom:1px solid var(--linea);display:flex;flex-direction:column;gap:7px}
+.lugar:last-child{border-bottom:0}
+.lugar-cab{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 14px;align-items:center}
+.lugar-nom{font-weight:700;font-size:1.05rem;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.lugar-tag{font-family:var(--f-dato);font-size:.74rem;text-transform:uppercase;letter-spacing:.07em;color:var(--tenue);font-weight:400}
+.lugar.base{background:var(--hierro-suave);border-radius:8px 8px 0 0}
+.lugar.rot{background:var(--mal-suave)}
+.lugar.rot:last-child{border-radius:0 0 8px 8px}
+.cms{display:flex;flex-wrap:wrap;gap:6px}
+.cm{display:inline-flex;align-items:center;gap:5px;font-family:var(--f-dato);font-size:.88rem;border:1px solid var(--linea);border-radius:5px;padding:2px 8px 2px 5px;background:var(--chapa);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cm svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;color:var(--tenue)}
+.cm b{font-weight:700}
+.quienes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;font-size:.93rem;color:var(--tenue)}
+.quienes li{padding-left:14px;position:relative}
+.quienes li::before{content:"";position:absolute;left:2px;top:.72em;width:6px;height:1.5px;background:var(--tenue)}
+.quienes b{color:var(--tinta)}
+
+/* herramientas */
+.herr{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.buscar{flex:1 1 240px;min-width:0;position:relative}
+.buscar input{width:100%;padding:11px 12px 11px 38px;border:1px solid var(--linea);border-radius:10px;background:var(--chapa)}
+.buscar svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:var(--tenue);fill:none;stroke-width:2}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--linea);background:var(--chapa);border-radius:999px;padding:5px 12px;font-size:.88rem;cursor:pointer;color:var(--tenue)}
+.chip b{font-family:var(--f-dato);margin-left:4px}
+.chip[aria-pressed="true"]{background:var(--hierro);border-color:var(--hierro);color:var(--sobre-hierro)}
+
+/* píldoras y etiquetas */
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:2px 10px;font-size:.8rem;font-weight:700;font-family:var(--f-dato);white-space:nowrap}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.pill.ok{background:var(--ok-suave);color:var(--ok)}
+.pill.alerta{background:var(--alerta-suave);color:var(--alerta)}
+.pill.mal{background:var(--mal-suave);color:var(--mal)}
+.etq{display:inline-block;font-size:.76rem;border-radius:4px;padding:0 7px;font-weight:700;font-family:var(--f-dato)}
+.etq.ej{background:var(--pino-suave);color:var(--pino)}
+
+/* paneles y formularios */
+.panel{background:var(--chapa);border:1px solid var(--linea);border-radius:10px;padding:16px;box-shadow:var(--sombra)}
+.seg{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border:1px solid var(--linea);border-radius:12px;overflow:hidden;margin:4px 0 16px;background:var(--linea)}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{padding:12px 4px;text-align:center;cursor:pointer;font-weight:700;color:var(--tenue);font-size:.92rem;background:var(--piso)}
+.seg input:checked+label{background:var(--hierro);color:var(--sobre-hierro)}
+.seg input:focus-visible+label{outline:2px solid var(--hierro);outline-offset:-4px}
+@media (max-width:440px){.seg{grid-template-columns:repeat(2,1fr)}}
+form{display:flex;flex-direction:column;gap:12px}
+.fila2{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.fila2.chica{grid-template-columns:repeat(2,minmax(0,1fr))}
+.campo{display:flex;flex-direction:column;gap:4px;min-width:0;border:0;margin:0;padding:0}
+.campo>span,.campo>legend{font-size:.88rem;font-weight:700;color:var(--tenue)}
+.campo legend{margin-bottom:6px;padding:0}
+.campo>input,.campo>select,.campo>textarea{width:100%;padding:10px 12px;border:1px solid var(--linea);border-radius:8px;background:var(--piso);min-width:0}
+.campo textarea{min-height:110px;resize:vertical;font-family:var(--f-dato);font-size:.85rem}
+.btn{border:1px solid var(--linea);background:var(--chapa);border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn.prim{background:var(--hierro);border-color:var(--hierro);color:var(--sobre-hierro);padding:13px 18px;font-size:1.02rem}
+.btn.peligro{color:var(--mal);border-color:var(--mal)}
+.btn.chico{padding:5px 10px;font-size:.85rem;border-radius:8px}
+.btn:disabled{opacity:.5;cursor:default}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.lnk{border:0;background:none;padding:0;color:var(--hierro);text-decoration:underline;font-weight:700;cursor:pointer}
+.err{color:var(--mal);font-weight:700;font-size:.92rem}
+.err:empty{display:none}
+
+/* cantidades con − y + */
+.items{display:flex;flex-direction:column;border:1px solid var(--linea);border-radius:8px;background:var(--piso)}
+.item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 10px;border-bottom:1px solid var(--linea)}
+.item:last-child{border-bottom:0}
+.item .tico{width:34px;height:34px;background:var(--chapa)}
+.item-nom{font-weight:700;display:flex;flex-direction:column;line-height:1.2;min-width:0}
+.item-nom small{font-weight:400;color:var(--tenue);font-size:.84rem}
+.step{display:inline-flex;align-items:stretch;border:1px solid var(--linea);border-radius:8px;overflow:hidden;background:var(--chapa)}
+.step-b{border:0;background:none;width:40px;font-size:1.25rem;font-weight:700;cursor:pointer;color:var(--hierro);line-height:1}
+.step-b:active{background:var(--hierro-suave)}
+.step-i{width:58px;border:0;border-left:1px solid var(--linea);border-right:1px solid var(--linea);text-align:center;font-family:var(--f-dato);font-weight:700;font-size:1.05rem;padding:8px 2px;background:var(--chapa);-moz-appearance:textfield;appearance:textfield}
+.step-i::-webkit-outer-spin-button,.step-i::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+
+/* vistas previas */
+.prev{border:1px dashed var(--hierro);border-radius:10px;padding:12px 14px;background:var(--hierro-suave);display:flex;flex-direction:column;gap:8px}
+.prev:empty{display:none}
+.prev p{margin:0}
+.flechas{display:flex;flex-direction:column;gap:4px}
+.flecha{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:var(--f-dato);font-variant-numeric:tabular-nums}
+.flecha .nom{min-width:7.5em;font-family:var(--f-texto)}
+.flecha .de,.flecha .a{padding:1px 8px;border-radius:5px;background:var(--chapa);font-weight:700}
+.flecha .a.neg{color:var(--mal)}
+.mini{font-size:.9rem;margin:0}
+.mini.alerta{color:var(--alerta);font-weight:700}
+.mini.mal{color:var(--mal);font-weight:700}
+
+/* devolución */
+.devs{display:flex;flex-direction:column;gap:10px}
+.dev{border:1px solid var(--linea);border-radius:8px;padding:10px 12px;background:var(--piso);display:flex;flex-direction:column;gap:8px}
+.dev-cab{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.dev .tico{width:30px;height:30px;background:var(--chapa)}
+.dev .tico svg{width:20px;height:20px}
+.dev .campo>input,.dev .campo>select{background:var(--chapa)}
+
+/* listas de movimientos */
+.lista{background:var(--chapa);border:1px solid var(--linea);border-radius:10px;padding:2px 14px}
+.mov{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;padding:11px 0;border-bottom:1px solid var(--linea)}
+.mov:last-child{border-bottom:0}
+.mov-tipo{grid-row:span 2;width:38px;height:36px;border-radius:7px;display:grid;place-items:center;font-family:var(--f-dato);font-weight:700;font-size:.78rem}
+.t-pre{background:var(--pino-suave);color:var(--pino)}
+.t-dev{background:var(--ok-suave);color:var(--ok)}
+.t-rot{background:var(--mal-suave);color:var(--mal)}
+.t-alta{background:var(--hierro-suave);color:var(--hierro)}
+.mov-l1{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;min-width:0}
+.mov-l1 strong{font-weight:700}
+.mov-l2{color:var(--tenue);font-size:.9rem;display:flex;flex-wrap:wrap;gap:2px 12px;min-width:0}
+.mov-acc{grid-column:2;display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.fecha{font-family:var(--f-dato);font-size:.8rem;color:var(--tenue)}
+
+/* resumen del historial */
+.donde .chips{margin-top:10px}
+.resumen{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--linea);border:1px solid var(--linea);border-radius:10px;overflow:hidden;margin:0 0 12px}
+@media (max-width:640px){.resumen{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.resumen>div{background:var(--chapa);padding:10px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.resumen dt{font-family:var(--f-dato);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--tenue)}
+.resumen dd{margin:0;display:flex;flex-direction:column;gap:2px}
+.resumen dd b{font-family:var(--f-cartel);font-weight:400;font-size:1.8rem;line-height:1;color:var(--hierro);font-variant-numeric:tabular-nums}
+.resumen dd span{font-size:.86rem;color:var(--tenue);line-height:1.3}
+
+/* gestión */
+details.sec{background:var(--chapa);border:1px solid var(--linea);border-radius:10px}
+details.sec>summary{cursor:pointer;padding:14px 16px;font-weight:700;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;gap:10px;align-items:center}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary::after{content:"+";font-family:var(--f-dato);color:var(--hierro);font-size:1.2rem}
+details.sec[open]>summary::after{content:"−"}
+details.sec>.sec-in{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px}
+.sec-in p{margin:0}
+.qr-caja{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.qr{background:var(--qr-fondo);padding:10px;border-radius:8px;width:180px;max-width:100%;border:1px solid var(--linea)}
+.qr svg{display:block;width:100%;height:auto}
+.url{font-family:var(--f-dato);font-size:.82rem;word-break:break-all;background:var(--piso);padding:6px 8px;border-radius:6px;user-select:all}
+.cartel-img{max-width:260px;border:1px solid var(--linea);border-radius:6px;background:#FFFFFF}
+
+/* avisos */
+.aviso{border-radius:10px;padding:12px 14px;margin-bottom:14px;display:flex;flex-direction:column;gap:8px;border:1px solid var(--linea);background:var(--chapa)}
+.aviso.alerta{background:var(--alerta-suave);border-color:var(--alerta)}
+.aviso.ej{background:var(--pino-suave);border-color:var(--pino)}
+.aviso p{margin:0}
+
+/* hoja de detalle */
+.velo{position:fixed;inset:0;background:var(--velo);z-index:40;display:flex;align-items:flex-end;justify-content:center}
+.hoja{background:var(--piso);width:100%;max-width:640px;max-height:90%;overflow-y:auto;border-radius:16px 16px 0 0;padding:18px max(16px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));box-shadow:0 -10px 40px -20px rgba(0,0,0,.5);display:flex;flex-direction:column;gap:12px}
+@media (min-width:760px){.velo{align-items:center}.hoja{border-radius:14px;max-height:86%}}
+.hoja-cab{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.hoja p{margin:0}
+.cerrar{border:1px solid var(--linea);background:var(--chapa);border-radius:50%;width:38px;height:38px;flex:0 0 auto;cursor:pointer;font-size:1.2rem;line-height:1}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(88px + env(safe-area-inset-bottom,0px));background:var(--tinta);color:var(--piso);padding:10px 16px;border-radius:10px;z-index:60;max-width:min(92vw,520px);font-size:.95rem;box-shadow:var(--sombra)}
+.ocupado{position:fixed;inset:0;z-index:70;background:var(--velo);display:grid;place-items:center}
+.ocupado div{background:var(--chapa);padding:18px 22px;border-radius:12px;font-weight:700}
+@media (prefers-reduced-motion:no-preference){
+  .hoja{animation:sube .22s ease-out}
+  @keyframes sube{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}
+}
+@media (max-width:340px){
+  .item{grid-template-columns:auto minmax(0,1fr);}
+  .item .step,.item>.step-i{grid-column:1 / -1;justify-self:end}
+  .big b{font-size:2.9rem}
+}
+</style>
+<div id="app"></div>
+<script id="estado" type="application/json">{"v":1,"config":{"escuela":"CFR Saladillo","wa":"5492344400874","url":"https://bautililli8-source.github.io/Banco-semilla/mobiliario/"},"ultimoCambio":"","tipos":[{"id":"t-sillas","nombre":"Silla","plural":"Sillas","clase":"silla","guardado":"Depósito","notas":""},{"id":"t-tablones","nombre":"Tablón","plural":"Tablones","clase":"tablon","guardado":"Depósito","notas":""},{"id":"t-cab-madera","nombre":"Caballete de madera","plural":"Caballetes de madera","clase":"caballete","guardado":"Depósito","notas":""},{"id":"t-cab-hierro","nombre":"Caballete de hierro","plural":"Caballetes de hierro","clase":"caballete","guardado":"Depósito","notas":""}],"movs":[{"id":"m-recuento-inicial","t":"2026-10-16T11:29:00.000Z","tipo":"ingreso","items":[{"tid":"t-sillas","cant":436},{"tid":"t-tablones","cant":56},{"tid":"t-cab-madera","cant":20},{"tid":"t-cab-hierro","cant":72}],"origen":"Primer recuento","obs":""},{"id":"m-tablones-afuera","t":"2026-10-16T11:29:01.000Z","tipo":"prestamo","quien":"Escuela","rol":"uso general","items":[{"tid":"t-tablones","cant":3}],"lugar":"Parrilla del gimnasio","hasta":"","obs":"Quedan ahí para uso de la escuela"}],"reservas":[]}</script>
+<script id="app-code">(function(){
+'use strict';
+/* ===== Plantilla para que la página se vuelva a publicar con su estado ===== */
+var HEAD_HTML = "<!doctype html><html><head><meta charset=utf8><meta name=viewport content=\"width=device-width,initial-scale=1,viewport-fit=cover\"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>\n";
+var TOP_HTML = "<title>Sillas, Tablones y Caballetes</title>\n<meta name=\"claude:viewport-fit-sides\" content=\"cover\">\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&family=Saira+Stencil+One&display=swap\">\n<script defer src=\"https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js\"><\/script>\n";
+
+var ST = JSON.parse(document.getElementById('estado').textContent);
+ST.tipos = ST.tipos || []; ST.movs = ST.movs || []; ST.reservas = ST.reservas || []; ST.config = ST.config || {};
+var HOY = diaLocal(new Date());
+var ART = null, DESC = null, puedeGuardar = null, esDocente = false;
+var C = null, TP = {};
+var UI = { tab: 'inventario', rtipo: 'prestamo', hist: 'abiertos', hq: '', pre: null, secAbierta: null, devElegido: false, donde: 'lugar' };
+
+var LUGARES = ['Depósito', 'SUM', 'Comedor', 'Patio', 'Patio cubierto', 'Galpón', 'Sala de profesores', 'Biblioteca', 'Fuera de la escuela'];
+var FALLAS = {
+  silla: ['Pata floja', 'Pata rota o doblada', 'Asiento roto', 'Respaldo roto', 'Tornillo o remache suelto', 'Otro'],
+  tablon: ['Tabla rajada o partida', 'Astillado (puede lastimar)', 'Combado o torcido', 'Otro'],
+  caballete: ['Bisagra o traba rota', 'Pata doblada', 'Soldadura suelta', 'No se sostiene firme', 'Otro'],
+  otro: ['Roto', 'Flojo', 'Astillado (puede lastimar)', 'Otro']
+};
+var CLASES = [['silla', 'Silla'], ['tablon', 'Tablón (con caballetes arma una mesa)'], ['caballete', 'Caballete (van 2 por tablón)'], ['otro', 'Otro mueble']];
+var ORIGENES = ['Primer recuento', 'Compra', 'Donación', 'Hecho en el taller', 'Otro'];
+var COD = { prestamo: ['RET', 't-pre'], devolucion: ['DEV', 't-dev'], rotura: ['ROT', 't-rot'], reparacion: ['REP', 't-dev'], baja: ['BAJ', 't-rot'], ingreso: ['ALT', 't-alta'], ajuste: ['REC', 't-alta'] };
+var TIPO_TXT = { prestamo: 'Retiro', devolucion: 'Devolución', rotura: 'Rotura', reparacion: 'Reparación', baja: 'Baja', ingreso: 'Alta', ajuste: 'Recuento' };
+
+/* ===== utilidades ===== */
+function $(s, r){ return (r || document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+var nf0 = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 });
+function n0(x){ return nf0.format(+x || 0); }
+function dos(n){ return (n < 10 ? '0' : '') + n; }
+function diaLocal(d){ return d.getFullYear() + '-' + dos(d.getMonth() + 1) + '-' + dos(d.getDate()); }
+function fechaDeDia(s){ var p = String(s || '').split('-'); return p.length === 3 ? new Date(+p[0], +p[1] - 1, +p[2]) : null; }
+function fDia(s, largo){ var d = fechaDeDia(s); if (!d || isNaN(d)) return ''; try { return d.toLocaleDateString('es-AR', largo ? { weekday: 'long', day: 'numeric', month: 'long' } : { weekday: 'short', day: 'numeric', month: 'short' }); } catch(e){ return s; } }
+function fFecha(t){ try { return new Date(t).toLocaleDateString('es-AR', { day: 'numeric', month: 'short', year: 'numeric' }); } catch(e){ return ''; } }
+function fCorta(t){ try { return new Date(t).toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }); } catch(e){ return ''; } }
+function mesCorto(d){ try { return d.toLocaleDateString('es-AR', { month: 'short' }).replace('.', ''); } catch(e){ return ''; } }
+function diasEntre(a, b){ var x = fechaDeDia(a), y = fechaDeDia(b); return Math.round((y - x) / 86400000); }
+function uid(p){ return p + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+function sinTilde(s){ return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+function norm(s){ return sinTilde(s).toLowerCase().replace(/\s+/g, ' ').trim(); }
+function clon(o){ return JSON.parse(JSON.stringify(o)); }
+function ent(v){ var s = String(v == null ? '' : v).trim(); if (!/^\d+$/.test(s)) return NaN; return parseInt(s, 10); }
+function ls(k, v){ try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch(e){ return null; } }
+function ss(k, v){ try { if (v === undefined) return sessionStorage.getItem(k); if (v === null) sessionStorage.removeItem(k); else sessionStorage.setItem(k, v); } catch(e){ return null; } }
+function cmpMov(a, b){ return a.t < b.t ? -1 : a.t > b.t ? 1 : (a.id < b.id ? -1 : a.id > b.id ? 1 : 0); }
+function lista(a){ if (a.length < 2) return a.join(''); return a.slice(0, -1).join(', ') + ' y ' + a[a.length - 1]; }
+function idx(tid){ for (var i = 0; i < ST.tipos.length; i++) if (ST.tipos[i].id === tid) return i; return 999; }
+function ordenar(items){ return items.slice().sort(function(a, b){ return idx(a.tid) - idx(b.tid); }); }
+function nomT(tid, n){ var t = TP[tid]; if (!t) return n === 1 ? 'mueble borrado' : 'muebles borrados'; return (n === 1 ? t.nombre : t.plural).toLowerCase(); }
+function itemsTxt(items){ var a = ordenar(items || []).filter(function(i){ return +i.cant > 0; }).map(function(i){ return n0(i.cant) + ' ' + nomT(i.tid, +i.cant); }); return a.length ? lista(a) : 'nada'; }
+function objAItems(o){ return Object.keys(o).map(function(k){ return { tid: k, cant: o[k] }; }).filter(function(i){ return i.cant > 0; }); }
+function itemsDe(m){ return m.items ? m.items : (m.tid ? [{ tid: m.tid, cant: m.cant }] : []); }
+function ej(o){ return o && o.ej ? '<span class="etq ej">ejemplo</span>' : ''; }
+function quienTxt(o){ return esc(o.quien || 'Sin nombre') + (o.rol ? ' <span class="tenue">(' + esc(o.rol) + ')</span>' : ''); }
+
+/* ===== cálculo del depósito ===== */
+function calc(st){
+  var tp = {}, T = {};
+  st.tipos.forEach(function(t){ tp[t.id] = t; T[t.id] = { total: 0, prestado: 0, rotas: 0 }; });
+  function S(tid){ return T[tid] || (T[tid] = { total: 0, prestado: 0, rotas: 0, huerfano: true }); }
+  var ms = st.movs.slice().sort(cmpMov), P = {}, R = {};
+  ms.forEach(function(m){
+    var c, k = +m.cant || 0;
+    if (m.tipo === 'ingreso'){ (m.items || []).forEach(function(i){ S(i.tid).total += +i.cant || 0; }); }
+    else if (m.tipo === 'ajuste'){ S(m.tid).total += +m.cant || 0; }
+    else if (m.tipo === 'prestamo'){
+      var p = P[m.id] = { m: m, pend: {}, devs: [], perd: [] };
+      (m.items || []).forEach(function(i){ var q = +i.cant || 0; p.pend[i.tid] = (p.pend[i.tid] || 0) + q; S(i.tid).prestado += q; });
+    } else if (m.tipo === 'devolucion'){
+      var p2 = P[m.prestamoId]; if (!p2) return;
+      (m.items || []).forEach(function(i){ c = Math.min(+i.cant || 0, p2.pend[i.tid] || 0); p2.pend[i.tid] = (p2.pend[i.tid] || 0) - c; S(i.tid).prestado -= c; });
+      p2.devs.push(m);
+    } else if (m.tipo === 'rotura'){
+      R[m.id] = { m: m, abiertas: k, reps: [], bajas: [] }; S(m.tid).rotas += k;
+    } else if (m.tipo === 'reparacion'){
+      var r = R[m.roturaId]; if (!r) return;
+      c = Math.min(k, r.abiertas); r.abiertas -= c; r.reps.push(m); S(r.m.tid).rotas -= c;
+    } else if (m.tipo === 'baja'){
+      if (m.roturaId && R[m.roturaId]){ var r2 = R[m.roturaId]; c = Math.min(k, r2.abiertas); r2.abiertas -= c; r2.bajas.push(m); S(m.tid).rotas -= c; S(m.tid).total -= c; }
+      else if (m.prestamoId && P[m.prestamoId]){ var p3 = P[m.prestamoId]; c = Math.min(k, p3.pend[m.tid] || 0); p3.pend[m.tid] = (p3.pend[m.tid] || 0) - c; p3.perd.push(m); S(m.tid).prestado -= c; S(m.tid).total -= c; }
+      else S(m.tid).total -= k;
+    }
+  });
+  Object.keys(T).forEach(function(tid){
+    var x = T[tid], t = tp[tid];
+    x.disp = x.total - x.prestado - x.rotas; x.sanas = x.total - x.rotas;
+  });
+  var abiertos = [], rotas = [];
+  Object.keys(P).forEach(function(id){
+    var p = P[id]; p.total = 0;
+    Object.keys(p.pend).forEach(function(tid){ p.total += Math.max(0, p.pend[tid]); });
+    p.abierto = p.total > 0 && !p.m.cerrado;
+    p.vencido = p.abierto && !!p.m.hasta && p.m.hasta < HOY;
+    if (p.abierto) abiertos.push(p);
+  });
+  Object.keys(R).forEach(function(id){ if (R[id].abiertas > 0) rotas.push(R[id]); });
+  abiertos.sort(function(a, b){ return cmpMov(a.m, b.m); });
+  rotas.sort(function(a, b){ return cmpMov(a.m, b.m); });
+  return { TP: tp, T: T, P: P, R: R, ms: ms, abiertos: abiertos, rotas: rotas };
+}
+function pendItems(p){ return ordenar(Object.keys(p.pend).filter(function(k){ return p.pend[k] > 0; }).map(function(k){ return { tid: k, cant: p.pend[k] }; })); }
+
+/* ===== guardar (la página se publica a sí misma) ===== */
+function construirHTML(st){
+  var css = document.getElementById('app-style').textContent;
+  var code = document.getElementById('app-code').textContent;
+  var json = JSON.stringify(st).replace(/</g, '\\u003c');
+  return HEAD_HTML + TOP_HTML + '<style id="app-style">' + css + '</style>\n<div id="app"></div>\n<script id="estado" type="application/json">' + json + '<\/script>\n<script id="app-code">' + code + '<\/script>\n</body></html>';
+}
+function borrarMovs(st, ids){
+  var cambio = true;
+  while (cambio){
+    cambio = false;
+    st.movs.forEach(function(m){ if (!ids[m.id] && (ids[m.prestamoId] || ids[m.roturaId] || ids[m.origen])){ ids[m.id] = 1; cambio = true; } });
+  }
+  st.movs = st.movs.filter(function(m){ return !ids[m.id]; });
+}
+function aplicar(st, p){
+  if (p.op === 'multi'){ p.ops.forEach(function(o){ aplicar(st, o); }); }
+  else if (p.op === 'addMovs'){
+    var ids = {}; st.movs.forEach(function(m){ ids[m.id] = 1; });
+    p.movs.forEach(function(m){ if (!ids[m.id]){ st.movs.push(m); ids[m.id] = 1; } });
+  } else if (p.op === 'delMov'){ var b = {}; b[p.id] = 1; borrarMovs(st, b); }
+  else if (p.op === 'updMov'){ st.movs.forEach(function(m){ if (m.id === p.id) Object.keys(p.campos).forEach(function(k){ m[k] = p.campos[k]; }); }); }
+  else if (p.op === 'setTipo'){
+    var i = st.tipos.findIndex(function(t){ return t.id === p.t.id; });
+    if (i >= 0) st.tipos[i] = p.t; else st.tipos.push(p.t);
+  } else if (p.op === 'delTipo'){ st.tipos = st.tipos.filter(function(t){ return t.id !== p.id; }); }
+  else if (p.op === 'config'){ Object.keys(p.c).forEach(function(k){ st.config[k] = p.c[k]; }); }
+  else if (p.op === 'delEjemplos'){
+    var e = {}; st.movs.forEach(function(m){ if (m.ej) e[m.id] = 1; });
+    borrarMovs(st, e);
+    if (st.reservas) st.reservas = st.reservas.filter(function(r){ return !r.ej; });
+  }
+  return st;
+}
+var reintentado = false;
+function guardar(patch, desc){
+  if (!ART){ toast('Desde esta vista no se puede guardar.'); return; }
+  patch.pid = uid('p');
+  var nuevo = aplicar(clon(ST), clon(patch));
+  nuevo.ultimoCambio = patch.pid;
+  ss('mb_pend', JSON.stringify({ patch: patch, desc: desc }));
+  ocupado(true);
+  return ART.publish(construirHTML(nuevo)).then(function(){
+    ocupado(false); cerrarHoja(); toast('Guardado: ' + desc);
+  }, function(e){
+    var c = e && e.code;
+    if (c === 'conflict'){ toast('Alguien guardó al mismo tiempo. La página se actualiza…'); return; }
+    ss('mb_pend', null); ocupado(false);
+    if (c === 'upstream_error' && !reintentado){ reintentado = true; setTimeout(function(){ guardar(patch, desc); }, 800 + Math.random() * 900); return; }
+    if (c === 'not_writer' || c === 'not_granted' || c === 'not_declared' || c === 'consent_required' || c === 'capability_disabled' || c === 'capability_removed'){
+      puedeGuardar = false; esDocente = false; cerrarHoja(); pintar(); toast('Esta vista es de solo lectura. Usá «Preparar mensaje para el docente».'); return;
+    }
+    if (c === 'rate_limited'){ toast('Se guardaron muchos cambios seguidos. Esperá unos segundos y probá de nuevo.'); return; }
+    if (c === 'too_large'){ toast('El registro llegó al tamaño máximo. Exportá la planilla y borrá movimientos viejos.'); return; }
+    toast('No se pudo guardar. Probá de nuevo en un momento.');
+  });
+}
+function revisarPendiente(){
+  var raw = ss('mb_pend'); if (!raw) return null;
+  var p; try { p = JSON.parse(raw); } catch(e){ ss('mb_pend', null); return null; }
+  if (ST.ultimoCambio === p.patch.pid){ ss('mb_pend', null); setTimeout(function(){ toast('Guardado: ' + p.desc); }, 300); return null; }
+  return p;
+}
+function paqueteAPatch(paq){
+  var ops = [];
+  if (paq.movs && paq.movs.length) ops.push({ op: 'addMovs', movs: paq.movs });
+  return { op: 'multi', ops: ops };
+}
+
+/* ===== mensajes para quien no puede guardar ===== */
+function b64(s){ var b = new TextEncoder().encode(s), t = ''; for (var i = 0; i < b.length; i++) t += String.fromCharCode(b[i]); return btoa(t); }
+function deb64(s){ var t = atob(s), b = new Uint8Array(t.length); for (var i = 0; i < t.length; i++) b[i] = t.charCodeAt(i); return new TextDecoder().decode(b); }
+function codigo(paq){ return 'MB1.' + b64(JSON.stringify(paq)); }
+function leerCodigos(txt){
+  var out = [], re = /MB1\.([A-Za-z0-9+\/=]+)/g, x;
+  while ((x = re.exec(txt))){ try { out.push({ paq: JSON.parse(deb64(x[1])) }); } catch(e){ out.push({ err: 'Código dañado o incompleto' }); } }
+  return out;
+}
+function rotasTxt(items){ var r = items.filter(function(i){ return +i.rotas > 0; }); return r.length ? ' (vienen rotos: ' + itemsTxt(r.map(function(i){ return { tid: i.tid, cant: +i.rotas }; })) + ')' : ''; }
+function textoPaquete(paq){
+  var l = [], w = (paq.movs && paq.movs[0]) || {};
+  (paq.movs || []).forEach(function(m){
+    if (m.tipo === 'prestamo'){ l.push('RETIRO', 'Lleva: ' + itemsTxt(m.items), 'Adónde: ' + m.lugar + (m.hasta ? ' · hasta el ' + fDia(m.hasta, true) : '')); }
+    else if (m.tipo === 'devolucion'){ var p = C.P[m.prestamoId]; l.push('DEVOLUCIÓN', 'Devuelve: ' + itemsTxt(m.items) + rotasTxt(m.items)); if (p) l.push('Del retiro del ' + fFecha(p.m.t) + ' (' + p.m.lugar + ')'); }
+    else if (m.tipo === 'rotura' && m.origen){ l.push('Rotos: ' + n0(m.cant) + ' ' + nomT(m.tid, m.cant) + ', ' + m.falla.toLowerCase()); }
+    else if (m.tipo === 'rotura'){ l.push('ROTURA', n0(m.cant) + ' ' + nomT(m.tid, m.cant) + ': ' + m.falla, 'Está en: ' + m.lugar); if (m.detalle) l.push('Detalle: ' + m.detalle); }
+    else if (m.tipo === 'reparacion'){ var r = C.R[m.roturaId]; l.push('REPARACIÓN', 'Arreglados: ' + n0(m.cant) + ' ' + nomT(m.tid, m.cant) + (r ? ' (' + r.m.falla.toLowerCase() + ', en ' + r.m.lugar + ')' : '')); }
+    if (m.obs) l.push((m.tipo === 'reparacion' ? 'Qué se hizo: ' : m.tipo === 'prestamo' ? 'Para qué: ' : 'Obs.: ') + m.obs);
+  });
+  return ['Sillas, tablones y caballetes' + (ST.config.escuela ? ' · ' + ST.config.escuela : ''), 'Nombre: ' + (w.quien || '') + (w.rol ? ' (' + w.rol + ')' : '')].concat(l, ['', 'Código para cargar:', codigo(paq)]).join('\n');
+}
+function mostrarComprobante(paq, formSel, boxSel, volver){
+  var txt = textoPaquete(paq), wa = (ST.config.wa || '').replace(/\D/g, '');
+  var href = wa ? 'https://wa.me/' + wa + '?text=' + encodeURIComponent(txt) : 'https://wa.me/?text=' + encodeURIComponent(txt);
+  var box = $(boxSel); $(formSel).hidden = true; box.hidden = false;
+  box.innerHTML = '<div class="prev"><p><b>Tu mensaje está listo.</b> Mandáselo al docente: cuando lo cargue, queda anotado en la página.</p></div>' +
+    '<div class="btns"><a class="btn prim" href="' + esc(href) + '" target="_blank" rel="noopener">Enviar por WhatsApp</a><button class="btn" type="button" id="c-copiar">Copiar mensaje</button></div>' +
+    '<label class="campo"><span>Mensaje</span><textarea id="c-txt" readonly rows="9">' + esc(txt) + '</textarea></label>' +
+    '<button class="btn" type="button" id="c-otro">Anotar otra cosa</button>';
+  $('#c-copiar').onclick = function(){ copiar(txt, $('#c-txt')); };
+  $('#c-otro').onclick = volver;
+}
+
+/* ===== íconos ===== */
+var ICM = {
+  silla: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v18"/><path d="M7 12h10v9"/><path d="M7 15.5h10"/></svg>',
+  tablon: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 8.5h19v2.5h-19z"/><path d="M6 11l-2.2 9M6 11l2.2 9M18 11l-2.2 9M18 11l2.2 9"/></svg>',
+  caballete: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 4.5h7"/><path d="M12 4.5L6.2 20M12 4.5l5.8 15.5"/><path d="M8.3 14.5h7.4"/></svg>',
+  otro: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="1.5"/><path d="M4 11h16"/></svg>'
+};
+function icono(cl){ return ICM[cl] || ICM.otro; }
+var IC = {
+  inventario: ICM.silla,
+  registrar: '<svg viewBox="0 0 24 24"><path d="M7 7h11l-3-3"/><path d="M17 17H6l3 3"/></svg>',
+  historial: '<svg viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r=".8"/><circle cx="4" cy="12" r=".8"/><circle cx="4" cy="18" r=".8"/></svg>',
+  docente: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>',
+  lupa: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>'
+};
+function chips(items){ return '<span class="cms">' + ordenar(items).filter(function(i){ return i.cant > 0; }).map(function(i){ var t = TP[i.tid]; return '<span class="cm">' + icono(t ? t.clase : 'otro') + '<b>' + n0(i.cant) + '</b> ' + esc(nomT(i.tid, i.cant)) + '</span>'; }).join('') + '</span>'; }
+
+/* ===== armado general ===== */
+var app = document.getElementById('app');
+var PEND = null;
+function pintar(){
+  C = calc(ST); TP = C.TP;
+  if (UI.tab === 'docente' && !esDocente) UI.tab = 'inventario';
+  var tot = 0, pre = 0, rot = 0, dep = 0;
+  ST.tipos.forEach(function(t){ var x = C.T[t.id]; tot += Math.max(0, x.total); pre += Math.max(0, x.prestado); rot += Math.max(0, x.rotas); dep += Math.max(0, x.disp); });
+  app.innerHTML =
+    '<div class="wrap">' +
+      '<header class="cab"><div><div class="cab-esc">' + esc(ST.config.escuela || 'Escuela') + ' · Depósito</div>' +
+      '<h1>Sillas, tablones y caballetes</h1></div>' +
+      '<div class="cab-datos"><span><b>' + n0(dep) + '</b> en el depósito</span><span><b>' + n0(pre) + '</b> afuera</span><span><b>' + n0(rot) + '</b> ' + (rot === 1 ? 'roto' : 'rotos') + '</span><span><b>' + n0(tot) + '</b> en total</span></div></header>' +
+      avisoEjemplo() + avisoPendiente() +
+      '<main id="main"></main>' +
+    '</div>' +
+    '<nav class="nav" aria-label="Secciones"><div class="nav-in"></div></nav>';
+  pintarNav();
+  var ar = $('#pend-re'), ad = $('#pend-no');
+  if (ar) ar.onclick = function(){
+    var p = PEND;
+    INIT.then(function(){
+      if (puedeGuardar){ PEND = null; ss('mb_pend', null); guardar(p.patch, p.desc); }
+      else toast('Desde esta vista no se puede guardar.');
+    });
+  };
+  if (ad) ad.onclick = function(){ PEND = null; ss('mb_pend', null); pintar(); };
+  pintarTab();
+}
+function pintarNav(){
+  var tabs = [['inventario', 'Inventario'], ['registrar', 'Registrar'], ['historial', 'Historial']];
+  if (esDocente) tabs.push(['docente', 'Docente']);
+  var n = $('.nav-in'); if (!n) return;
+  n.innerHTML = tabs.map(function(t){
+    return '<button type="button" data-tab="' + t[0] + '"' + (UI.tab === t[0] ? ' aria-current="page"' : '') + '>' + IC[t[0]] + '<span>' + t[1] + '</span></button>';
+  }).join('');
+  $$('button', n).forEach(function(b){ b.onclick = function(){ irA(b.dataset.tab); }; });
+}
+function avisoEjemplo(){
+  var hay = ST.movs.some(function(m){ return m.ej; });
+  if (!hay) return '';
+  return '<div class="aviso ej" role="note"><p><b>Datos de ejemplo.</b> Los retiros, roturas y reparaciones marcados <span class="etq ej">ejemplo</span> están para mostrar cómo funciona la página. ' +
+    (esDocente ? 'Borralos desde <button class="lnk" type="button" data-ir="docente:ej">Docente → Datos de ejemplo</button> y cargá el recuento real.' : 'El docente los va a borrar cuando cargue el recuento real.') + '</p></div>';
+}
+function avisoPendiente(){
+  if (!PEND) return '';
+  return '<div class="aviso alerta" role="status"><p><b>No se guardó:</b> ' + esc(PEND.desc) + '. Otra persona guardó al mismo tiempo.</p>' +
+    '<div class="btns"><button class="btn chico" id="pend-re" type="button">Volver a guardar</button><button class="btn chico" id="pend-no" type="button">Descartar</button></div></div>';
+}
+function irA(tab){ UI.tab = tab; ls('mb_tab', tab); pintar(); window.scrollTo(0, 0); }
+function pintarTab(){
+  var m = $('#main');
+  if (UI.tab === 'inventario'){ m.innerHTML = htmlInventario(); enlazarInventario(); }
+  else if (UI.tab === 'registrar'){ m.innerHTML = htmlRegistrar(); enlazarRegistrar(); }
+  else if (UI.tab === 'historial'){ m.innerHTML = htmlHistorial(); enlazarHistorial(); }
+  else if (UI.tab === 'docente'){ m.innerHTML = htmlDocente(); enlazarDocente(); }
+}
+document.addEventListener('click', function(e){
+  var b = e.target.closest && e.target.closest('[data-ir]'); if (!b) return;
+  var p = b.dataset.ir.split(':');
+  if (p[0] === 'historial' && p[1]) UI.hist = p[1];
+  if (p[0] === 'docente' && p[1]){ UI.secAbierta = p[1]; ss('mb_sec', p[1]); }
+  cerrarHoja(); irA(p[0]);
+});
+
+/* ===== INVENTARIO ===== */
+function htmlInventario(){
+  var vacio = !ST.movs.length;
+  var h = '';
+  if (vacio) h += '<div class="vacio" style="margin-bottom:14px"><p style="margin:0">Todavía no se cargó cuánto mobiliario hay.</p>' +
+    (esDocente ? '<button class="btn prim" type="button" data-ir="docente:ing">Cargar el primer recuento</button>' : '<p style="margin:0">Cuando el docente lo cargue, aparece acá.</p>') + '</div>';
+  h += htmlAtender();
+  var nT = ST.tipos.length, cols = nT <= 4 ? Math.max(1, nT) : (nT % 3 === 0 ? 3 : 4);
+  h += '<section class="tipos" aria-label="Mobiliario" style="--cols:' + cols + ';--cols-m:' + Math.min(cols, 2) + '">' + ST.tipos.map(htmlTipo).join('') + '</section>';
+  h += htmlDonde();
+  return h;
+}
+function htmlAtender(){
+  var filas = [];
+  var venc = C.abiertos.filter(function(p){ return p.vencido; });
+  if (venc.length) filas.push(['mal', venc.length === 1 ? '1 retiro pasó su fecha de devolución.' : venc.length + ' retiros pasaron su fecha de devolución.', 'historial:abiertos', 'Ver retiros']);
+  if (C.rotas.length){
+    var n = C.rotas.reduce(function(s, r){ return s + r.abiertas; }, 0);
+    filas.push(['alerta', n === 1 ? '1 mueble espera arreglo.' : n + ' muebles esperan arreglo.', 'historial:reparar', 'Ver rotos']);
+  }
+  if (!filas.length) return '';
+  return '<section class="atender" aria-label="Para atender"><h2 class="h3">Para atender</h2>' + filas.map(function(f){
+    return '<div class="at-fila"><span class="punto ' + f[0] + '"></span><p>' + esc(f[1]) + '</p><button class="btn chico" type="button" data-ir="' + f[2] + '">' + f[3] + '</button></div>';
+  }).join('') + '</section>';
+}
+function htmlTipo(t){
+  var x = C.T[t.id], tot = Math.max(1, x.total);
+  function w(v){ return Math.max(0, Math.min(100, Math.max(0, v) / tot * 100)).toFixed(1) + '%'; }
+  return '<article class="tcard"><div class="tcard-cab"><span class="tico">' + icono(t.clase) + '</span><div><h2 class="tnom">' + esc(t.plural) + '</h2>' +
+    (t.guardado ? '<div class="tsub">Se guardan en ' + esc(t.guardado) + '</div>' : '') + '</div></div>' +
+    '<div class="big"><b>' + n0(Math.max(0, x.disp)) + '</b><span>disponibles<br>en el depósito</span></div>' +
+    '<div class="barra" role="img" aria-label="' + esc(n0(x.disp) + ' en el depósito, ' + n0(x.prestado) + ' afuera, ' + n0(x.rotas) + ' rotos') + '"><i class="b-disp" style="width:' + w(x.disp) + '"></i><i class="b-pre" style="width:' + w(x.prestado) + '"></i><i class="b-rot" style="width:' + w(x.rotas) + '"></i></div>' +
+    '<dl class="ley"><dt><i class="c-disp"></i>En el depósito</dt><dd>' + n0(x.disp) + '</dd><dt><i class="c-pre"></i>Afuera (retirados)</dt><dd>' + n0(x.prestado) + '</dd><dt><i class="c-rot"></i>Rotos</dt><dd>' + n0(x.rotas) + '</dd>' +
+    '<dt class="tot">Total</dt><dd class="tot">' + n0(x.total) + '</dd></dl>' +
+    (x.disp < 0 ? '<p class="mini mal">Los números no cierran: se anotó más de lo que hay. Revisá el historial o cargá un alta.</p>' : '') +
+    (t.notas ? '<p class="mini tenue">' + esc(t.notas) + '</p>' : '') + '</article>';
+}
+function htmlDonde(){
+  var por = UI.donde === 'persona' ? 'persona' : 'lugar', afuera = {}, grupos = {}, orden = [];
+  C.abiertos.forEach(function(p){
+    pendItems(p).forEach(function(i){ afuera[i.tid] = (afuera[i.tid] || 0) + i.cant; });
+    var nom = por === 'lugar' ? (p.m.lugar || 'Sin lugar anotado') : (p.m.quien || 'Sin nombre'), k = norm(nom) || '~';
+    if (!grupos[k]){ grupos[k] = { nombre: nom, rol: p.m.rol || '', ps: [] }; orden.push(k); }
+    grupos[k].ps.push(p);
+  });
+  orden.sort(function(a, b){ return grupos[a].nombre.localeCompare(grupos[b].nombre, 'es'); });
+  var nR = C.abiertos.length;
+  var disp = ST.tipos.map(function(t){ return { tid: t.id, cant: Math.max(0, C.T[t.id].disp) }; });
+  var h = '<section class="donde" aria-labelledby="t-donde"><div class="sec-tit"><h2 class="h2" id="t-donde">Quién tiene qué y dónde</h2>' +
+    '<p class="nota">' + (nR ? 'Afuera del depósito: <b>' + esc(itemsTxt(objAItems(afuera))) + '</b>, en ' + nR + (nR === 1 ? ' retiro.' : ' retiros.') : 'No hay nada afuera: todo está en el depósito.') + '</p>' +
+    (nR ? '<div class="chips" role="group" aria-label="Ordenar"><button type="button" class="chip" data-donde="lugar" aria-pressed="' + (por === 'lugar') + '">Por lugar</button><button type="button" class="chip" data-donde="persona" aria-pressed="' + (por === 'persona') + '">Por persona</button></div>' : '') +
+    '</div><div class="lugares">';
+  h += '<div class="lugar base"><div class="lugar-cab"><span class="lugar-nom">Depósito <span class="lugar-tag">listo para usar</span></span>' + (disp.some(function(i){ return i.cant > 0; }) ? chips(disp) : '<span class="tenue">vacío</span>') + '</div></div>';
+  orden.forEach(function(k){
+    var g = grupos[k], sum = {};
+    g.ps.forEach(function(p){ pendItems(p).forEach(function(i){ sum[i.tid] = (sum[i.tid] || 0) + i.cant; }); });
+    var titulo = esc(g.nombre) + (por === 'persona' && g.rol ? ' <span class="lugar-tag">' + esc(g.rol) + '</span>' : '');
+    h += '<div class="lugar"><div class="lugar-cab"><span class="lugar-nom">' + titulo + '</span>' + chips(objAItems(sum)) + '</div><ul class="quienes">' + g.ps.map(function(p){
+      var cosas = (por === 'persona' || g.ps.length > 1) ? ' · ' + esc(itemsTxt(pendItems(p))) : '';
+      var cabeza = por === 'lugar' ? '<b>' + esc(p.m.quien) + '</b>' + (p.m.rol ? ' (' + esc(p.m.rol) + ')' : '') + cosas : '<b>en ' + esc(p.m.lugar) + '</b>' + cosas;
+      return '<li>' + cabeza + ' · <span class="mono">desde ' + fCorta(p.m.t) + '</span>' +
+        (p.m.hasta ? ' · ' + (p.vencido ? '<span class="pill mal">venció ' + esc(fDia(p.m.hasta)) + '</span>' : '<span class="mono">hasta ' + esc(fDia(p.m.hasta)) + '</span>') : ' · sin fecha de vuelta') + ' ' + ej(p.m) + '</li>';
+    }).join('') + '</ul></div>';
+  });
+  if (C.rotas.length){
+    var sr = {};
+    C.rotas.forEach(function(r){ sr[r.m.tid] = (sr[r.m.tid] || 0) + r.abiertas; });
+    h += '<div class="lugar rot"><div class="lugar-cab"><span class="lugar-nom">Rotos <span class="lugar-tag">esperan arreglo</span></span>' + chips(objAItems(sr)) + '</div><ul class="quienes">' + C.rotas.map(function(r){
+      return '<li><b>' + n0(r.abiertas) + ' ' + esc(nomT(r.m.tid, r.abiertas)) + '</b> · ' + esc(r.m.falla) + ' · en ' + esc(r.m.lugar) + ' · avisó ' + esc(r.m.quien || 'sin nombre') + ' ' + ej(r.m) + '</li>';
+    }).join('') + '</ul></div>';
+  }
+  return h + '</div></section>';
+}
+function enlazarInventario(){
+  $$('[data-donde]').forEach(function(b){ b.onclick = function(){ UI.donde = b.dataset.donde; ls('mb_donde', UI.donde); pintarTab(); }; });
+}
+
+/* ===== campos de cantidades ===== */
+function htmlItems(pref, vals, hint){
+  return '<div class="items">' + ST.tipos.map(function(t){
+    var v = vals && vals[t.id] ? vals[t.id] : '';
+    return '<div class="item"><span class="tico">' + icono(t.clase) + '</span><label class="item-nom" for="' + pref + t.id + '">' + esc(t.plural) + '<small>' + hint(t) + '</small></label>' +
+      '<div class="step"><button type="button" class="step-b" data-step="-1" data-for="' + pref + t.id + '" aria-label="Uno menos de ' + esc(t.plural.toLowerCase()) + '">−</button>' +
+      '<input id="' + pref + t.id + '" class="step-i" type="number" inputmode="numeric" min="0" step="1" value="' + v + '" placeholder="0">' +
+      '<button type="button" class="step-b" data-step="1" data-for="' + pref + t.id + '" aria-label="Uno más de ' + esc(t.plural.toLowerCase()) + '">+</button></div></div>';
+  }).join('') + '</div>';
+}
+function enlazarSteps(root, cambio){
+  $$('.step-b', root).forEach(function(b){ b.onclick = function(){ var i = document.getElementById(b.dataset.for), v = ent(i.value); if (isNaN(v)) v = 0; v = Math.max(0, v + (+b.dataset.step)); i.value = v || ''; if (cambio) cambio(); }; });
+  $$('.step-i', root).forEach(function(i){ i.oninput = cambio || null; });
+}
+function leerItems(pref){
+  var items = [], error = '';
+  ST.tipos.forEach(function(t){
+    var el = document.getElementById(pref + t.id); if (!el) return;
+    var raw = el.value.trim(); if (raw === '') return;
+    var n = ent(raw);
+    if (isNaN(n)){ error = 'Las cantidades van en números enteros (revisá ' + t.plural.toLowerCase() + ').'; return; }
+    if (n > 0) items.push({ tid: t.id, cant: n });
+  });
+  return { items: items, error: error };
+}
+function lugaresConocidos(){
+  var vistos = {}, out = [];
+  function add(l){ var k = norm(l); if (k && !vistos[k]){ vistos[k] = 1; out.push(l); } }
+  LUGARES.forEach(add);
+  ST.movs.forEach(function(m){ if (m.lugar) add(m.lugar); });
+  return out;
+}
+function datalistLugares(){ return '<datalist id="l-lugares">' + lugaresConocidos().map(function(l){ return '<option value="' + esc(l) + '">'; }).join('') + '</datalist>'; }
+function llenarFallas(sel, t){
+  var arr = FALLAS[t && FALLAS[t.clase] ? t.clase : 'otro'];
+  sel.innerHTML = arr.map(function(f){ return '<option>' + esc(f) + '</option>'; }).join('');
+}
+function radio(v, txt){ return '<input type="radio" name="rtipo" id="rt-' + v + '" value="' + v + '"' + (UI.rtipo === v ? ' checked' : '') + '><label for="rt-' + v + '">' + txt + '</label>'; }
+
+/* ===== PEDIR / DEVOLVER / ROTURA ===== */
+function htmlRegistrar(){
+  return '<section class="panel"><h2 class="h2">Registrar</h2>' +
+    '<p class="nota">Anotá lo que retirás del depósito, lo que devolvés, lo que se rompe y lo que se arregla. Así se sabe qué hay, quién lo tiene y dónde está.</p>' +
+    '<div class="seg" role="radiogroup" aria-label="Qué querés anotar">' + radio('prestamo', 'Retiro') + radio('devolucion', 'Devolución') + radio('rotura', 'Rotura') + radio('reparacion', 'Reparación') + '</div>' +
+    '<form id="f-reg" novalidate><div class="fila2"><label class="campo"><span>Nombre y apellido</span><input id="r-quien" autocomplete="name" value="' + esc(ls('mb_quien') || '') + '"></label>' +
+    '<label class="campo"><span>Curso, área o cargo</span><input id="r-rol" placeholder="Ej.: 4.° A, Preceptoría" value="' + esc(ls('mb_rol') || '') + '"></label></div>' +
+    '<div id="r-cuerpo" class="stack"></div>' +
+    '<label class="campo"><span id="r-obs-t">Observaciones (opcional)</span><input id="r-obs"></label>' +
+    '<div id="r-prev" class="prev" aria-live="polite"></div><div id="r-err" class="err" role="alert"></div>' +
+    '<button class="btn prim" id="r-btn" type="submit"></button>' +
+    '<p class="nota" id="r-modo" style="margin:0;font-size:.88rem"></p></form>' +
+    '<div id="r-comp" class="stack" hidden></div></section>';
+}
+function enlazarRegistrar(){
+  $$('input[name="rtipo"]').forEach(function(r){ r.onchange = function(){ UI.rtipo = r.value; cuerpoRegistrar(); }; });
+  $('#r-quien').oninput = function(){
+    if (UI.rtipo !== 'devolucion' || !$('#d-pre')) return;
+    var antes = $('#d-pre').value; llenarPrestamos(antes);
+    if ($('#d-pre').value !== antes) itemsDevolucion();
+  };
+  $('#f-reg').onsubmit = function(e){ e.preventDefault(); enviarRegistro(); };
+  cuerpoRegistrar();
+}
+function botonModo(){
+  var b = $('#r-btn'), p = $('#r-modo'); if (!b) return;
+  if (puedeGuardar === false){ b.textContent = 'Preparar mensaje para el docente'; p.textContent = 'Desde este dispositivo no se puede guardar directo: se arma un mensaje con un código que le mandás al docente para que lo cargue.'; }
+  else { b.textContent = { prestamo: 'Registrar retiro', devolucion: 'Registrar devolución', rotura: 'Avisar la rotura', reparacion: 'Registrar reparación' }[UI.rtipo] || 'Registrar'; p.textContent = ''; }
+  b.disabled = !!$('#r-cuerpo .vacio');
+}
+function setObs(t, ph){ $('#r-obs-t').textContent = t; $('#r-obs').placeholder = ph; }
+function cuerpoRegistrar(){
+  var c = $('#r-cuerpo'), pre = UI.pre || {}; UI.pre = null;
+  $('#r-err').textContent = ''; $('#r-prev').innerHTML = '';
+  if (!ST.tipos.length){ c.innerHTML = '<div class="vacio">Todavía no hay muebles cargados.</div>'; botonModo(); return; }
+  if (UI.rtipo === 'prestamo'){
+    c.innerHTML = '<fieldset class="campo"><legend>¿Qué retirás?</legend>' + htmlItems('r-c-', pre.items || {}, function(t){ return 'Hay ' + n0(Math.max(0, C.T[t.id].disp)) + ' en el depósito'; }) + '</fieldset>' +
+      '<div class="fila2"><label class="campo"><span>¿Adónde lo llevás?</span><input id="r-lugar" list="l-lugares" placeholder="Ej.: SUM, Aula 4, Patio"></label>' +
+      '<label class="campo"><span>¿Hasta cuándo? Si no sabés, vacío</span><input id="r-hasta" type="date" min="' + HOY + '"></label></div>' + datalistLugares();
+    setObs('¿Para qué? (opcional)', 'Ej.: acto del viernes, clase de taller');
+    enlazarSteps(c, prevPrestamo); prevPrestamo();
+  } else if (UI.rtipo === 'devolucion'){
+    setObs('Observaciones (opcional)', 'Ej.: quedaron 2 en el escenario');
+    if (!C.abiertos.length){ c.innerHTML = '<div class="vacio">No hay nada retirado en este momento.</div>'; botonModo(); return; }
+    c.innerHTML = '<label class="campo"><span>¿Qué retiro devolvés?</span><select id="d-pre"></select></label><div id="d-items" class="stack"></div>';
+    UI.devElegido = !!pre.prestamoId;
+    llenarPrestamos(pre.prestamoId);
+    $('#d-pre').onchange = function(){ UI.devElegido = true; itemsDevolucion(); };
+    itemsDevolucion();
+  } else if (UI.rtipo === 'rotura'){
+    c.innerHTML = '<div class="fila2"><label class="campo"><span>¿Qué se rompió?</span><select id="k-tipo">' + ST.tipos.map(function(t){ return '<option value="' + t.id + '"' + (pre.tid === t.id ? ' selected' : '') + '>' + esc(t.nombre) + '</option>'; }).join('') + '</select></label>' +
+      '<label class="campo"><span>¿Cuántos?</span><input id="k-cant" type="number" inputmode="numeric" min="1" step="1" value="1"></label></div>' +
+      '<label class="campo"><span>¿Qué le pasó?</span><select id="k-falla"></select></label>' +
+      '<label class="campo"><span>¿Dónde está ahora?</span><input id="k-lugar" list="l-lugares" value="Depósito"></label>' + datalistLugares() +
+      '<p class="nota" style="margin:0">Si lo que se rompió lo tenés retirado, avisalo en «Devolución» cuando lo traigas.</p>';
+    setObs('Detalle (opcional)', 'Ej.: se mueve la pata de atrás');
+    $('#k-tipo').onchange = function(){ llenarFallas($('#k-falla'), TP[$('#k-tipo').value]); prevRotura(); };
+    $('#k-cant').oninput = prevRotura;
+    llenarFallas($('#k-falla'), TP[$('#k-tipo').value]); prevRotura();
+  } else {
+    setObs('¿Qué se hizo? (opcional)', 'Ej.: se cambió el tornillo de la pata');
+    if (!C.rotas.length){ c.innerHTML = '<div class="vacio">No hay nada esperando arreglo.</div>'; botonModo(); return; }
+    c.innerHTML = '<label class="campo"><span>¿Qué arreglaste?</span><select id="p-rot">' + C.rotas.map(function(r){
+      return '<option value="' + r.m.id + '"' + (pre.roturaId === r.m.id ? ' selected' : '') + '>' + esc(n0(r.abiertas) + ' ' + nomT(r.m.tid, r.abiertas) + ' · ' + r.m.falla + ' · en ' + r.m.lugar + ' (' + fCorta(r.m.t) + ')') + '</option>';
+    }).join('') + '</select></label>' +
+      '<label class="campo"><span>¿Cuántos quedaron arreglados?</span><input id="p-cant" type="number" inputmode="numeric" min="1" step="1"></label>' +
+      '<p class="nota" style="margin:0">Lo arreglado vuelve a contar como disponible en el depósito.</p>';
+    var fijar = function(){ var r = C.R[$('#p-rot').value]; if (!r) return; $('#p-cant').max = r.abiertas; $('#p-cant').value = r.abiertas; prevReparacion(); };
+    $('#p-rot').onchange = fijar; $('#p-cant').oninput = prevReparacion; fijar();
+  }
+  botonModo();
+}
+function prevReparacion(){
+  var r = C.R[$('#p-rot').value], n = ent($('#p-cant').value), box = $('#r-prev');
+  if (!r || isNaN(n) || n <= 0){ box.innerHTML = ''; return; }
+  var d = Math.max(0, C.T[r.m.tid].disp), t = TP[r.m.tid];
+  box.innerHTML = '<div class="flechas"><div class="flecha"><span class="nom">' + esc(t ? t.plural : 'Muebles') + ' disponibles</span><span class="de">' + n0(d) + '</span><span aria-hidden="true">→</span><span class="a">' + n0(d + Math.min(n, r.abiertas)) + '</span></div></div>' +
+    (n > r.abiertas ? '<p class="mini mal">De esa rotura ' + (r.abiertas === 1 ? 'queda 1' : 'quedan ' + n0(r.abiertas)) + ' sin arreglar.</p>' : r.abiertas - n > 0 ? '<p class="mini">' + (r.abiertas - n === 1 ? 'Queda 1' : 'Quedan ' + n0(r.abiertas - n)) + ' esperando arreglo.</p>' : '');
+}
+function prevPrestamo(){
+  var L = leerItems('r-c-'), p = $('#r-prev');
+  if (!L.items.length){ p.innerHTML = ''; return; }
+  p.innerHTML = '<p><b>Así queda el depósito:</b></p><div class="flechas">' + L.items.map(function(i){
+    var d = Math.max(0, C.T[i.tid].disp), q = d - i.cant;
+    return '<div class="flecha"><span class="nom">' + esc(TP[i.tid].plural) + '</span><span class="de">' + n0(d) + '</span><span aria-hidden="true">→</span><span class="a' + (q < 0 ? ' neg' : '') + '">' + n0(q) + '</span>' + (q < 0 ? '<span class="mini mal">No alcanza</span>' : '') + '</div>';
+  }).join('') + '</div>';
+}
+function llenarPrestamos(sel){
+  var q = norm($('#r-quien').value), s = $('#d-pre');
+  function coincideQ(p){ return q && norm(p.m.quien + ' ' + (p.m.rol || '')).indexOf(q) >= 0 ? 0 : 1; }
+  var arr = C.abiertos.slice().sort(function(a, b){ return coincideQ(a) - coincideQ(b) || cmpMov(b.m, a.m); });
+  if (!UI.devElegido || !sel || !C.P[sel]) sel = arr.length ? arr[0].m.id : '';
+  s.innerHTML = arr.map(function(p){
+    return '<option value="' + p.m.id + '">' + esc(fCorta(p.m.t) + ' · ' + p.m.quien + ' · ' + p.m.lugar + ' — ' + itemsTxt(pendItems(p))) + '</option>';
+  }).join('');
+  s.value = sel;
+}
+function itemsDevolucion(){
+  var p = C.P[$('#d-pre').value], box = $('#d-items');
+  if (!p){ box.innerHTML = ''; return; }
+  var its = pendItems(p);
+  box.innerHTML = '<p class="nota" style="margin:0">Retiro de <b>' + esc(p.m.quien) + '</b> en ' + esc(p.m.lugar) + ', del ' + fFecha(p.m.t) + (p.m.hasta ? ', con vuelta el ' + esc(fDia(p.m.hasta)) : '') + '.</p>' +
+    '<div class="devs">' + its.map(function(i){
+      var t = TP[i.tid];
+      return '<div class="dev"><div class="dev-cab"><span class="tico">' + icono(t ? t.clase : 'otro') + '</span><b>' + esc(t ? t.plural : 'Mueble borrado') + '</b><span class="mono tenue">faltan volver ' + n0(i.cant) + '</span></div>' +
+        '<div class="fila2 chica"><label class="campo"><span>Devuelvo</span><input id="d-c-' + i.tid + '" type="number" inputmode="numeric" min="0" max="' + i.cant + '" value="' + i.cant + '"></label>' +
+        '<label class="campo"><span>¿Cuántos vienen rotos?</span><input id="d-r-' + i.tid + '" type="number" inputmode="numeric" min="0" value="0"></label></div>' +
+        '<label class="campo" id="d-fw-' + i.tid + '" hidden><span>¿Qué les pasó?</span><select id="d-f-' + i.tid + '"></select></label></div>';
+    }).join('') + '</div>';
+  its.forEach(function(i){ llenarFallas($('#d-f-' + i.tid), TP[i.tid]); $('#d-c-' + i.tid).oninput = prevDevolucion; $('#d-r-' + i.tid).oninput = prevDevolucion; });
+  prevDevolucion();
+}
+function leerDevolucion(){
+  var p = C.P[$('#d-pre') && $('#d-pre').value]; if (!p) return { error: 'Elegí el retiro que devolvés.' };
+  var items = [], roturas = [], error = '';
+  pendItems(p).forEach(function(i){
+    var c = ent($('#d-c-' + i.tid).value || '0'), r = ent($('#d-r-' + i.tid).value || '0'), nom = nomT(i.tid, 2);
+    if (isNaN(c) || isNaN(r)){ error = error || 'Revisá las cantidades de ' + nom + ': van en números enteros.'; return; }
+    if (c > i.cant){ error = error || 'De ' + nom + ' faltan volver ' + n0(i.cant) + ', no más.'; return; }
+    if (r > c){ error = error || 'Los ' + nom + ' rotos no pueden ser más que los que devolvés.'; return; }
+    $('#d-fw-' + i.tid).hidden = r <= 0;
+    if (c > 0) items.push({ tid: i.tid, cant: c, rotas: r });
+    if (r > 0) roturas.push({ tid: i.tid, cant: r, falla: $('#d-f-' + i.tid).value });
+  });
+  if (!error && !items.length) error = 'Indicá cuánto devolvés.';
+  return { p: p, items: items, roturas: roturas, error: error };
+}
+function prevDevolucion(){
+  var D = leerDevolucion(), box = $('#r-prev');
+  if (D.error || !D.p){ box.innerHTML = D.error && D.p ? '<p class="mini mal">' + esc(D.error) + '</p>' : ''; return; }
+  var resto = pendItems(D.p).map(function(i){ var d = D.items.filter(function(x){ return x.tid === i.tid; })[0]; return { tid: i.tid, cant: i.cant - (d ? d.cant : 0) }; }).filter(function(i){ return i.cant > 0; });
+  box.innerHTML = '<p>' + (resto.length ? 'Después de esto todavía faltan volver <b>' + esc(itemsTxt(resto)) + '</b>.' : '<b>Con esto el retiro queda completo.</b>') + '</p>' +
+    (D.roturas.length ? '<p class="mini alerta">Van a «para reparar»: ' + esc(itemsTxt(D.roturas)) + '.</p>' : '');
+}
+function prevRotura(){
+  var tid = $('#k-tipo').value, n = ent($('#k-cant').value), d = Math.max(0, C.T[tid].disp), box = $('#r-prev');
+  if (isNaN(n) || n <= 0){ box.innerHTML = ''; return; }
+  box.innerHTML = '<div class="flechas"><div class="flecha"><span class="nom">' + esc(TP[tid].plural) + ' disponibles</span><span class="de">' + n0(d) + '</span><span aria-hidden="true">→</span><span class="a' + (d - n < 0 ? ' neg' : '') + '">' + n0(d - n) + '</span></div></div>' +
+    (n > d ? '<p class="mini mal">En el depósito hay ' + n0(d) + '. Si lo que se rompió está retirado, avisalo al devolverlo.</p>' : '');
+}
+function enviarRegistro(){
+  var err = $('#r-err'); err.textContent = '';
+  var quien = $('#r-quien').value.trim(), rol = $('#r-rol').value.trim(), obs = $('#r-obs').value.trim(), t = new Date().toISOString();
+  if (!quien){ err.textContent = 'Escribí tu nombre y apellido.'; $('#r-quien').focus(); return; }
+  ls('mb_quien', quien); ls('mb_rol', rol);
+  var paq = { movs: [], res: [] }, desc;
+  if (UI.rtipo === 'prestamo'){
+    var L = leerItems('r-c-'), lugar = $('#r-lugar').value.trim(), hasta = $('#r-hasta').value;
+    if (L.error){ err.textContent = L.error; return; }
+    if (!L.items.length){ err.textContent = 'Indicá qué retirás y cuántos.'; return; }
+    for (var i = 0; i < L.items.length; i++){ var d = Math.max(0, C.T[L.items[i].tid].disp); if (L.items[i].cant > d){ err.textContent = 'No alcanza: hay ' + n0(d) + ' ' + nomT(L.items[i].tid, d) + ' en el depósito.'; return; } }
+    if (!lugar){ err.textContent = 'Escribí adónde lo llevás, así se puede ubicar.'; $('#r-lugar').focus(); return; }
+    if (hasta && hasta < HOY){ err.textContent = 'La fecha de vuelta ya pasó.'; return; }
+    paq.movs.push({ id: uid('m'), t: t, tipo: 'prestamo', quien: quien, rol: rol, items: L.items, lugar: lugar, hasta: hasta, obs: obs });
+    desc = 'retiro de ' + itemsTxt(L.items) + ' (' + quien + ')';
+  } else if (UI.rtipo === 'devolucion'){
+    var D = leerDevolucion();
+    if (D.error){ err.textContent = D.error; return; }
+    var m = { id: uid('m'), t: t, tipo: 'devolucion', prestamoId: D.p.m.id, quien: quien, rol: rol, items: D.items, obs: obs };
+    paq.movs.push(m);
+    D.roturas.forEach(function(r){ paq.movs.push({ id: uid('m'), t: t, tipo: 'rotura', tid: r.tid, cant: r.cant, falla: r.falla, detalle: '', lugar: 'Depósito', quien: quien, rol: rol, origen: m.id }); });
+    desc = 'devolución de ' + itemsTxt(D.items) + ' (' + quien + ')';
+  } else if (UI.rtipo === 'rotura'){
+    var tid = $('#k-tipo').value, n = ent($('#k-cant').value), disp = Math.max(0, C.T[tid].disp), kl = $('#k-lugar').value.trim();
+    if (isNaN(n) || n <= 0){ err.textContent = 'Indicá cuántos se rompieron.'; return; }
+    if (n > disp){ err.textContent = 'En el depósito hay ' + n0(disp) + ' ' + nomT(tid, disp) + '. Si lo que se rompió está retirado, avisalo al devolverlo.'; return; }
+    if (!kl){ err.textContent = 'Escribí dónde está, así se puede encontrar.'; return; }
+    paq.movs.push({ id: uid('m'), t: t, tipo: 'rotura', tid: tid, cant: n, falla: $('#k-falla').value, detalle: obs, lugar: kl, quien: quien, rol: rol });
+    desc = 'rotura de ' + n0(n) + ' ' + nomT(tid, n);
+  } else {
+    var rr = $('#p-rot') ? C.R[$('#p-rot').value] : null, pn = $('#p-cant') ? ent($('#p-cant').value) : NaN;
+    if (!rr){ err.textContent = 'No hay nada esperando arreglo.'; return; }
+    if (isNaN(pn) || pn <= 0){ err.textContent = 'Indicá cuántos quedaron arreglados.'; $('#p-cant').focus(); return; }
+    if (pn > rr.abiertas){ err.textContent = 'De esa rotura ' + (rr.abiertas === 1 ? 'queda 1' : 'quedan ' + n0(rr.abiertas)) + ' sin arreglar.'; return; }
+    paq.movs.push({ id: uid('m'), t: t, tipo: 'reparacion', tid: rr.m.tid, cant: pn, roturaId: rr.m.id, quien: quien, rol: rol, obs: obs });
+    desc = 'reparación de ' + n0(pn) + ' ' + nomT(rr.m.tid, pn);
+  }
+  var seguir = function(){
+    if (puedeGuardar) guardar(paqueteAPatch(paq), desc);
+    else mostrarComprobante(paq, '#f-reg', '#r-comp', function(){ pintarTab(); });
+  };
+  if (puedeGuardar === null) INIT.then(seguir); else seguir();
+}
+
+function cabHoja(t){ return '<div class="hoja-cab"><h2 class="h2">' + esc(t) + '</h2><button class="cerrar" type="button" aria-label="Cerrar">×</button></div>'; }
+
+/* ===== HISTORIAL ===== */
+function chip(v, txt, n){ return '<button type="button" class="chip" data-h="' + v + '" aria-pressed="' + (UI.hist === v) + '">' + txt + (n != null ? '<b>' + n + '</b>' : '') + '</button>'; }
+function htmlHistorial(){
+  return '<div class="herr"><div class="chips" role="group" aria-label="Qué mostrar">' + chip('abiertos', 'Afuera ahora', C.abiertos.length) + chip('reparar', 'Rotos', C.rotas.length) + chip('todo', 'Todos los movimientos', null) + '</div>' +
+    '<div class="buscar">' + IC.lupa + '<input id="h-q" type="search" placeholder="Buscar nombre, lugar o mueble" aria-label="Buscar" value="' + esc(UI.hq) + '"></div></div><div id="h-lista"></div>';
+}
+function enlazarHistorial(){
+  $$('[data-h]').forEach(function(b){ b.onclick = function(){ UI.hist = b.dataset.h; $$('[data-h]').forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); }); pintarHist(); }; });
+  $('#h-q').oninput = function(){ UI.hq = this.value; pintarHist(); };
+  pintarHist();
+}
+function coincide(m, q){
+  if (!q) return true;
+  var nombres = itemsDe(m).map(function(i){ var t = TP[i.tid]; return t ? t.nombre + ' ' + t.plural : ''; }).join(' ');
+  return norm([m.quien, m.rol, m.lugar, m.motivo, m.falla, m.detalle, m.obs, m.origen && !C.P[m.origen] ? m.origen : '', nombres].join(' ')).indexOf(q) >= 0;
+}
+function vacio(t){ return '<div class="vacio">' + esc(t) + '</div>'; }
+function pintarHist(){
+  var q = norm(UI.hq), box = $('#h-lista'), h;
+  if (UI.hist === 'abiertos'){
+    var a = C.abiertos.filter(function(p){ return coincide(p.m, q); }).sort(function(x, y){ return (y.vencido - x.vencido) || cmpMov(x.m, y.m); });
+    h = a.length ? '<div class="lista">' + a.map(htmlPrest).join('') + '</div>' : vacio(q ? 'Ningún retiro abierto coincide con la búsqueda.' : 'No hay nada afuera: todo está en el depósito.');
+  } else if (UI.hist === 'reparar'){
+    var r = C.rotas.filter(function(x){ return coincide(x.m, q); });
+    h = r.length ? '<div class="lista">' + r.map(htmlRot).join('') + '</div>' : vacio(q ? 'Ninguna rotura coincide con la búsqueda.' : 'No hay nada esperando arreglo.');
+  } else {
+    var ms = C.ms.filter(function(m){ return coincide(m, q); }).reverse();
+    h = ms.length ? resumenMovs(ms, UI.hq.trim()) + '<div class="lista">' + ms.map(htmlMov).join('') + '</div>' : vacio(q ? 'Nada coincide con la búsqueda.' : 'Todavía no hay movimientos.');
+  }
+  box.innerHTML = h;
+  enlazarAcciones(box);
+}
+function resumenMovs(ms, q){
+  var n = { prestamo: 0, devolucion: 0, rotura: 0, reparacion: 0 }, s = { prestamo: {}, devolucion: {}, rotura: {}, reparacion: {} };
+  ms.forEach(function(m){ if (n[m.tipo] == null) return; n[m.tipo]++; itemsDe(m).forEach(function(i){ s[m.tipo][i.tid] = (s[m.tipo][i.tid] || 0) + (+i.cant || 0); }); });
+  var f = [['prestamo', 'Retiros', 'Salieron:'], ['devolucion', 'Devoluciones', 'Volvieron:'], ['rotura', 'Roturas', 'Rotos:'], ['reparacion', 'Reparaciones', 'Arreglados:']];
+  return (q ? '<p class="nota" style="margin:0 0 8px">Cuenta solo lo que coincide con «' + esc(q) + '».</p>' : '') +
+    '<dl class="resumen">' + f.map(function(x){ var its = objAItems(s[x[0]]); return '<div><dt>' + x[1] + '</dt><dd><b>' + n[x[0]] + '</b>' + (its.length ? '<span>' + x[2] + ' ' + esc(itemsTxt(its)) + '</span>' : '') + '</dd></div>'; }).join('') + '</dl>';
+}
+function htmlPrest(p){
+  return '<div class="mov"><div class="mov-tipo t-pre">RET</div><div class="mov-l1"><strong>' + esc(p.m.quien) + '</strong>' + (p.m.rol ? '<span class="tenue">' + esc(p.m.rol) + '</span>' : '') + (p.vencido ? '<span class="pill mal">Vencido</span>' : '') + ej(p.m) + '</div>' +
+    '<div class="mov-l2"><span>Tiene ' + esc(itemsTxt(pendItems(p))) + '</span><span>en ' + esc(p.m.lugar) + '</span><span class="fecha">retiró el ' + fFecha(p.m.t) + '</span>' +
+    (p.m.hasta ? '<span class="fecha">vuelve ' + esc(fDia(p.m.hasta)) + '</span>' : '<span class="fecha">sin fecha de vuelta</span>') + (p.devs.length ? '<span>ya devolvió una parte</span>' : '') + (p.m.obs ? '<span>' + esc(p.m.obs) + '</span>' : '') + '</div>' +
+    '<div class="mov-acc"><button class="btn chico" type="button" data-devolver="' + p.m.id + '">Registrar devolución</button></div></div>';
+}
+function htmlRot(r){
+  var nb = r.bajas.reduce(function(s, b){ return s + (+b.cant || 0); }, 0);
+  return '<div class="mov"><div class="mov-tipo t-rot">ROT</div><div class="mov-l1"><strong>' + n0(r.abiertas) + ' ' + esc(nomT(r.m.tid, r.abiertas)) + '</strong><span>' + esc(r.m.falla) + '</span>' + ej(r.m) + '</div>' +
+    '<div class="mov-l2"><span>en ' + esc(r.m.lugar) + '</span><span>avisó ' + quienTxt(r.m) + '</span><span class="fecha">' + fFecha(r.m.t) + '</span>' + (r.m.detalle ? '<span>' + esc(r.m.detalle) + '</span>' : '') +
+    r.reps.map(function(x){ return '<span>' + n0(x.cant) + ' ya arreglado' + (+x.cant === 1 ? '' : 's') + (x.quien ? ' por ' + esc(x.quien) : '') + '</span>'; }).join('') +
+    (nb ? '<span>' + n0(nb) + ' sin arreglo</span>' : '') + '</div>' +
+    '<div class="mov-acc"><button class="btn chico" type="button" data-reparar="' + r.m.id + '">Registrar reparación</button>' + (esDocente ? '<button class="btn chico peligro" type="button" data-sinarreglo="' + r.m.id + '">No tiene arreglo</button>' : '') + '</div></div>';
+}
+function resumenMov(m){
+  if (m.tipo === 'prestamo') return ['Retiro: ' + itemsTxt(m.items), [quienTxt(m), 'en ' + esc(m.lugar), m.hasta ? 'vuelve ' + esc(fDia(m.hasta)) : '', esc(m.motivo || '')]];
+  if (m.tipo === 'devolucion'){ var p = C.P[m.prestamoId]; return ['Devolución: ' + itemsTxt(m.items) + rotasTxt(m.items), [quienTxt(m), p ? 'del retiro del ' + fCorta(p.m.t) + ' en ' + esc(p.m.lugar) : '']]; }
+  if (m.tipo === 'rotura') return ['Rotura: ' + n0(m.cant) + ' ' + nomT(m.tid, m.cant) + ' · ' + m.falla, ['avisó ' + quienTxt(m), 'en ' + esc(m.lugar), esc(m.detalle || ''), m.origen ? 'al devolver' : '']];
+  if (m.tipo === 'reparacion'){ var ro = C.R[m.roturaId]; return ['Reparación: ' + n0(m.cant) + ' ' + nomT(m.tid, m.cant) + (ro ? ' · ' + ro.m.falla.toLowerCase() : ''), [m.quien ? 'arregló ' + quienTxt(m) : '', 'vuelven al depósito']]; }
+  if (m.tipo === 'baja') return ['Baja: ' + n0(m.cant) + ' ' + nomT(m.tid, m.cant) + ' · ' + (m.motivo || ''), [m.prestamoId ? 'no volvieron de un retiro' : m.roturaId ? 'rotos sin arreglo' : '']];
+  if (m.tipo === 'ingreso') return ['Alta: ' + itemsTxt(m.items), [esc(m.origen || '')]];
+  if (m.tipo === 'ajuste') return ['Recuento: ' + (m.cant > 0 ? '+' : '') + n0(m.cant) + ' ' + nomT(m.tid, Math.abs(m.cant)), ['se contaron ' + n0(m.contado) + ' en el depósito; la página decía ' + n0(m.esperado)]];
+  return [m.tipo, []];
+}
+function htmlMov(m){
+  var r = resumenMov(m), cod = COD[m.tipo] || ['·', 't-alta'];
+  return '<div class="mov"><div class="mov-tipo ' + cod[1] + '">' + cod[0] + '</div><div class="mov-l1"><strong>' + esc(r[0]) + '</strong>' + ej(m) + '</div>' +
+    '<div class="mov-l2">' + r[1].filter(Boolean).map(function(x){ return '<span>' + x + '</span>'; }).join('') + (m.obs && m.tipo !== 'rotura' ? '<span>' + esc(m.obs) + '</span>' : '') + '<span class="fecha">' + fFecha(m.t) + '</span></div>' +
+    (esDocente ? '<div class="mov-acc"><button class="btn chico" type="button" data-borrar="' + m.id + '">Borrar</button></div>' : '') + '</div>';
+}
+function enlazarAcciones(root){
+  $$('[data-devolver]', root).forEach(function(b){ b.onclick = function(){ UI.pre = { prestamoId: b.dataset.devolver }; UI.rtipo = 'devolucion'; irA('registrar'); }; });
+  $$('[data-reparar]', root).forEach(function(b){ b.onclick = function(){ UI.pre = { roturaId: b.dataset.reparar }; UI.rtipo = 'reparacion'; irA('registrar'); }; });
+  $$('[data-sinarreglo]', root).forEach(function(b){ b.onclick = function(){ hojaRotura(C.R[b.dataset.sinarreglo], 'baja'); }; });
+  $$('[data-borrar]', root).forEach(function(b){ b.onclick = function(){ hojaBorrar(b.dataset.borrar); }; });
+}
+function hojaRotura(r, modo){
+  if (!r) return;
+  var max = r.abiertas, rep = modo === 'rep';
+  hoja(cabHoja(rep ? 'Marcar como arreglado' : 'Dar de baja lo roto') + '<p>' + n0(max) + ' ' + esc(nomT(r.m.tid, max)) + ' · ' + esc(r.m.falla) + ' · en ' + esc(r.m.lugar) + '</p>' +
+    '<form id="h-f" novalidate><label class="campo"><span>' + (rep ? '¿Cuántos quedaron arreglados?' : '¿Cuántos no tienen arreglo?') + '</span><input id="h-n" type="number" inputmode="numeric" min="1" max="' + max + '" value="' + max + '"></label>' +
+    '<label class="campo"><span>Observaciones (opcional)</span><input id="h-obs" placeholder="' + (rep ? 'Ej.: se cambió el tornillo' : 'Ej.: la madera queda para el taller') + '"></label>' +
+    '<p class="nota" style="margin:0">' + (rep ? 'Vuelven a contar como disponibles.' : 'Se descuentan del total.') + '</p>' +
+    '<div class="err" id="h-err"></div><button class="btn ' + (rep ? 'prim' : 'peligro') + '" type="submit">' + (rep ? 'Volver a ponerlos en uso' : 'Dar de baja') + '</button></form>', function(v){
+      $('#h-f', v).onsubmit = function(e){
+        e.preventDefault(); var n = ent($('#h-n', v).value), er = $('#h-err', v);
+        if (isNaN(n) || n < 1 || n > max){ er.textContent = 'Indicá un número entre 1 y ' + max + '.'; return; }
+        var m = { id: uid('m'), t: new Date().toISOString(), tipo: rep ? 'reparacion' : 'baja', tid: r.m.tid, cant: n, roturaId: r.m.id, obs: $('#h-obs', v).value.trim() };
+        if (!rep) m.motivo = 'Rota, sin arreglo';
+        guardar({ op: 'addMovs', movs: [m] }, (rep ? 'arreglo de ' : 'baja de ') + n0(n) + ' ' + nomT(r.m.tid, n));
+      };
+    });
+}
+function hojaBorrar(id){
+  var m = C.ms.filter(function(x){ return x.id === id; })[0]; if (!m) return;
+  var b = {}; b[id] = 1; var copia = clon(ST); borrarMovs(copia, b); var arrastra = ST.movs.length - copia.movs.length - 1;
+  hoja(cabHoja('Borrar el registro') + '<p><b>' + esc(resumenMov(m)[0]) + '</b> · ' + fFecha(m.t) + '</p><p class="nota" style="margin:0">Sirve para corregir un error de carga. Los números se recalculan como si nunca hubiera pasado.' + (arrastra > 0 ? ' También se borran ' + arrastra + ' registros que dependen de este (devoluciones, roturas o arreglos).' : '') + '</p>' +
+    '<div class="btns"><button class="btn peligro" type="button" id="h-si">Borrar</button><button class="btn" type="button" id="h-no">Volver</button></div>', function(v){
+      $('#h-no', v).onclick = cerrarHoja;
+      $('#h-si', v).onclick = function(){ guardar({ op: 'delMov', id: id }, 'registro borrado'); };
+    });
+}
+var hojaAbierta = null;
+function hoja(html, enlazar){
+  cerrarHoja();
+  var v = document.createElement('div'); v.className = 'velo';
+  v.innerHTML = '<div class="hoja" role="dialog" aria-modal="true">' + html + '</div>';
+  v.onclick = function(e){ if (e.target === v) cerrarHoja(); };
+  document.body.appendChild(v); hojaAbierta = v;
+  document.addEventListener('keydown', escHoja);
+  var c = $('.cerrar', v); if (c) c.onclick = cerrarHoja;
+  if (enlazar) enlazar(v);
+  var f = $('input, select', v) || $('.btn', v); if (f) f.focus();
+}
+function escHoja(e){ if (e.key === 'Escape') cerrarHoja(); }
+function cerrarHoja(){ if (hojaAbierta){ hojaAbierta.remove(); hojaAbierta = null; document.removeEventListener('keydown', escHoja); } }
+
+/* ===== DOCENTE ===== */
+function sec(id, titulo, cuerpo){ return '<details class="sec" id="sec-' + id + '"' + (UI.secAbierta === id ? ' open' : '') + '><summary>' + titulo + '</summary><div class="sec-in">' + cuerpo + '</div></details>'; }
+function opts(arr, sel){ return arr.map(function(o){ var v = Array.isArray(o) ? o[0] : o, t = Array.isArray(o) ? o[1] : o; return '<option value="' + esc(v) + '"' + (v === sel ? ' selected' : '') + '>' + esc(t) + '</option>'; }).join(''); }
+function optsTipos(sel, nuevo){ return (nuevo ? '<option value="">Mueble nuevo</option>' : '') + ST.tipos.map(function(t){ return '<option value="' + t.id + '"' + (t.id === sel ? ' selected' : '') + '>' + esc(t.plural) + '</option>'; }).join(''); }
+function htmlDocente(){
+  var hayEj = ST.movs.some(function(m){ return m.ej; });
+  return '<h2 class="h2">Gestión del depósito</h2><p class="nota">Solo lo ven quienes pueden editar la página.</p><div class="stack">' +
+    (hayEj ? sec('ej', 'Datos de ejemplo', '<p>Los retiros, roturas y reparaciones marcados «ejemplo» sirven para ver cómo funciona. Borralos antes de cargar el recuento real: los tres tipos de muebles quedan.</p><div class="btns"><button class="btn peligro" type="button" id="g-ej">Borrar datos de ejemplo</button></div>') : '') +
+    sec('comp', 'Cargar mensajes de alumnos y docentes',
+      '<p class="nota" style="margin:0">Pegá acá los mensajes que te mandaron por WhatsApp. Podés pegar varios juntos.</p>' +
+      '<label class="campo"><span>Mensajes</span><textarea id="g-comp-txt" placeholder="Pegá el mensaje con el código MB1…"></textarea></label>' +
+      '<div class="btns"><button class="btn" type="button" id="g-comp-leer">Leer mensajes</button></div><div id="g-comp-res" class="stack"></div>') +
+    sec('ing', 'Alta de mobiliario: primer recuento, compras y donaciones',
+      '<form id="g-ing" novalidate><p class="nota" style="margin:0">Sumá lo que entra al depósito. Para el primer recuento, contá todo lo que tiene la escuela (también lo que está afuera y lo roto) y después anotá los retiros y las roturas.</p>' +
+      htmlItems('gi-c-', {}, function(t){ return 'Ahora hay ' + n0(C.T[t.id].total) + ' en total'; }) +
+      '<div class="fila2"><label class="campo"><span>Origen</span><select id="gi-or">' + opts(ORIGENES, ST.movs.length ? 'Compra' : 'Primer recuento') + '</select></label><label class="campo"><span>Observaciones</span><input id="gi-obs" placeholder="Ej.: donación de la cooperadora"></label></div>' +
+      '<div class="err" id="gi-err"></div><button class="btn prim" type="submit">Registrar alta</button></form>') +
+    sec('tipos', 'Muebles: nombres y dónde se guardan',
+      '<form id="g-tipo" novalidate><label class="campo"><span>Mueble</span><select id="gt-sel">' + optsTipos(UI.tipoSel || '', true) + '</select></label>' +
+      '<div class="fila2"><label class="campo"><span>Nombre (uno)</span><input id="gt-nom" placeholder="Ej.: Banco"></label><label class="campo"><span>Nombre (varios)</span><input id="gt-plu" placeholder="Ej.: Bancos"></label></div>' +
+      '<div class="fila2"><label class="campo"><span>Qué es</span><select id="gt-cla">' + opts(CLASES) + '</select></label><label class="campo"><span>Dónde se guardan</span><input id="gt-gua" placeholder="Ej.: Depósito del SUM"></label></div>' +
+      '<label class="campo"><span>Notas</span><input id="gt-not" placeholder="Ej.: sillas plásticas apilables"></label>' +
+      '<div class="err" id="gt-err"></div><div class="btns"><button class="btn prim" type="submit">Guardar</button><button class="btn peligro" type="button" id="gt-del" hidden>Borrar este mueble</button></div></form>') +
+    sec('qr', 'Cartel con QR',
+      '<form id="g-url" novalidate><label class="campo"><span>Dirección pública de la página</span><input id="gq-url" type="url" inputmode="url" placeholder="https://…" value="' + esc(ST.config.url || '') + '"></label>' +
+      '<p class="nota" style="margin:0">El QR abre esta dirección. Para que la vean alumnos sin cuenta, publicá una copia (por ejemplo en GitHub Pages) y pegá acá su dirección.</p>' +
+      '<div class="btns"><button class="btn" type="submit">Guardar dirección</button></div></form><div id="gq-box"></div>') +
+    sec('exp', 'Exportar planilla',
+      '<p>Descargá los datos para abrirlos en Excel o Google Sheets.</p><div class="btns"><button class="btn" type="button" id="g-x-inv">Inventario (CSV)</button><button class="btn" type="button" id="g-x-pre">Afuera ahora (CSV)</button><button class="btn" type="button" id="g-x-mov">Todos los movimientos (CSV)</button></div><div id="g-x-res"></div>') +
+    sec('aj', 'Ajustes',
+      '<form id="g-aj" novalidate><label class="campo"><span>Nombre de la escuela</span><input id="ga-esc" value="' + esc(ST.config.escuela || '') + '"></label>' +
+      '<label class="campo"><span>WhatsApp del docente (con código de país, sin espacios)</span><input id="ga-wa" inputmode="tel" placeholder="5492345000000" value="' + esc(ST.config.wa || '') + '"></label>' +
+      '<p class="nota" style="margin:0">Los mensajes de quienes no pueden guardar en la página llegan a este número.</p><button class="btn prim" type="submit">Guardar ajustes</button></form>') +
+    '</div>';
+}
+function enlazarDocente(){
+  $$('details.sec').forEach(function(d){ d.ontoggle = function(){ if (d.open){ UI.secAbierta = d.id.slice(4); ss('mb_sec', UI.secAbierta); } }; });
+  var bej = $('#g-ej'); if (bej) bej.onclick = function(){
+    hoja(cabHoja('Borrar datos de ejemplo') + '<p>Se borran los retiros, roturas, reparaciones y altas de ejemplo. Los muebles (sillas, tablones y caballetes) quedan.</p><div class="btns"><button class="btn peligro" type="button" id="h-si">Borrar</button><button class="btn" type="button" id="h-no">Volver</button></div>', function(v){
+      $('#h-no', v).onclick = cerrarHoja; $('#h-si', v).onclick = function(){ UI.secAbierta = 'ing'; ss('mb_sec', 'ing'); guardar({ op: 'delEjemplos' }, 'datos de ejemplo borrados'); };
+    });
+  };
+  // mensajes
+  var leidos = [];
+  $('#g-comp-leer').onclick = function(){
+    var res = leerCodigos($('#g-comp-txt').value), box = $('#g-comp-res');
+    var ids = {}; ST.movs.forEach(function(m){ ids[m.id] = 1; });
+    var movs = [], filas = [];
+    if (!res.length){ box.innerHTML = '<p class="err">No encontré ningún código MB1 en el texto.</p>'; return; }
+    res.forEach(function(x){
+      if (x.err){ filas.push('<div class="mov"><div class="mov-tipo t-rot">!</div><div class="mov-l1">' + esc(x.err) + '</div></div>'); return; }
+      var ms = (x.paq && x.paq.movs) || [], ok = ms.length > 0, ya = true;
+      var enLote = function(id){ return ms.some(function(o){ return o.id === id; }) || movs.some(function(o){ return o.id === id; }); };
+      ms.forEach(function(m){
+        if (!m || !m.id || ['prestamo', 'devolucion', 'rotura', 'reparacion'].indexOf(m.tipo) < 0){ ok = false; return; }
+        itemsDe(m).forEach(function(i){ if (!TP[i.tid]) ok = false; });
+        if (m.tipo === 'devolucion' && !C.P[m.prestamoId] && !enLote(m.prestamoId)) ok = false;
+        if (m.tipo === 'reparacion' && !C.R[m.roturaId] && !enLote(m.roturaId)) ok = false;
+        if (!ids[m.id]) ya = false;
+      });
+      var quien = (ms[0] || {}).quien || '';
+      if (!ok){ filas.push('<div class="mov"><div class="mov-tipo t-rot">!</div><div class="mov-l1">El mensaje' + (quien ? ' de ' + esc(quien) : '') + ' no se puede cargar: es de un mueble, retiro o rotura que ya no está en la página.</div></div>'); return; }
+      if (ya){ filas.push('<div class="mov"><div class="mov-tipo t-dev">OK</div><div class="mov-l1">Ya cargado: ' + esc(quien) + '</div></div>'); return; }
+      ms.forEach(function(m){ if (!ids[m.id]){ movs.push(m); ids[m.id] = 1; } });
+      ms.forEach(function(m){ if (!(m.tipo === 'rotura' && m.origen)) filas.push(htmlMov(m).replace(/<div class="mov-acc">[\s\S]*?<\/div><\/div>$/, '</div>')); });
+    });
+    var avisos = '';
+    if (movs.length){
+      var sim = calc(aplicar(clon(ST), { op: 'addMovs', movs: movs }));
+      ST.tipos.forEach(function(t){ if (sim.T[t.id].disp < 0) avisos += '<p class="mini mal">Ojo: con esto quedarían ' + n0(sim.T[t.id].disp) + ' ' + esc(t.plural.toLowerCase()) + ' en el depósito. Alguien anotó más de lo que hay.</p>'; });
+    }
+    leidos = movs;
+    var n = movs.filter(function(m){ return !(m.tipo === 'rotura' && m.origen); }).length;
+    box.innerHTML = '<div class="lista">' + filas.join('') + '</div>' + avisos + (n ? '<button class="btn prim" type="button" id="g-comp-ok">Cargar ' + n + (n > 1 ? ' registros' : ' registro') + '</button>' : '');
+    var ok = $('#g-comp-ok'); if (ok) ok.onclick = function(){ guardar({ op: 'addMovs', movs: leidos }, n + (n > 1 ? ' registros' : ' registro') + ' desde mensajes'); };
+  };
+  // alta
+  enlazarSteps($('#g-ing'));
+  $('#g-ing').onsubmit = function(e){
+    e.preventDefault(); var er = $('#gi-err'); er.textContent = '';
+    var L = leerItems('gi-c-');
+    if (L.error){ er.textContent = L.error; return; }
+    if (!L.items.length){ er.textContent = 'Indicá cuántos entran.'; return; }
+    guardar({ op: 'addMovs', movs: [{ id: uid('m'), t: new Date().toISOString(), tipo: 'ingreso', items: L.items, origen: $('#gi-or').value, obs: $('#gi-obs').value.trim() }] }, 'alta de ' + itemsTxt(L.items));
+  };
+  // muebles
+  function cargarTipo(){
+    var t = TP[$('#gt-sel').value] || {};
+    $('#gt-nom').value = t.nombre || ''; $('#gt-plu').value = t.plural || ''; $('#gt-cla').value = t.clase || 'otro';
+    $('#gt-gua').value = t.guardado || (t.id ? '' : 'Depósito'); $('#gt-not').value = t.notas || '';
+    $('#gt-del').hidden = !t.id; $('#gt-err').textContent = '';
+  }
+  $('#gt-sel').onchange = function(){ UI.tipoSel = this.value; cargarTipo(); };
+  cargarTipo();
+  $('#g-tipo').onsubmit = function(e){
+    e.preventDefault(); var er = $('#gt-err'); er.textContent = '';
+    var id = $('#gt-sel').value, nom = $('#gt-nom').value.trim(), plu = $('#gt-plu').value.trim();
+    if (!nom || !plu){ er.textContent = 'Completá el nombre en singular y en plural.'; return; }
+    var t = { id: id || uid('t'), nombre: nom, plural: plu, clase: $('#gt-cla').value, guardado: $('#gt-gua').value.trim(), notas: $('#gt-not').value.trim() };
+    UI.tipoSel = t.id;
+    guardar({ op: 'setTipo', t: t }, (id ? 'cambios en ' : 'mueble nuevo: ') + plu.toLowerCase());
+  };
+  $('#gt-del').onclick = function(){
+    var id = $('#gt-sel').value, er = $('#gt-err');
+    var usado = ST.movs.some(function(m){ return itemsDe(m).some(function(i){ return i.tid === id; }); });
+    if (usado){ er.textContent = 'Tiene movimientos anotados. Para sacarlo, primero borrá esos registros desde Historial.'; return; }
+    hoja(cabHoja('Borrar mueble') + '<p>Se borra «' + esc(TP[id].plural) + '» de la lista.</p><div class="btns"><button class="btn peligro" type="button" id="h-si">Borrar</button><button class="btn" type="button" id="h-no">Volver</button></div>', function(v){
+      $('#h-no', v).onclick = cerrarHoja; $('#h-si', v).onclick = function(){ UI.tipoSel = ''; guardar({ op: 'delTipo', id: id }, 'mueble borrado'); };
+    });
+  };
+  // QR
+  $('#g-url').onsubmit = function(e){
+    e.preventDefault(); var u = $('#gq-url').value.trim();
+    if (u && !/^https?:\/\//i.test(u)){ toast('La dirección tiene que empezar con https://'); return; }
+    guardar({ op: 'config', c: { url: u } }, 'dirección para el QR');
+  };
+  pintarQR();
+  // exportar
+  $('#g-x-inv').onclick = function(){ descargar('mobiliario-inventario-' + HOY + '.csv', csvInventario()); };
+  $('#g-x-pre').onclick = function(){ descargar('mobiliario-afuera-' + HOY + '.csv', csvPrestado()); };
+  $('#g-x-mov').onclick = function(){ descargar('mobiliario-movimientos-' + HOY + '.csv', csvMovs()); };
+  // ajustes
+  $('#g-aj').onsubmit = function(e){
+    e.preventDefault();
+    guardar({ op: 'config', c: { escuela: $('#ga-esc').value.trim(), wa: $('#ga-wa').value.replace(/\D/g, '') } }, 'ajustes');
+  };
+}
+
+/* ===== QR y cartel ===== */
+function qrDatos(url){
+  if (!url || typeof window.qrcode !== 'function') return null;
+  try {
+    var q = window.qrcode(0, 'M'); q.addData(url); q.make();
+    var n = q.getModuleCount(), d = '';
+    for (var r = 0; r < n; r++){ var c = 0; while (c < n){ if (q.isDark(r, c)){ var s = c; while (c < n && q.isDark(r, c)) c++; d += 'M' + s + ' ' + r + 'h' + (c - s) + 'v1h-' + (c - s) + 'z'; } else c++; } }
+    return { n: n, d: d };
+  } catch(e){ return null; }
+}
+function qrSVG(q){
+  var n = q.n + 8;
+  return '<svg viewBox="0 0 ' + n + ' ' + n + '" role="img" aria-label="Código QR de la página" shape-rendering="crispEdges"><rect width="' + n + '" height="' + n + '" style="fill:var(--qr-fondo)"/><path transform="translate(4 4)" style="fill:var(--qr-tinta)" d="' + q.d + '"/></svg>';
+}
+function cartelSVG(q){
+  var n = q.n + 8, W = 600, H = 820, k = 400 / n;
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '">' +
+    '<rect width="' + W + '" height="' + H + '" fill="#FFFFFF"/><rect x="22" y="22" width="' + (W - 44) + '" height="' + (H - 44) + '" rx="12" fill="none" stroke="#24506C" stroke-width="4"/>' +
+    '<text x="300" y="92" text-anchor="middle" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="38" font-weight="900" fill="#1B2226">Sillas, tablones</text>' +
+    '<text x="300" y="136" text-anchor="middle" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="38" font-weight="900" fill="#1B2226">y caballetes</text>' +
+    '<text x="300" y="170" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#56636A">' + esc(ST.config.escuela || '') + '</text>' +
+    '<g transform="translate(100 190) scale(' + k.toFixed(4) + ')" shape-rendering="crispEdges"><rect width="' + n + '" height="' + n + '" fill="#FFFFFF"/><path transform="translate(4 4)" fill="#000000" d="' + q.d + '"/></g>' +
+    '<text x="300" y="640" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700" fill="#24506C">Escaneá con la cámara del celular</text>' +
+    '<text x="300" y="682" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#1B2226">Mirá qué hay en el depósito, anotá lo que retirás</text>' +
+    '<text x="300" y="710" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#1B2226">y lo que devolvés, y avisá si algo se rompe.</text>' +
+    '<text x="300" y="768" text-anchor="middle" font-family="Courier New, monospace" font-size="16" fill="#56636A">Lo que se lleva, vuelve.</text></svg>';
+}
+function pintarQR(){
+  var box = $('#gq-box'); if (!box) return;
+  var url = ST.config.url;
+  if (!url){ box.innerHTML = '<p class="tenue">Cuando guardes la dirección, acá aparece el QR para imprimir.</p>'; return; }
+  var q = qrDatos(url);
+  if (!q){
+    box.innerHTML = '<p class="tenue">Cargando el QR…</p>';
+    var intentos = 0, iv = setInterval(function(){ intentos++; if (typeof window.qrcode === 'function' || intentos > 20){ clearInterval(iv); if (typeof window.qrcode === 'function') pintarQR(); else if ($('#gq-box')) $('#gq-box').innerHTML = '<p class="err">No se pudo generar el QR desde esta vista. Probá con otra conexión.</p>'; } }, 300);
+    return;
+  }
+  box.innerHTML = '<div class="qr-caja"><div class="qr">' + qrSVG(q) + '</div><div class="stack" style="flex:1 1 220px;min-width:0"><div class="url" id="gq-u">' + esc(url) + '</div>' +
+    '<div class="btns"><button class="btn" type="button" id="gq-c">Copiar enlace</button><button class="btn" type="button" id="gq-d">Descargar cartel</button></div><div id="gq-res"></div></div></div>';
+  $('#gq-c').onclick = function(){ copiar(url, $('#gq-u')); };
+  $('#gq-d').onclick = function(){
+    var svg = cartelSVG(q);
+    if (DESC) DESC.save({ filename: 'cartel-mobiliario.svg', data: svg }).then(function(){ toast('Cartel descargado.'); }, function(e){ if (!e || e.code !== 'declined') mostrarCartel(svg); });
+    else mostrarCartel(svg);
+  };
+}
+function mostrarCartel(svg){
+  $('#gq-res').innerHTML = '<p class="nota" style="margin:0">Mantené apretada la imagen (o clic derecho) para guardarla.</p><img class="cartel-img" alt="Cartel con QR" src="data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg) + '">';
+}
+
+/* ===== exportar ===== */
+function celda(x){ x = x == null ? '' : String(x); return /[;"\n]/.test(x) ? '"' + x.replace(/"/g, '""') + '"' : x; }
+function csv(filas){ return '﻿' + filas.map(function(f){ return f.map(celda).join(';'); }).join('\r\n'); }
+function csvInventario(){
+  return csv([['Mueble', 'Total', 'En el depósito', 'Afuera', 'Rotos', 'Dónde se guardan']].concat(ST.tipos.map(function(t){
+    var x = C.T[t.id]; return [t.plural, x.total, x.disp, x.prestado, x.rotas, t.guardado || ''];
+  })));
+}
+function csvPrestado(){
+  var f = [['Retirado el', 'Quién', 'Curso o área', 'Dónde está', 'Vuelve', 'Vencido', 'Mueble', 'Cantidad']];
+  C.abiertos.forEach(function(p){ pendItems(p).forEach(function(i){ f.push([diaLocal(new Date(p.m.t)), p.m.quien, p.m.rol || '', p.m.lugar, p.m.hasta || '', p.vencido ? 'sí' : '', TP[i.tid] ? TP[i.tid].plural : '', i.cant]); }); });
+  return csv(f);
+}
+function csvMovs(){
+  var f = [['Fecha', 'Tipo', 'Mueble', 'Cantidad', 'Rotos', 'Quién', 'Curso o área', 'Lugar', 'Falla u origen', 'Vuelve', 'Observaciones', 'Ejemplo']];
+  C.ms.forEach(function(m){
+    itemsDe(m).forEach(function(i){
+      f.push([diaLocal(new Date(m.t)), TIPO_TXT[m.tipo] || m.tipo, TP[i.tid] ? TP[i.tid].plural : '', i.cant, i.rotas || '', m.quien || '', m.rol || '', m.lugar || '', m.motivo || m.falla || m.origen || '', m.hasta || '', m.obs || m.detalle || '', m.ej ? 'sí' : '']);
+    });
+  });
+  return csv(f);
+}
+function descargar(nombre, datos){
+  if (DESC){
+    DESC.save({ filename: nombre, data: datos }).then(function(){ toast('Descargado: ' + nombre); }, function(e){ if (e && e.code === 'declined') return; mostrarTexto(nombre, datos); });
+  } else mostrarTexto(nombre, datos);
+}
+function mostrarTexto(nombre, datos){
+  var box = $('#g-x-res'); if (!box) return;
+  box.innerHTML = '<p class="nota" style="margin:0">Desde esta vista no se puede descargar. Copiá el texto, pegalo en un archivo nuevo de texto y guardalo como <b>' + esc(nombre) + '</b>.</p><label class="campo"><span>' + esc(nombre) + '</span><textarea id="g-x-txt" readonly rows="8">' + esc(datos.replace(/^﻿/, '')) + '</textarea></label><button class="btn" type="button" id="g-x-cop">Copiar</button>';
+  $('#g-x-cop').onclick = function(){ copiar(datos.replace(/^﻿/, ''), $('#g-x-txt')); };
+}
+function copiar(texto, el){
+  try {
+    navigator.clipboard.writeText(texto).then(function(){ toast('Copiado.'); }, function(){ selTxt(el); });
+  } catch(e){ selTxt(el); }
+}
+function selTxt(el){
+  if (!el) return;
+  try { if (el.select){ el.focus(); el.select(); } else { var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); } } catch(e){}
+  toast('Texto seleccionado: copialo con el menú del teléfono.');
+}
+
+/* ===== avisos ===== */
+var tt = null;
+function toast(msg){
+  var t = $('.toast'); if (!t){ t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); document.body.appendChild(t); }
+  t.textContent = msg; t.hidden = false; clearTimeout(tt); tt = setTimeout(function(){ t.hidden = true; }, 3800);
+}
+function ocupado(on){
+  var o = $('.ocupado');
+  if (on && !o){ o = document.createElement('div'); o.className = 'ocupado'; o.innerHTML = '<div>Guardando…</div>'; document.body.appendChild(o); }
+  else if (!on && o) o.remove();
+}
+
+/* ===== arranque ===== */
+function usar(n){ try { return (window.claude && window.claude.use) ? window.claude.use(n).catch(function(){ return null; }) : Promise.resolve(null); } catch(e){ return Promise.resolve(null); } }
+var INIT = Promise.all([usar('artifact'), usar('user'), usar('downloads')]).then(function(r){
+  ART = r[0]; DESC = r[2];
+  var u = r[1];
+  return (u ? u.canEdit().catch(function(){ return false; }) : Promise.resolve(false)).then(function(ce){
+    esDocente = !!ce && !!ART; puedeGuardar = esDocente;
+  });
+}).catch(function(){ puedeGuardar = false; esDocente = false; });
+
+var h0 = (location.hash || '').replace('#', '');
+var TABS = ['inventario', 'registrar', 'historial', 'docente'];
+var pedida = TABS.indexOf(h0) >= 0 ? h0 : (TABS.indexOf(ls('mb_tab')) >= 0 ? ls('mb_tab') : 'inventario');
+UI.tab = pedida; if (h0 === pedida) ls('mb_tab', pedida);
+UI.donde = ls('mb_donde') === 'persona' ? 'persona' : 'lugar';
+UI.secAbierta = ss('mb_sec');
+PEND = revisarPendiente();
+pintar();
+INIT.then(function(){
+  if (esDocente && pedida === 'docente') UI.tab = 'docente';
+  var ae = document.activeElement, enForm = ae && ae.closest && ae.closest('form');
+  if (enForm){ pintarNav(); botonModo(); }
+  else { var y = window.scrollY; pintar(); window.scrollTo(0, y); }
+});
+})();
+</script>
+
+</body></html>
