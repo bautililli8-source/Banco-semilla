@@ -261,7 +261,7 @@ details.sec>.sec-in{padding:0 16px 16px;display:flex;flex-direction:column;gap:1
 }
 </style>
 <div id="app"></div>
-<script id="estado" type="application/json">{"v":1,"config":{"escuela":"CFR Saladillo","wa":"5492344400874","url":"https://bautililli8-source.github.io/Banco-semilla/mobiliario/"},"ultimoCambio":"","tipos":[{"id":"t-sillas","nombre":"Silla","plural":"Sillas","clase":"silla","guardado":"Depósito","notas":""},{"id":"t-tablones","nombre":"Tablón","plural":"Tablones","clase":"tablon","guardado":"Depósito","notas":""},{"id":"t-cab-madera","nombre":"Caballete de madera","plural":"Caballetes de madera","clase":"caballete","guardado":"Depósito","notas":""},{"id":"t-cab-hierro","nombre":"Caballete de hierro","plural":"Caballetes de hierro","clase":"caballete","guardado":"Depósito","notas":""}],"movs":[{"id":"m-recuento-inicial","t":"2026-10-16T11:29:00.000Z","tipo":"ingreso","items":[{"tid":"t-sillas","cant":436},{"tid":"t-tablones","cant":56},{"tid":"t-cab-madera","cant":20},{"tid":"t-cab-hierro","cant":72}],"origen":"Primer recuento","obs":""},{"id":"m-tablones-afuera","t":"2026-10-16T11:29:01.000Z","tipo":"prestamo","quien":"Escuela","rol":"uso general","items":[{"tid":"t-tablones","cant":3}],"lugar":"Parrilla del gimnasio","hasta":"","obs":"Quedan ahí para uso de la escuela"}],"reservas":[]}</script>
+<script id="estado" type="application/json">{"v":1,"config":{"escuela":"CFR Saladillo","wa":"5492344400874","url":"https://bautililli8-source.github.io/Banco-semilla/mobiliario/","copia":"2026-10-16T11:36:42.000Z"},"ultimoCambio":"","tipos":[{"id":"t-sillas","nombre":"Silla","plural":"Sillas","clase":"silla","guardado":"Depósito","notas":""},{"id":"t-tablones","nombre":"Tablón","plural":"Tablones","clase":"tablon","guardado":"Depósito","notas":""},{"id":"t-cab-madera","nombre":"Caballete de madera","plural":"Caballetes de madera","clase":"caballete","guardado":"Depósito","notas":""},{"id":"t-cab-hierro","nombre":"Caballete de hierro","plural":"Caballetes de hierro","clase":"caballete","guardado":"Depósito","notas":""}],"movs":[{"id":"m-recuento-inicial","t":"2026-10-16T11:29:00.000Z","tipo":"ingreso","items":[{"tid":"t-sillas","cant":436},{"tid":"t-tablones","cant":56},{"tid":"t-cab-madera","cant":20},{"tid":"t-cab-hierro","cant":72}],"origen":"Primer recuento","obs":""},{"id":"m-tablones-afuera","t":"2026-10-16T11:29:01.000Z","tipo":"prestamo","quien":"Escuela","rol":"uso general","items":[{"tid":"t-tablones","cant":3}],"lugar":"Parrilla del gimnasio","hasta":"","obs":"Quedan ahí para uso de la escuela"}],"reservas":[]}</script>
 <script id="app-code">(function(){
 'use strict';
 /* ===== Plantilla para que la página se vuelva a publicar con su estado ===== */
@@ -271,6 +271,8 @@ var TOP_HTML = "<title>Sillas, Tablones y Caballetes</title>\n<meta name=\"claud
 var ST = JSON.parse(document.getElementById('estado').textContent);
 ST.tipos = ST.tipos || []; ST.movs = ST.movs || []; ST.reservas = ST.reservas || []; ST.config = ST.config || {};
 var HOY = diaLocal(new Date());
+var COPIA = '';
+try { if (!window.claude && ST.config.copia) COPIA = new Date(ST.config.copia).toLocaleString('es-AR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); } catch(e){}
 var ART = null, DESC = null, puedeGuardar = null, esDocente = false;
 var C = null, TP = {};
 var UI = { tab: 'inventario', rtipo: 'prestamo', hist: 'abiertos', hq: '', pre: null, secAbierta: null, devElegido: false, donde: 'lugar' };
@@ -498,7 +500,7 @@ function pintar(){
     '<div class="wrap">' +
       '<header class="cab"><div><div class="cab-esc">' + esc(ST.config.escuela || 'Escuela') + ' · Depósito</div>' +
       '<h1>Sillas, tablones y caballetes</h1></div>' +
-      '<div class="cab-datos"><span><b>' + n0(dep) + '</b> en el depósito</span><span><b>' + n0(pre) + '</b> afuera</span><span><b>' + n0(rot) + '</b> ' + (rot === 1 ? 'roto' : 'rotos') + '</span><span><b>' + n0(tot) + '</b> en total</span></div></header>' +
+      '<div class="cab-datos"><span><b>' + n0(dep) + '</b> en el depósito</span><span><b>' + n0(pre) + '</b> afuera</span><span><b>' + n0(rot) + '</b> ' + (rot === 1 ? 'roto' : 'rotos') + '</span><span><b>' + n0(tot) + '</b> en total</span>' + (COPIA ? '<span>datos del ' + esc(COPIA) + '</span>' : '') + '</div></header>' +
       avisoEjemplo() + avisoPendiente() +
       '<main id="main"></main>' +
     '</div>' +
