@@ -10,6 +10,7 @@
   --piso:#ECEEED; --chapa:#FAFBFA; --tinta:#1B2226; --tenue:#56636A; --linea:#D0D6D7;
   --hierro:#24506C; --sobre-hierro:#F6F9FB; --hierro-suave:#DBE6ED;
   --pino:#94601F; --pino-suave:#F1E3CC;
+  --lejos:#6A4E93; --lejos-suave:#E9E1F3;
   --ok:#2E7549; --ok-suave:#DCEEE2; --alerta:#935A05; --alerta-suave:#F6E7C9; --mal:#AE3F2A; --mal-suave:#F5DCD5;
   --velo:rgba(27,34,38,.45);
   --sombra:0 1px 0 rgba(27,34,38,.05), 0 8px 22px -16px rgba(27,34,38,.45);
@@ -23,6 +24,7 @@
     --piso:#111517; --chapa:#192024; --tinta:#E3E9EB; --tenue:#9BA8AD; --linea:#2D383D;
     --hierro:#8DB9D8; --sobre-hierro:#0E1A22; --hierro-suave:#1F3240;
     --pino:#E0A75E; --pino-suave:#3A2C18;
+    --lejos:#BBA3E4; --lejos-suave:#2E2540;
     --ok:#74C892; --ok-suave:#1C3324; --alerta:#E7AE52; --alerta-suave:#3A2C14; --mal:#EE8A73; --mal-suave:#3D201A;
     --velo:rgba(0,0,0,.6); --sombra:0 1px 0 rgba(0,0,0,.35), 0 10px 24px -16px rgba(0,0,0,.9);
     color-scheme:dark;
@@ -32,6 +34,7 @@
   --piso:#111517; --chapa:#192024; --tinta:#E3E9EB; --tenue:#9BA8AD; --linea:#2D383D;
   --hierro:#8DB9D8; --sobre-hierro:#0E1A22; --hierro-suave:#1F3240;
   --pino:#E0A75E; --pino-suave:#3A2C18;
+    --lejos:#BBA3E4; --lejos-suave:#2E2540;
   --ok:#74C892; --ok-suave:#1C3324; --alerta:#E7AE52; --alerta-suave:#3A2C14; --mal:#EE8A73; --mal-suave:#3D201A;
   --velo:rgba(0,0,0,.6); --sombra:0 1px 0 rgba(0,0,0,.35), 0 10px 24px -16px rgba(0,0,0,.9);
   color-scheme:dark;
@@ -80,7 +83,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .big span{font-size:.9rem;color:var(--tenue);line-height:1.25;padding-bottom:3px}
 .barra{display:flex;height:12px;border-radius:3px;overflow:hidden;background:var(--piso);border:1px solid var(--linea)}
 .barra i{display:block;height:100%}
-.b-disp,.c-disp{background:var(--hierro)} .b-pre,.c-pre{background:var(--pino)} .b-rot,.c-rot{background:var(--mal)}
+.b-disp,.c-disp{background:var(--hierro)} .b-pre,.c-pre{background:var(--pino)} .b-rot,.c-rot{background:var(--mal)} .b-lejos,.c-lejos{background:var(--lejos)}
 .ley{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;margin:0;font-size:.92rem}
 .ley dt{display:flex;align-items:center;gap:7px;color:var(--tenue)}
 .ley dd{margin:0;text-align:right;font-family:var(--f-dato);font-variant-numeric:tabular-nums;font-weight:700}
@@ -132,6 +135,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .pill.ok{background:var(--ok-suave);color:var(--ok)}
 .pill.alerta{background:var(--alerta-suave);color:var(--alerta)}
 .pill.mal{background:var(--mal-suave);color:var(--mal)}
+.pill.lejos{background:var(--lejos-suave);color:var(--lejos)}
 .etq{display:inline-block;font-size:.76rem;border-radius:4px;padding:0 7px;font-weight:700;font-family:var(--f-dato)}
 .etq.ej{background:var(--pino-suave);color:var(--pino)}
 
@@ -143,6 +147,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .seg input:checked+label{background:var(--hierro);color:var(--sobre-hierro)}
 .seg input:focus-visible+label{outline:2px solid var(--hierro);outline-offset:-4px}
 @media (max-width:440px){.seg{grid-template-columns:repeat(2,1fr)}}
+.seg.dos{grid-template-columns:repeat(2,1fr);margin:0}
 form{display:flex;flex-direction:column;gap:12px}
 .fila2{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
 .fila2.chica{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -261,7 +266,7 @@ details.sec>.sec-in{padding:0 16px 16px;display:flex;flex-direction:column;gap:1
 }
 </style>
 <div id="app"></div>
-<script id="estado" type="application/json">{"v":1,"config":{"escuela":"CFR Saladillo","wa":"5492344400874","url":"https://bautililli8-source.github.io/Banco-semilla/mobiliario/","copia":"2026-10-16T11:36:42.000Z"},"ultimoCambio":"","tipos":[{"id":"t-sillas","nombre":"Silla","plural":"Sillas","clase":"silla","guardado":"Depósito","notas":""},{"id":"t-tablones","nombre":"Tablón","plural":"Tablones","clase":"tablon","guardado":"Depósito","notas":""},{"id":"t-cab-madera","nombre":"Caballete de madera","plural":"Caballetes de madera","clase":"caballete","guardado":"Depósito","notas":""},{"id":"t-cab-hierro","nombre":"Caballete de hierro","plural":"Caballetes de hierro","clase":"caballete","guardado":"Depósito","notas":""}],"movs":[{"id":"m-recuento-inicial","t":"2026-10-16T11:29:00.000Z","tipo":"ingreso","items":[{"tid":"t-sillas","cant":436},{"tid":"t-tablones","cant":56},{"tid":"t-cab-madera","cant":20},{"tid":"t-cab-hierro","cant":72}],"origen":"Primer recuento","obs":""},{"id":"m-tablones-afuera","t":"2026-10-16T11:29:01.000Z","tipo":"prestamo","quien":"Escuela","rol":"uso general","items":[{"tid":"t-tablones","cant":3}],"lugar":"Parrilla del gimnasio","hasta":"","obs":"Quedan ahí para uso de la escuela"}],"reservas":[]}</script>
+<script id="estado" type="application/json">{"v":1,"config":{"escuela":"CFR Saladillo","wa":"5492344400874","url":"https://bautililli8-source.github.io/Banco-semilla/mobiliario/","copia":"2026-10-16T11:55:32.000Z"},"ultimoCambio":"","tipos":[{"id":"t-sillas","nombre":"Silla","plural":"Sillas","clase":"silla","guardado":"Depósito","notas":""},{"id":"t-tablones","nombre":"Tablón","plural":"Tablones","clase":"tablon","guardado":"Depósito","notas":""},{"id":"t-cab-madera","nombre":"Caballete de madera","plural":"Caballetes de madera","clase":"caballete","guardado":"Depósito","notas":""},{"id":"t-cab-hierro","nombre":"Caballete de hierro","plural":"Caballetes de hierro","clase":"caballete","guardado":"Depósito","notas":""}],"movs":[{"id":"m-recuento-inicial","t":"2026-10-16T11:29:00.000Z","tipo":"ingreso","items":[{"tid":"t-sillas","cant":436},{"tid":"t-tablones","cant":56},{"tid":"t-cab-madera","cant":20},{"tid":"t-cab-hierro","cant":72}],"origen":"Primer recuento","obs":""},{"id":"m-tablones-afuera","t":"2026-10-16T11:29:01.000Z","tipo":"prestamo","quien":"Escuela","rol":"uso general","items":[{"tid":"t-tablones","cant":3}],"lugar":"Parrilla del gimnasio","hasta":"","obs":"Quedan ahí para uso de la escuela"}],"reservas":[]}</script>
 <script id="app-code">(function(){
 'use strict';
 /* ===== Plantilla para que la página se vuelva a publicar con su estado ===== */
@@ -277,7 +282,7 @@ var ART = null, DESC = null, puedeGuardar = null, esDocente = false;
 var C = null, TP = {};
 var UI = { tab: 'inventario', rtipo: 'prestamo', hist: 'abiertos', hq: '', pre: null, secAbierta: null, devElegido: false, donde: 'lugar' };
 
-var LUGARES = ['Depósito', 'SUM', 'Comedor', 'Patio', 'Patio cubierto', 'Galpón', 'Sala de profesores', 'Biblioteca', 'Fuera de la escuela'];
+var LUGARES = ['Depósito', 'SUM', 'Comedor', 'Patio', 'Patio cubierto', 'Gimnasio', 'Parrilla del gimnasio', 'Galpón', 'Sala de profesores', 'Biblioteca'];
 var FALLAS = {
   silla: ['Pata floja', 'Pata rota o doblada', 'Asiento roto', 'Respaldo roto', 'Tornillo o remache suelto', 'Otro'],
   tablon: ['Tabla rajada o partida', 'Astillado (puede lastimar)', 'Combado o torcido', 'Otro'],
@@ -324,8 +329,8 @@ function quienTxt(o){ return esc(o.quien || 'Sin nombre') + (o.rol ? ' <span cla
 /* ===== cálculo del depósito ===== */
 function calc(st){
   var tp = {}, T = {};
-  st.tipos.forEach(function(t){ tp[t.id] = t; T[t.id] = { total: 0, prestado: 0, rotas: 0 }; });
-  function S(tid){ return T[tid] || (T[tid] = { total: 0, prestado: 0, rotas: 0, huerfano: true }); }
+  st.tipos.forEach(function(t){ tp[t.id] = t; T[t.id] = { total: 0, prestado: 0, rotas: 0, fuera: 0 }; });
+  function S(tid){ return T[tid] || (T[tid] = { total: 0, prestado: 0, rotas: 0, fuera: 0, huerfano: true }); }
   var ms = st.movs.slice().sort(cmpMov), P = {}, R = {};
   ms.forEach(function(m){
     var c, k = +m.cant || 0;
@@ -360,6 +365,7 @@ function calc(st){
     p.abierto = p.total > 0 && !p.m.cerrado;
     p.vencido = p.abierto && !!p.m.hasta && p.m.hasta < HOY;
     if (p.abierto) abiertos.push(p);
+    if (p.abierto && p.m.fuera) Object.keys(p.pend).forEach(function(tid){ if (p.pend[tid] > 0) S(tid).fuera += p.pend[tid]; });
   });
   Object.keys(R).forEach(function(id){ if (R[id].abiertas > 0) rotas.push(R[id]); });
   abiertos.sort(function(a, b){ return cmpMov(a.m, b.m); });
@@ -450,7 +456,7 @@ function rotasTxt(items){ var r = items.filter(function(i){ return +i.rotas > 0;
 function textoPaquete(paq){
   var l = [], w = (paq.movs && paq.movs[0]) || {};
   (paq.movs || []).forEach(function(m){
-    if (m.tipo === 'prestamo'){ l.push('RETIRO', 'Lleva: ' + itemsTxt(m.items), 'Adónde: ' + m.lugar + (m.hasta ? ' · hasta el ' + fDia(m.hasta, true) : '')); }
+    if (m.tipo === 'prestamo'){ l.push('RETIRO', 'Lleva: ' + itemsTxt(m.items), 'Adónde: ' + m.lugar + (m.fuera ? ' (fuera de la escuela)' : '') + (m.hasta ? ' · hasta el ' + fDia(m.hasta, true) : '')); if (m.tel) l.push('Teléfono: ' + m.tel); }
     else if (m.tipo === 'devolucion'){ var p = C.P[m.prestamoId]; l.push('DEVOLUCIÓN', 'Devuelve: ' + itemsTxt(m.items) + rotasTxt(m.items)); if (p) l.push('Del retiro del ' + fFecha(p.m.t) + ' (' + p.m.lugar + ')'); }
     else if (m.tipo === 'rotura' && m.origen){ l.push('Rotos: ' + n0(m.cant) + ' ' + nomT(m.tid, m.cant) + ', ' + m.falla.toLowerCase()); }
     else if (m.tipo === 'rotura'){ l.push('ROTURA', n0(m.cant) + ' ' + nomT(m.tid, m.cant) + ': ' + m.falla, 'Está en: ' + m.lugar); if (m.detalle) l.push('Detalle: ' + m.detalle); }
@@ -494,13 +500,13 @@ var PEND = null;
 function pintar(){
   C = calc(ST); TP = C.TP;
   if (UI.tab === 'docente' && !esDocente) UI.tab = 'inventario';
-  var tot = 0, pre = 0, rot = 0, dep = 0;
-  ST.tipos.forEach(function(t){ var x = C.T[t.id]; tot += Math.max(0, x.total); pre += Math.max(0, x.prestado); rot += Math.max(0, x.rotas); dep += Math.max(0, x.disp); });
+  var tot = 0, pre = 0, rot = 0, dep = 0, fue = 0;
+  ST.tipos.forEach(function(t){ var x = C.T[t.id]; tot += Math.max(0, x.total); pre += Math.max(0, x.prestado); rot += Math.max(0, x.rotas); dep += Math.max(0, x.disp); fue += Math.max(0, x.fuera); });
   app.innerHTML =
     '<div class="wrap">' +
       '<header class="cab"><div><div class="cab-esc">' + esc(ST.config.escuela || 'Escuela') + ' · Depósito</div>' +
       '<h1>Sillas, tablones y caballetes</h1></div>' +
-      '<div class="cab-datos"><span><b>' + n0(dep) + '</b> en el depósito</span><span><b>' + n0(pre) + '</b> afuera</span><span><b>' + n0(rot) + '</b> ' + (rot === 1 ? 'roto' : 'rotos') + '</span><span><b>' + n0(tot) + '</b> en total</span>' + (COPIA ? '<span>datos del ' + esc(COPIA) + '</span>' : '') + '</div></header>' +
+      '<div class="cab-datos"><span><b>' + n0(dep) + '</b> en el depósito</span><span><b>' + n0(pre - fue) + '</b> en uso en la escuela</span><span><b>' + n0(fue) + '</b> fuera de la escuela</span><span><b>' + n0(rot) + '</b> ' + (rot === 1 ? 'roto' : 'rotos') + '</span><span><b>' + n0(tot) + '</b> en total</span>' + (COPIA ? '<span>datos del ' + esc(COPIA) + '</span>' : '') + '</div></header>' +
       avisoEjemplo() + avisoPendiente() +
       '<main id="main"></main>' +
     '</div>' +
@@ -579,41 +585,44 @@ function htmlAtender(){
   }).join('') + '</section>';
 }
 function htmlTipo(t){
-  var x = C.T[t.id], tot = Math.max(1, x.total);
+  var x = C.T[t.id], tot = Math.max(1, x.total), enEsc = x.prestado - x.fuera;
   function w(v){ return Math.max(0, Math.min(100, Math.max(0, v) / tot * 100)).toFixed(1) + '%'; }
   return '<article class="tcard"><div class="tcard-cab"><span class="tico">' + icono(t.clase) + '</span><div><h2 class="tnom">' + esc(t.plural) + '</h2>' +
     (t.guardado ? '<div class="tsub">Se guardan en ' + esc(t.guardado) + '</div>' : '') + '</div></div>' +
     '<div class="big"><b>' + n0(Math.max(0, x.disp)) + '</b><span>disponibles<br>en el depósito</span></div>' +
-    '<div class="barra" role="img" aria-label="' + esc(n0(x.disp) + ' en el depósito, ' + n0(x.prestado) + ' afuera, ' + n0(x.rotas) + ' rotos') + '"><i class="b-disp" style="width:' + w(x.disp) + '"></i><i class="b-pre" style="width:' + w(x.prestado) + '"></i><i class="b-rot" style="width:' + w(x.rotas) + '"></i></div>' +
-    '<dl class="ley"><dt><i class="c-disp"></i>En el depósito</dt><dd>' + n0(x.disp) + '</dd><dt><i class="c-pre"></i>Afuera (retirados)</dt><dd>' + n0(x.prestado) + '</dd><dt><i class="c-rot"></i>Rotos</dt><dd>' + n0(x.rotas) + '</dd>' +
+    '<div class="barra" role="img" aria-label="' + esc(n0(x.disp) + ' en el depósito, ' + n0(enEsc) + ' en uso en la escuela, ' + n0(x.fuera) + ' fuera de la escuela, ' + n0(x.rotas) + ' rotos') + '"><i class="b-disp" style="width:' + w(x.disp) + '"></i><i class="b-pre" style="width:' + w(enEsc) + '"></i><i class="b-lejos" style="width:' + w(x.fuera) + '"></i><i class="b-rot" style="width:' + w(x.rotas) + '"></i></div>' +
+    '<dl class="ley"><dt><i class="c-disp"></i>En el depósito</dt><dd>' + n0(x.disp) + '</dd><dt><i class="c-pre"></i>En uso en la escuela</dt><dd>' + n0(enEsc) + '</dd><dt><i class="c-lejos"></i>Fuera de la escuela</dt><dd>' + n0(x.fuera) + '</dd><dt><i class="c-rot"></i>Rotos</dt><dd>' + n0(x.rotas) + '</dd>' +
     '<dt class="tot">Total</dt><dd class="tot">' + n0(x.total) + '</dd></dl>' +
     (x.disp < 0 ? '<p class="mini mal">Los números no cierran: se anotó más de lo que hay. Revisá el historial o cargá un alta.</p>' : '') +
     (t.notas ? '<p class="mini tenue">' + esc(t.notas) + '</p>' : '') + '</article>';
 }
 function htmlDonde(){
-  var por = UI.donde === 'persona' ? 'persona' : 'lugar', afuera = {}, grupos = {}, orden = [];
+  var por = UI.donde === 'persona' ? 'persona' : 'lugar', afuera = {}, lejos = {}, grupos = {}, orden = [];
   C.abiertos.forEach(function(p){
-    pendItems(p).forEach(function(i){ afuera[i.tid] = (afuera[i.tid] || 0) + i.cant; });
-    var nom = por === 'lugar' ? (p.m.lugar || 'Sin lugar anotado') : (p.m.quien || 'Sin nombre'), k = norm(nom) || '~';
-    if (!grupos[k]){ grupos[k] = { nombre: nom, rol: p.m.rol || '', ps: [] }; orden.push(k); }
+    pendItems(p).forEach(function(i){ afuera[i.tid] = (afuera[i.tid] || 0) + i.cant; if (p.m.fuera) lejos[i.tid] = (lejos[i.tid] || 0) + i.cant; });
+    var nom = por === 'lugar' ? (p.m.lugar || 'Sin lugar anotado') : (p.m.quien || 'Sin nombre');
+    var k = (por === 'lugar' ? (p.m.fuera ? 'f|' : 'e|') : '') + (norm(nom) || '~');
+    if (!grupos[k]){ grupos[k] = { nombre: nom, rol: p.m.rol || '', fuera: !!p.m.fuera, ps: [] }; orden.push(k); }
     grupos[k].ps.push(p);
   });
-  orden.sort(function(a, b){ return grupos[a].nombre.localeCompare(grupos[b].nombre, 'es'); });
-  var nR = C.abiertos.length;
+  orden.sort(function(a, b){ var A = grupos[a], B = grupos[b]; return (por === 'lugar' ? (A.fuera - B.fuera) : 0) || A.nombre.localeCompare(B.nombre, 'es'); });
+  var nR = C.abiertos.length, lej = objAItems(lejos);
   var disp = ST.tipos.map(function(t){ return { tid: t.id, cant: Math.max(0, C.T[t.id].disp) }; });
+  var fueraTag = ' <span class="pill lejos">fuera de la escuela</span>';
   var h = '<section class="donde" aria-labelledby="t-donde"><div class="sec-tit"><h2 class="h2" id="t-donde">Quién tiene qué y dónde</h2>' +
-    '<p class="nota">' + (nR ? 'Afuera del depósito: <b>' + esc(itemsTxt(objAItems(afuera))) + '</b>, en ' + nR + (nR === 1 ? ' retiro.' : ' retiros.') : 'No hay nada afuera: todo está en el depósito.') + '</p>' +
+    '<p class="nota">' + (nR ? 'Fuera del depósito: <b>' + esc(itemsTxt(objAItems(afuera))) + '</b>, en ' + nR + (nR === 1 ? ' retiro.' : ' retiros.') + (lej.length ? ' De eso, fuera de la escuela: <b>' + esc(itemsTxt(lej)) + '</b>.' : '') : 'No hay nada retirado: todo está en el depósito.') + '</p>' +
     (nR ? '<div class="chips" role="group" aria-label="Ordenar"><button type="button" class="chip" data-donde="lugar" aria-pressed="' + (por === 'lugar') + '">Por lugar</button><button type="button" class="chip" data-donde="persona" aria-pressed="' + (por === 'persona') + '">Por persona</button></div>' : '') +
     '</div><div class="lugares">';
   h += '<div class="lugar base"><div class="lugar-cab"><span class="lugar-nom">Depósito <span class="lugar-tag">listo para usar</span></span>' + (disp.some(function(i){ return i.cant > 0; }) ? chips(disp) : '<span class="tenue">vacío</span>') + '</div></div>';
   orden.forEach(function(k){
     var g = grupos[k], sum = {};
     g.ps.forEach(function(p){ pendItems(p).forEach(function(i){ sum[i.tid] = (sum[i.tid] || 0) + i.cant; }); });
-    var titulo = esc(g.nombre) + (por === 'persona' && g.rol ? ' <span class="lugar-tag">' + esc(g.rol) + '</span>' : '');
+    var titulo = esc(g.nombre) + (por === 'persona' && g.rol ? ' <span class="lugar-tag">' + esc(g.rol) + '</span>' : '') + (por === 'lugar' && g.fuera ? fueraTag : '');
     h += '<div class="lugar"><div class="lugar-cab"><span class="lugar-nom">' + titulo + '</span>' + chips(objAItems(sum)) + '</div><ul class="quienes">' + g.ps.map(function(p){
       var cosas = (por === 'persona' || g.ps.length > 1) ? ' · ' + esc(itemsTxt(pendItems(p))) : '';
-      var cabeza = por === 'lugar' ? '<b>' + esc(p.m.quien) + '</b>' + (p.m.rol ? ' (' + esc(p.m.rol) + ')' : '') + cosas : '<b>en ' + esc(p.m.lugar) + '</b>' + cosas;
-      return '<li>' + cabeza + ' · <span class="mono">desde ' + fCorta(p.m.t) + '</span>' +
+      var tel = esDocente && p.m.tel ? ' · tel. <span class="mono">' + esc(p.m.tel) + '</span>' : '';
+      var cabeza = por === 'lugar' ? '<b>' + esc(p.m.quien) + '</b>' + (p.m.rol ? ' (' + esc(p.m.rol) + ')' : '') + cosas : '<b>en ' + esc(p.m.lugar) + '</b>' + (p.m.fuera ? fueraTag : '') + cosas;
+      return '<li>' + cabeza + tel + ' · <span class="mono">desde ' + fCorta(p.m.t) + '</span>' +
         (p.m.hasta ? ' · ' + (p.vencido ? '<span class="pill mal">venció ' + esc(fDia(p.m.hasta)) + '</span>' : '<span class="mono">hasta ' + esc(fDia(p.m.hasta)) + '</span>') : ' · sin fecha de vuelta') + ' ' + ej(p.m) + '</li>';
     }).join('') + '</ul></div>';
   });
@@ -655,19 +664,35 @@ function leerItems(pref){
   });
   return { items: items, error: error };
 }
-function lugaresConocidos(){
+function lugaresConocidos(fuera){
   var vistos = {}, out = [];
   function add(l){ var k = norm(l); if (k && !vistos[k]){ vistos[k] = 1; out.push(l); } }
-  LUGARES.forEach(add);
-  ST.movs.forEach(function(m){ if (m.lugar) add(m.lugar); });
+  if (!fuera) LUGARES.forEach(add);
+  ST.movs.forEach(function(m){ if (m.lugar && !!m.fuera === !!fuera) add(m.lugar); });
   return out;
 }
-function datalistLugares(){ return '<datalist id="l-lugares">' + lugaresConocidos().map(function(l){ return '<option value="' + esc(l) + '">'; }).join('') + '</datalist>'; }
+function datalistLugares(fuera){ return '<datalist id="l-lugares">' + lugaresConocidos(fuera).map(function(l){ return '<option value="' + esc(l) + '">'; }).join('') + '</datalist>'; }
 function llenarFallas(sel, t){
   var arr = FALLAS[t && FALLAS[t.clase] ? t.clase : 'otro'];
   sel.innerHTML = arr.map(function(f){ return '<option>' + esc(f) + '</option>'; }).join('');
 }
 function radio(v, txt){ return '<input type="radio" name="rtipo" id="rt-' + v + '" value="' + v + '"' + (UI.rtipo === v ? ' checked' : '') + '><label for="rt-' + v + '">' + txt + '</label>'; }
+function destinoRetiro(){
+  var box = $('#r-dest'); if (!box) return;
+  var fuera = $('#rd-fuera').checked, modo = fuera ? 'f' : 'e';
+  var viejo = { lugar: $('#r-lugar') ? $('#r-lugar').value : '', hasta: $('#r-hasta') ? $('#r-hasta').value : '', tel: $('#r-tel') ? $('#r-tel').value : '' };
+  if (box.dataset.modo && box.dataset.modo !== modo) viejo.lugar = '';
+  box.dataset.modo = modo;
+  box.innerHTML = fuera
+    ? '<label class="campo"><span>¿Adónde lo llevás?</span><input id="r-lugar" list="l-lugares" placeholder="Ej.: Club Social, parroquia, calle 9 n.° 345"></label>' +
+      '<div class="fila2"><label class="campo"><span>Teléfono de contacto</span><input id="r-tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="Ej.: 2344 40-0000"></label>' +
+      '<label class="campo"><span>¿Cuándo lo devolvés?</span><input id="r-hasta" type="date" min="' + HOY + '"></label></div>' +
+      '<p class="nota" style="margin:0">Para llevar algo fuera de la escuela hacen falta un teléfono y la fecha de devolución, así se puede ubicar. El teléfono solo lo ve el docente.</p>' + datalistLugares(true)
+    : '<div class="fila2"><label class="campo"><span>¿En qué lugar de la escuela?</span><input id="r-lugar" list="l-lugares" placeholder="Ej.: SUM, Aula 4, Patio"></label>' +
+      '<label class="campo"><span>¿Hasta cuándo? Si no sabés, vacío</span><input id="r-hasta" type="date" min="' + HOY + '"></label></div>' + datalistLugares(false);
+  $('#r-lugar').value = viejo.lugar; $('#r-hasta').value = viejo.hasta;
+  if ($('#r-tel')) $('#r-tel').value = viejo.tel || ls('mb_tel') || '';
+}
 
 /* ===== PEDIR / DEVOLVER / ROTURA ===== */
 function htmlRegistrar(){
@@ -675,7 +700,7 @@ function htmlRegistrar(){
     '<p class="nota">Anotá lo que retirás del depósito, lo que devolvés, lo que se rompe y lo que se arregla. Así se sabe qué hay, quién lo tiene y dónde está.</p>' +
     '<div class="seg" role="radiogroup" aria-label="Qué querés anotar">' + radio('prestamo', 'Retiro') + radio('devolucion', 'Devolución') + radio('rotura', 'Rotura') + radio('reparacion', 'Reparación') + '</div>' +
     '<form id="f-reg" novalidate><div class="fila2"><label class="campo"><span>Nombre y apellido</span><input id="r-quien" autocomplete="name" value="' + esc(ls('mb_quien') || '') + '"></label>' +
-    '<label class="campo"><span>Curso, área o cargo</span><input id="r-rol" placeholder="Ej.: 4.° A, Preceptoría" value="' + esc(ls('mb_rol') || '') + '"></label></div>' +
+    '<label class="campo"><span>Curso, área o institución</span><input id="r-rol" placeholder="Ej.: 4.° A, Preceptoría, Club Social" value="' + esc(ls('mb_rol') || '') + '"></label></div>' +
     '<div id="r-cuerpo" class="stack"></div>' +
     '<label class="campo"><span id="r-obs-t">Observaciones (opcional)</span><input id="r-obs"></label>' +
     '<div id="r-prev" class="prev" aria-live="polite"></div><div id="r-err" class="err" role="alert"></div>' +
@@ -706,9 +731,13 @@ function cuerpoRegistrar(){
   if (!ST.tipos.length){ c.innerHTML = '<div class="vacio">Todavía no hay muebles cargados.</div>'; botonModo(); return; }
   if (UI.rtipo === 'prestamo'){
     c.innerHTML = '<fieldset class="campo"><legend>¿Qué retirás?</legend>' + htmlItems('r-c-', pre.items || {}, function(t){ return 'Hay ' + n0(Math.max(0, C.T[t.id].disp)) + ' en el depósito'; }) + '</fieldset>' +
-      '<div class="fila2"><label class="campo"><span>¿Adónde lo llevás?</span><input id="r-lugar" list="l-lugares" placeholder="Ej.: SUM, Aula 4, Patio"></label>' +
-      '<label class="campo"><span>¿Hasta cuándo? Si no sabés, vacío</span><input id="r-hasta" type="date" min="' + HOY + '"></label></div>' + datalistLugares();
-    setObs('¿Para qué? (opcional)', 'Ej.: acto del viernes, clase de taller');
+      '<fieldset class="campo"><legend>¿Dónde se va a usar?</legend><div class="seg dos" role="radiogroup" aria-label="Dónde se va a usar">' +
+      '<input type="radio" name="rdonde" id="rd-esc" value="escuela"' + (pre.fuera ? '' : ' checked') + '><label for="rd-esc">En la escuela</label>' +
+      '<input type="radio" name="rdonde" id="rd-fuera" value="fuera"' + (pre.fuera ? ' checked' : '') + '><label for="rd-fuera">Fuera de la escuela</label></div></fieldset>' +
+      '<div id="r-dest" class="stack"></div>';
+    setObs('¿Para qué? (opcional)', 'Ej.: acto del viernes, clase de taller, evento del club');
+    $$('input[name="rdonde"]').forEach(function(r){ r.onchange = destinoRetiro; });
+    destinoRetiro();
     enlazarSteps(c, prevPrestamo); prevPrestamo();
   } else if (UI.rtipo === 'devolucion'){
     setObs('Observaciones (opcional)', 'Ej.: quedaron 2 en el escenario');
@@ -816,13 +845,18 @@ function enviarRegistro(){
   ls('mb_quien', quien); ls('mb_rol', rol);
   var paq = { movs: [], res: [] }, desc;
   if (UI.rtipo === 'prestamo'){
-    var L = leerItems('r-c-'), lugar = $('#r-lugar').value.trim(), hasta = $('#r-hasta').value;
+    var L = leerItems('r-c-'), lugar = $('#r-lugar').value.trim(), hasta = $('#r-hasta').value, fuera = !!($('#rd-fuera') && $('#rd-fuera').checked), tel = $('#r-tel') ? $('#r-tel').value.trim() : '';
     if (L.error){ err.textContent = L.error; return; }
     if (!L.items.length){ err.textContent = 'Indicá qué retirás y cuántos.'; return; }
     for (var i = 0; i < L.items.length; i++){ var d = Math.max(0, C.T[L.items[i].tid].disp); if (L.items[i].cant > d){ err.textContent = 'No alcanza: hay ' + n0(d) + ' ' + nomT(L.items[i].tid, d) + ' en el depósito.'; return; } }
     if (!lugar){ err.textContent = 'Escribí adónde lo llevás, así se puede ubicar.'; $('#r-lugar').focus(); return; }
     if (hasta && hasta < HOY){ err.textContent = 'La fecha de vuelta ya pasó.'; return; }
-    paq.movs.push({ id: uid('m'), t: t, tipo: 'prestamo', quien: quien, rol: rol, items: L.items, lugar: lugar, hasta: hasta, obs: obs });
+    if (fuera && !tel){ err.textContent = 'Dejá un teléfono de contacto: lo llevás fuera de la escuela.'; $('#r-tel').focus(); return; }
+    if (fuera && !hasta){ err.textContent = 'Poné cuándo lo devolvés.'; $('#r-hasta').focus(); return; }
+    if (tel) ls('mb_tel', tel);
+    var mp = { id: uid('m'), t: t, tipo: 'prestamo', quien: quien, rol: rol, items: L.items, lugar: lugar, hasta: hasta, obs: obs };
+    if (fuera){ mp.fuera = true; mp.tel = tel; }
+    paq.movs.push(mp);
     desc = 'retiro de ' + itemsTxt(L.items) + ' (' + quien + ')';
   } else if (UI.rtipo === 'devolucion'){
     var D = leerDevolucion();
@@ -858,7 +892,7 @@ function cabHoja(t){ return '<div class="hoja-cab"><h2 class="h2">' + esc(t) + '
 /* ===== HISTORIAL ===== */
 function chip(v, txt, n){ return '<button type="button" class="chip" data-h="' + v + '" aria-pressed="' + (UI.hist === v) + '">' + txt + (n != null ? '<b>' + n + '</b>' : '') + '</button>'; }
 function htmlHistorial(){
-  return '<div class="herr"><div class="chips" role="group" aria-label="Qué mostrar">' + chip('abiertos', 'Afuera ahora', C.abiertos.length) + chip('reparar', 'Rotos', C.rotas.length) + chip('todo', 'Todos los movimientos', null) + '</div>' +
+  return '<div class="herr"><div class="chips" role="group" aria-label="Qué mostrar">' + chip('abiertos', 'Retirado ahora', C.abiertos.length) + chip('reparar', 'Rotos', C.rotas.length) + chip('todo', 'Todos los movimientos', null) + '</div>' +
     '<div class="buscar">' + IC.lupa + '<input id="h-q" type="search" placeholder="Buscar nombre, lugar o mueble" aria-label="Buscar" value="' + esc(UI.hq) + '"></div></div><div id="h-lista"></div>';
 }
 function enlazarHistorial(){
@@ -876,7 +910,7 @@ function pintarHist(){
   var q = norm(UI.hq), box = $('#h-lista'), h;
   if (UI.hist === 'abiertos'){
     var a = C.abiertos.filter(function(p){ return coincide(p.m, q); }).sort(function(x, y){ return (y.vencido - x.vencido) || cmpMov(x.m, y.m); });
-    h = a.length ? '<div class="lista">' + a.map(htmlPrest).join('') + '</div>' : vacio(q ? 'Ningún retiro abierto coincide con la búsqueda.' : 'No hay nada afuera: todo está en el depósito.');
+    h = a.length ? '<div class="lista">' + a.map(htmlPrest).join('') + '</div>' : vacio(q ? 'Ningún retiro abierto coincide con la búsqueda.' : 'No hay nada retirado: todo está en el depósito.');
   } else if (UI.hist === 'reparar'){
     var r = C.rotas.filter(function(x){ return coincide(x.m, q); });
     h = r.length ? '<div class="lista">' + r.map(htmlRot).join('') + '</div>' : vacio(q ? 'Ninguna rotura coincide con la búsqueda.' : 'No hay nada esperando arreglo.');
@@ -895,8 +929,8 @@ function resumenMovs(ms, q){
     '<dl class="resumen">' + f.map(function(x){ var its = objAItems(s[x[0]]); return '<div><dt>' + x[1] + '</dt><dd><b>' + n[x[0]] + '</b>' + (its.length ? '<span>' + x[2] + ' ' + esc(itemsTxt(its)) + '</span>' : '') + '</dd></div>'; }).join('') + '</dl>';
 }
 function htmlPrest(p){
-  return '<div class="mov"><div class="mov-tipo t-pre">RET</div><div class="mov-l1"><strong>' + esc(p.m.quien) + '</strong>' + (p.m.rol ? '<span class="tenue">' + esc(p.m.rol) + '</span>' : '') + (p.vencido ? '<span class="pill mal">Vencido</span>' : '') + ej(p.m) + '</div>' +
-    '<div class="mov-l2"><span>Tiene ' + esc(itemsTxt(pendItems(p))) + '</span><span>en ' + esc(p.m.lugar) + '</span><span class="fecha">retiró el ' + fFecha(p.m.t) + '</span>' +
+  return '<div class="mov"><div class="mov-tipo t-pre">RET</div><div class="mov-l1"><strong>' + esc(p.m.quien) + '</strong>' + (p.m.rol ? '<span class="tenue">' + esc(p.m.rol) + '</span>' : '') + (p.vencido ? '<span class="pill mal">Vencido</span>' : '') + (p.m.fuera ? '<span class="pill lejos">Fuera de la escuela</span>' : '') + ej(p.m) + '</div>' +
+    '<div class="mov-l2"><span>Tiene ' + esc(itemsTxt(pendItems(p))) + '</span><span>en ' + esc(p.m.lugar) + '</span>' + (esDocente && p.m.tel ? '<span>tel. <span class="mono">' + esc(p.m.tel) + '</span></span>' : '') + '<span class="fecha">retiró el ' + fFecha(p.m.t) + '</span>' +
     (p.m.hasta ? '<span class="fecha">vuelve ' + esc(fDia(p.m.hasta)) + '</span>' : '<span class="fecha">sin fecha de vuelta</span>') + (p.devs.length ? '<span>ya devolvió una parte</span>' : '') + (p.m.obs ? '<span>' + esc(p.m.obs) + '</span>' : '') + '</div>' +
     '<div class="mov-acc"><button class="btn chico" type="button" data-devolver="' + p.m.id + '">Registrar devolución</button></div></div>';
 }
@@ -909,7 +943,7 @@ function htmlRot(r){
     '<div class="mov-acc"><button class="btn chico" type="button" data-reparar="' + r.m.id + '">Registrar reparación</button>' + (esDocente ? '<button class="btn chico peligro" type="button" data-sinarreglo="' + r.m.id + '">No tiene arreglo</button>' : '') + '</div></div>';
 }
 function resumenMov(m){
-  if (m.tipo === 'prestamo') return ['Retiro: ' + itemsTxt(m.items), [quienTxt(m), 'en ' + esc(m.lugar), m.hasta ? 'vuelve ' + esc(fDia(m.hasta)) : '', esc(m.motivo || '')]];
+  if (m.tipo === 'prestamo') return ['Retiro: ' + itemsTxt(m.items), [quienTxt(m), 'en ' + esc(m.lugar) + (m.fuera ? ' (fuera de la escuela)' : ''), m.hasta ? 'vuelve ' + esc(fDia(m.hasta)) : '', esc(m.motivo || '')]];
   if (m.tipo === 'devolucion'){ var p = C.P[m.prestamoId]; return ['Devolución: ' + itemsTxt(m.items) + rotasTxt(m.items), [quienTxt(m), p ? 'del retiro del ' + fCorta(p.m.t) + ' en ' + esc(p.m.lugar) : '']]; }
   if (m.tipo === 'rotura') return ['Rotura: ' + n0(m.cant) + ' ' + nomT(m.tid, m.cant) + ' · ' + m.falla, ['avisó ' + quienTxt(m), 'en ' + esc(m.lugar), esc(m.detalle || ''), m.origen ? 'al devolver' : '']];
   if (m.tipo === 'reparacion'){ var ro = C.R[m.roturaId]; return ['Reparación: ' + n0(m.cant) + ' ' + nomT(m.tid, m.cant) + (ro ? ' · ' + ro.m.falla.toLowerCase() : ''), [m.quien ? 'arregló ' + quienTxt(m) : '', 'vuelven al depósito']]; }
@@ -1153,20 +1187,20 @@ function mostrarCartel(svg){
 function celda(x){ x = x == null ? '' : String(x); return /[;"\n]/.test(x) ? '"' + x.replace(/"/g, '""') + '"' : x; }
 function csv(filas){ return '﻿' + filas.map(function(f){ return f.map(celda).join(';'); }).join('\r\n'); }
 function csvInventario(){
-  return csv([['Mueble', 'Total', 'En el depósito', 'Afuera', 'Rotos', 'Dónde se guardan']].concat(ST.tipos.map(function(t){
-    var x = C.T[t.id]; return [t.plural, x.total, x.disp, x.prestado, x.rotas, t.guardado || ''];
+  return csv([['Mueble', 'Total', 'En el depósito', 'En uso en la escuela', 'Fuera de la escuela', 'Rotos', 'Dónde se guardan']].concat(ST.tipos.map(function(t){
+    var x = C.T[t.id]; return [t.plural, x.total, x.disp, x.prestado - x.fuera, x.fuera, x.rotas, t.guardado || ''];
   })));
 }
 function csvPrestado(){
-  var f = [['Retirado el', 'Quién', 'Curso o área', 'Dónde está', 'Vuelve', 'Vencido', 'Mueble', 'Cantidad']];
-  C.abiertos.forEach(function(p){ pendItems(p).forEach(function(i){ f.push([diaLocal(new Date(p.m.t)), p.m.quien, p.m.rol || '', p.m.lugar, p.m.hasta || '', p.vencido ? 'sí' : '', TP[i.tid] ? TP[i.tid].plural : '', i.cant]); }); });
+  var f = [['Retirado el', 'Quién', 'Curso o área', 'Dónde está', 'Fuera de la escuela', 'Teléfono', 'Vuelve', 'Vencido', 'Mueble', 'Cantidad']];
+  C.abiertos.forEach(function(p){ pendItems(p).forEach(function(i){ f.push([diaLocal(new Date(p.m.t)), p.m.quien, p.m.rol || '', p.m.lugar, p.m.fuera ? 'sí' : '', p.m.tel || '', p.m.hasta || '', p.vencido ? 'sí' : '', TP[i.tid] ? TP[i.tid].plural : '', i.cant]); }); });
   return csv(f);
 }
 function csvMovs(){
-  var f = [['Fecha', 'Tipo', 'Mueble', 'Cantidad', 'Rotos', 'Quién', 'Curso o área', 'Lugar', 'Falla u origen', 'Vuelve', 'Observaciones', 'Ejemplo']];
+  var f = [['Fecha', 'Tipo', 'Mueble', 'Cantidad', 'Rotos', 'Quién', 'Curso o área', 'Lugar', 'Fuera de la escuela', 'Teléfono', 'Falla u origen', 'Vuelve', 'Observaciones', 'Ejemplo']];
   C.ms.forEach(function(m){
     itemsDe(m).forEach(function(i){
-      f.push([diaLocal(new Date(m.t)), TIPO_TXT[m.tipo] || m.tipo, TP[i.tid] ? TP[i.tid].plural : '', i.cant, i.rotas || '', m.quien || '', m.rol || '', m.lugar || '', m.motivo || m.falla || m.origen || '', m.hasta || '', m.obs || m.detalle || '', m.ej ? 'sí' : '']);
+      f.push([diaLocal(new Date(m.t)), TIPO_TXT[m.tipo] || m.tipo, TP[i.tid] ? TP[i.tid].plural : '', i.cant, i.rotas || '', m.quien || '', m.rol || '', m.lugar || '', m.fuera ? 'sí' : '', m.tel || '', m.motivo || m.falla || m.origen || '', m.hasta || '', m.obs || m.detalle || '', m.ej ? 'sí' : '']);
     });
   });
   return csv(f);
